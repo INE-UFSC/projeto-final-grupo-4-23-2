@@ -53,7 +53,7 @@ class PhysicsObject(ABC):
             transform_len = delta_time*self.__smooth_fac*self.get_speed()
             #if transform_len == 0: return PhysicsDescriptor()
             rollback_vec = ref_position_from.copy()
-            ref_position_from.transform(transform_len, rotation_axis)
+            ref_position_from.transform_2d(transform_len, rotation_axis)
             
             collisions = self.__get_collisions(ref_position_from, ref_position_other, other_collision_polygons)
             

@@ -23,17 +23,17 @@ class Vector3:
         self.__z += vector.get_z()
         return self
     
-    def transform(self, value:float, rotation_axis):
+    def transform_2d(self, value:float, rotation_axis):
         self.__x += value * math.sin(rotation_axis.get_x())
-        self.__y += value * math.cos(rotation_axis.get_y())
-        self.__z += value * math.sin(rotation_axis.get_z())
+        self.__y += value * math.cos(rotation_axis.get_x())
+        self.__z += value * math.sin(rotation_axis.get_x())
         return self
     
     def rotate(self, axis_values):
         
         pass
     
-    def get_2d_point_intersection_2(pair_1:[], pair_2:[]):
+    def get_2d_point_intersection(pair_1:[], pair_2:[]):
         v1 = ((pair_1[0].get_x(),pair_1[0].get_y()),(pair_1[1].get_x(),pair_1[1].get_y()))
         v2 = ((pair_2[0].get_x(),pair_2[0].get_y()),(pair_2[1].get_x(),pair_2[1].get_y()))
         vlst = [v1, v2]

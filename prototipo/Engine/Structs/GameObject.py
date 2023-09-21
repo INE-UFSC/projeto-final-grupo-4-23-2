@@ -24,7 +24,8 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
     
     def get_position(self): return self.__position
     def get_rotation_axis(self): return self.__rotation_axis
-      
+    def set_rotation_axis(self, value): self.__rotation_axis = value
+    
     def rotate(self, value:Vector3): 
         self.__rotation_axis.add(value)
     
@@ -35,6 +36,18 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
         for cp in self.get_collision_polygons():
             vecs = cp.get_vectors(self.get_position())
             self.get_graphics_api().draw_2d_lines(vecs, width=2)
+            
+            lv = vecs[0]
+            for v in vecs[1:]:
+                pv1 = lv.transform_2d(self.get_speed(), self.get_rotation_axis())
+                self.get_graphics_api().draw_2d_lines([pv1, lv], color=(0,0,255), width=2)
+                #pv2 = v.transform_2d(self.get_speed(), self.get_rotation_axis())
+                
+                #self.get_graphics_api().draw_2d_lines([pv1, pv2], color=(0,0,255), width=2)
+                #self.get_graphics_api().draw_2d_lines([v, pv1], color=(0,0,255), width=2)
+                #self.get_graphics_api().draw_2d_lines([v, pv2], color=(0,0,255), width=2)
+                lv = v
+            
     
     def render_graphics(self, graphics_api:IGraphicsApi):
         super().render_graphics(self.get_position(), self.get_rotation_axis())

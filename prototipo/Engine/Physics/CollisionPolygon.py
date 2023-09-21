@@ -17,7 +17,7 @@ class CollisionPolygon():
         for v in self.get_vectors(): v.rotate(value)
     
     def transform(self, value:float, rotation_axis):
-        for v in self.__vector_list: v.transform(value, rotation_axis)
+        for v in self.__vector_list: v.transform_2d_2d(value, rotation_axis)
     
     def get_collisions_descriptions(self, ref_position_from:Vector3, ref_position_other:Vector3, other_polygon):
         collisions_descriptions = []
@@ -33,7 +33,7 @@ class CollisionPolygon():
             last_v2 = other_vector_list[1]
             
             for v2 in other_vector_list[1:]: 
-                intersection_point = Vector3.get_2d_point_intersection_2([last_v, v], [last_v2, v2])
+                intersection_point = Vector3.get_2d_point_intersection([last_v, v], [last_v2, v2])
                 if intersection_point != None: 
                     collisions_descriptions.append(CollisionDescriptor([last_v, v], [last_v2, v2], intersection_point))
                 last_v2 = v2

@@ -40,17 +40,24 @@ class CubeGame(Game):
         
         self.get_world().add_object(plocal)
         self.get_world().add_object(p2)
+        def move_player(key, event):
+            keys_rot = {
+                "w":180,
+                "s":0,
+                
+                "a":270,
+                "d":90,
+            }
+            #print(key, ' - ', event)
+            if event in [KeyEventEnum.DOWN,KeyEventEnum.PRESS]:
+                plocal.set_rotation_axis(Vector3(math.radians(keys_rot[key]),0,0))
+                plocal.set_speed(50)
+            else:
+                plocal.set_speed(0)
+            
         self.get_keyboard_hooker().hook_keyboard(
-            ["w"], KeyEventEnum.PRESS, 
-            lambda key, event: plocal.set_speed(50)
-        )
-        self.get_keyboard_hooker().hook_keyboard(
-            ["w"], KeyEventEnum.DOWN, 
-            lambda key, event: plocal.set_speed(50)
-        )
-        self.get_keyboard_hooker().hook_keyboard(
-            ["w"], KeyEventEnum.UP, 
-            lambda key, event: plocal.set_speed(0)
+            ["w","s","d","a"], KeyEventEnum.ALL, 
+            lambda key, event: move_player(key, event)
         )
 
 game = CubeGame()
