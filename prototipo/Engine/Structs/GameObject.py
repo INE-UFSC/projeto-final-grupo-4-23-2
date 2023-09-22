@@ -1,6 +1,8 @@
 import os
-from abc import abstractclassmethod, ABC
 import math
+import time
+
+from abc import abstractclassmethod, ABC
 from Graphics.GraphicsObject import GraphicsObject
 from Graphics.IGraphicsApi import IGraphicsApi
 from Physics.CollisionPolygon import CollisionPolygon
@@ -16,7 +18,7 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
                 break_cof:float=0,max_speed=math.inf,
                 collision_polygons:[CollisionPolygon]=[]
             ):
-        self.__render_collisions_polygons = True
+        self.__render_collisions_polygons = False
         self.__position = initial_position
         self.__rotation_axis = initial_rotation_axis
         super().__init__(collision_polygons=collision_polygons, 
@@ -60,9 +62,13 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
         if self.__render_collisions_polygons: self.__render_collision_polys()
         
     def process_physics(self, delta_time: float, world_game_objects: []):
-        objs = [(i,obj) for i, obj in enumerate([x for x in world_game_objects if x != self].copy())]
         tr_len = super().get_transform_len(delta_time, 1)
+        if tr_len == 0: return
+        os.system('cls')
         
+        objs = [(i,obj) for i, obj in enumerate([x for x in world_game_objects if x != self].copy())]
+        
+        """ t = time.time()
         col_distances = [
             self.get_approximate_collision_distance(
                 self.get_position(), 
@@ -71,41 +77,46 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
                 x[1].get_position(), 
                 x[1].get_collision_polygons()) 
             for x in objs]
+        tf = time.time() - t
+        print(f"CollideDistance: {tf*1000}")
         
         col_distances = [x for x in col_distances if x!=None]
         will_collide = len(col_distances) > 0
         
-        #os.system('cls')
-        #print("\n".join(map(str,col_distances)))
+        if len(col_distances) > 0: tr_len = min(col_distances) """
         
-        if len(col_distances) > 0: tr_len = min(col_distances)
-        self.get_position().transform_2d(tr_len, self.get_rotation_axis())
-        
-        ref_pos_from_proj = self.get_position().copy()
-        if will_collide: ref_pos_from_proj.transform_2d(tr_len, self.get_rotation_axis())
-        
-        collisions = [
-            self.get_collisions(
-                ref_pos_from_proj,
+        t = time.time()
+        will_collides = [
+            self.will_collide(
+                self.get_position(), 
+                tr_len, 
+                self.get_rotation_axis(), 
                 x[1].get_position(), 
                 x[1].get_collision_polygons()) 
             for x in objs]
-        collisions = [x for x in collisions if len(x)>0]
+        tf = time.time() - t
+        print(f"WillCollide: {tf*1000}")
         
-        for c in collisions: self.handle_on_collision(c)
+        will_collide = any([x for x in will_collides])
         
-        #super().get_approximate_collision_distance()
-        
-        """ for i,wgo in enumerate(world_game_objects):
-            abs_pos = wgo.get_position()
-            collision_polys = wgo.get_collision_polygons()
-            description = super().process_physics(self.get_position(), self.get_rotation_axis(), abs_pos, collision_polys, delta_time, 
-                                                  reset_smooth_fac=(wgo == self),
-                                                  accelerate=(wgo == self), 
-                                                  execute_transform=(i==len(world_game_objects)-1)
-                                                )
+        ref_pos_from_proj = self.get_position().copy()
+        if will_collide: 
+            ref_pos_from_proj.transform_2d(tr_len, self.get_rotation_axis())
             
-            description.set_collisions_from_to_game_object(self, wgo)
-            collisions = description.get_collisions_descriptions()
-            if len(collisions) > 0: self.handle_on_collision(collisions) """
+            t = time.time()
+            collisions_lsts = [
+                self.get_collisions(
+                    ref_pos_from_proj,
+                    x[1].get_position(), 
+                    x[1].get_collision_polygons()) 
+                for x in objs]
+            tf = time.time() - t
+            print(f"Collisions: {tf*1000}")
             
+            collisions_lsts = [x for x in collisions_lsts if len(x)>0]
+            collisions = []
+            for c in collisions_lsts: collisions.extend(c)
+            
+            if len(collisions)>0: self.handle_on_collision(collisions)
+        else: 
+            self.get_position().transform_2d(tr_len, self.get_rotation_axis())

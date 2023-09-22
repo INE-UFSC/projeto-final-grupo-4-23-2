@@ -39,11 +39,10 @@ class PhysicsObject(ABC):
     
     def get_approximate_collision_distance(self, ref_pos_from:Vector3, transform_len:float, rotation_axis:Vector3, ref_pos_other:Vector3, other_collision_polygons:[]):
         s = 1
-        ms = 0.01
+        ms = 0.9
         
         will_collide = True
         while will_collide and s > ms:
-            s *= 0.9
             tr_len = transform_len*s
             for scp in self.__collision_polygons:
                 for wcp in other_collision_polygons:
@@ -79,26 +78,4 @@ class PhysicsObject(ABC):
     
         
     def process_physics(self, ref_pos_from:Vector3, rot:Vector3, ref_pos_other:Vector3, other_collision_poly:[], delta_time:float, execute_transform:bool=False, accelerate:bool=False, reset_smooth_fac:bool=False):
-        """ delta_time = 0.01
-        if accelerate == True: self.accelerate(delta_time)
-        if reset_smooth_fac == 1.0: self.__smooth_fac = 1.0
-        if (not self.__check_collision) or (self.get_speed() == 0): return PhysicsDescriptor()
-        
-        min_smooth_fac = 0.01
-        while True:
-            tr_len = 0
-            will_collide = True
-            while will_collide and self.__smooth_fac > min_smooth_fac:
-                self.__smooth_fac *= 0.9
-                tr_len = delta_time*self.__smooth_fac*self.get_speed()
-                if tr_len == 0: return PhysicsDescriptor()
-                will_collide = self.__will_collide(ref_pos_from, tr_len, rot, ref_pos_other, other_collision_poly)
-            
-            ref_pos_from_proj = ref_pos_from.copy()
-            if will_collide: ref_pos_from_proj.transform_2d(tr_len, rot)
-            collisions = self.__get_collisions(ref_pos_from_proj, ref_pos_other, other_collision_poly)
-            
-            if execute_transform and not will_collide and tr_len > 0:
-                ref_pos_from.transform_2d(tr_len, rot)
-            
-            return PhysicsDescriptor(collisions) """
+        pass
