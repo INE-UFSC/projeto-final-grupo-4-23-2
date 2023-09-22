@@ -25,47 +25,80 @@ class PhysicsObject(ABC):
     def set_max_speed(self, value): self.__max_speed = value
     def set_acceleration(self, value): self.__acceleration = value  
     def set_speed(self, value): self.__speed = value  
+
+    def rotate(self, value:Vector3):
+        for cp in self.get_collision_polygons(): 
+            cp.rotate(value)
     
-    def __get_collisions(self, ref_position_from:Vector3, ref_position_other:Vector3, other_collision_polygons:[]):
-        collision_descriptions = []
-        for scp in self.__collision_polygons:
-            for wcp in other_collision_polygons:
-                if scp == wcp: continue
-                collision_descriptions.extend(scp.get_collisions_descriptions(ref_position_from, ref_position_other, wcp))
-        
-        for cp in collision_descriptions:
-            cp.set_collision_polygon1(self)
-            cp.set_collision_polygon2(scp)
-        
-        return collision_descriptions
-        
     def accelerate(self, delta_time):
         self.__speed = min(self.__speed+self.__acceleration*delta_time, self.__max_speed)
         self.__speed = max(self.__speed-self.get_break_cof_inv()*delta_time, 0)
     
-    def process_physics(self, ref_position_from:Vector3, rotation_axis:Vector3, ref_position_other:Vector3, other_collision_polygons:[], delta_time:float, execute_transform:bool=False, accelerate:bool=False, reset_smooth_fac:bool=False):
-        if accelerate == True: self.accelerate(delta_time)
-        if not self.__check_collision: return PhysicsDescriptor()
+    def get_transform_len(self, delta_time:float, smooth_fac:float):
+        return delta_time*self.__smooth_fac*self.get_speed()
+    
+    def get_approximate_collision_distance(self, ref_pos_from:Vector3, transform_len:float, rotation_axis:Vector3, ref_pos_other:Vector3, other_collision_polygons:[]):
+        s = 1
+        ms = 0.01
         
+        will_collide = True
+        while will_collide and s > ms:
+            s *= 0.9
+            tr_len = transform_len*s
+            for scp in self.__collision_polygons:
+                for wcp in other_collision_polygons:
+                    if scp == wcp: continue
+                    will_collide = scp.will_collide(ref_pos_from, tr_len, rotation_axis, ref_pos_other, wcp)
+                    
+            if will_collide: s *= 0.9
+
+        return None if not will_collide else s*transform_len
+    
+    def will_collide(self, ref_pos_from:Vector3, transform_len:float, rotation_axis:Vector3, ref_pos_other:Vector3, other_collision_polygons:[]):
+        for scp in self.__collision_polygons:
+            for wcp in other_collision_polygons:
+                if scp == wcp: continue
+                if scp.will_collide(ref_pos_from, transform_len, rotation_axis, ref_pos_other, wcp): return True
+
+        return False
+    
+    def get_collisions(self, ref_pos_from:Vector3, ref_pos_other:Vector3, other_collision_polygons:[]):
+        collision_descriptions = []
+        for scp in self.__collision_polygons:
+            for wcp in other_collision_polygons:
+                if scp == wcp: continue
+                clp_dsc_lst = scp.get_collisions_descriptions(ref_pos_from, ref_pos_other, wcp)
+                for clp_dsc in clp_dsc_lst:
+                    clp_dsc.set_collision_polygon1(self)
+                    clp_dsc.set_collision_polygon2(scp)
+                    
+                collision_descriptions.extend(clp_dsc_lst)
+        
+        return collision_descriptions
+        
+    
+        
+    def process_physics(self, ref_pos_from:Vector3, rot:Vector3, ref_pos_other:Vector3, other_collision_poly:[], delta_time:float, execute_transform:bool=False, accelerate:bool=False, reset_smooth_fac:bool=False):
+        """ delta_time = 0.01
+        if accelerate == True: self.accelerate(delta_time)
         if reset_smooth_fac == 1.0: self.__smooth_fac = 1.0
+        if (not self.__check_collision) or (self.get_speed() == 0): return PhysicsDescriptor()
+        
         min_smooth_fac = 0.01
         while True:
-            transform_len = delta_time*self.__smooth_fac*self.get_speed()
-            #if transform_len == 0: return PhysicsDescriptor()
-            rollback_vec = ref_position_from.copy()
-            ref_position_from.transform_2d(transform_len, rotation_axis)
+            tr_len = 0
+            will_collide = True
+            while will_collide and self.__smooth_fac > min_smooth_fac:
+                self.__smooth_fac *= 0.9
+                tr_len = delta_time*self.__smooth_fac*self.get_speed()
+                if tr_len == 0: return PhysicsDescriptor()
+                will_collide = self.__will_collide(ref_pos_from, tr_len, rot, ref_pos_other, other_collision_poly)
             
-            collisions = self.__get_collisions(ref_position_from, ref_position_other, other_collision_polygons)
+            ref_pos_from_proj = ref_pos_from.copy()
+            if will_collide: ref_pos_from_proj.transform_2d(tr_len, rot)
+            collisions = self.__get_collisions(ref_pos_from_proj, ref_pos_other, other_collision_poly)
             
-            if len(collisions) > 0 and self.__smooth_fac > min_smooth_fac: 
-                ref_position_from = rollback_vec
-                self.__smooth_fac *= 0.8
-            elif (len(collisions) > 0):
-                ref_position_from = rollback_vec
-                self.set_speed(0)
-                return PhysicsDescriptor(collisions)
-            else:
-                if (not execute_transform):  
-                    ref_position_from = rollback_vec
-                    
-                return PhysicsDescriptor(collisions)
+            if execute_transform and not will_collide and tr_len > 0:
+                ref_pos_from.transform_2d(tr_len, rot)
+            
+            return PhysicsDescriptor(collisions) """

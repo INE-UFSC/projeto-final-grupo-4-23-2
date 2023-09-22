@@ -18,37 +18,48 @@ class CubePlayer(GameObject):
             self.get_graphics_api().draw_2d_lines(cp.get_vec_pair1(),color=(0,255,0),width=5)
             self.get_graphics_api().draw_2d_lines(cp.get_vec_pair2(),color=(0,255,0),width=5)
             self.get_graphics_api().draw_2d_circle(cp.get_intersection_point(),color=(0,255,0),radius=3,width=3)
-        print("Collision DETECTED!")
+        #print("Collision DETECTED!")
 
 class CubeGame(Game):    
     def add_local_player(self):
-        s = 1
-        plocal = CubePlayer(break_cof=45, initial_position=Vector3(205,200,200), collision_polygons=[CollisionPolygon(vector_list=[
-            Vector3(20*s,0,0), Vector3(0,20*s,0)
-            #Vector3(0,0,0),
-            #Vector3(10,0,0),
-            #Vector3(10,10,0),
-            #Vector3(0,10,0),
-            #Vector3(0,0,0)
+        s = 10
+        plocal = CubePlayer(break_cof=45, initial_position=Vector3(150,500,200), collision_polygons=[CollisionPolygon(vector_list=[
+            #Vector3(2*s,0,0), Vector3(0,2*s,0)
+            Vector3(0,0,0),
+            Vector3(s,1,0),
+            Vector3(s-1,s,0),
+            Vector3(0,s+1,0),
+            Vector3(1,1,0)
             ]
         )])
-        p2 = CubePlayer(initial_position=Vector3(200,500,200), collision_polygons=[CollisionPolygon(vector_list=[
-            Vector3(-20*s,-20*s,0), Vector3(20*s,20*s,0)
-            #Vector3(0,0,0),Vector3(10,0,0)#,Vector3(10,10,0),Vector3(0,10,0),Vector3(0,0,0)
-            ]
-        )])
+                
+        for i in range(1):
+            self.get_world().add_object(CubePlayer(initial_position=Vector3(200+s*i,500,200), collision_polygons=[CollisionPolygon(vector_list=[
+                Vector3(0,0,0), Vector3(2*s,2*s,0)
+                #Vector3(0,0,0),
+                #Vector3(s,1,0),
+                #Vector3(s-1,s,0),
+                #Vector3(0,s+1,0),
+                #Vector3(1,1,0)
+                ]
+            )]))
+            """ self.get_world().add_object(CubePlayer(initial_position=Vector3(200+s*i,500+s*3,200), collision_polygons=[CollisionPolygon(vector_list=[
+                Vector3(0,0,0),
+                Vector3(s,1,0),
+                Vector3(s,s,0),
+                Vector3(0,s+1,0),
+                Vector3(0,1,0)
+                ]
+            )])) """
         
         self.get_world().add_object(plocal)
-        self.get_world().add_object(p2)
         def move_player(key, event):
             keys_rot = {
-                "w":180,
+                "w":140,
                 "s":0,
-                
                 "a":270,
                 "d":90,
             }
-            #print(key, ' - ', event)
             if event in [KeyEventEnum.DOWN,KeyEventEnum.PRESS]:
                 plocal.set_rotation_axis(Vector3(math.radians(keys_rot[key]),0,0))
                 plocal.set_speed(50)

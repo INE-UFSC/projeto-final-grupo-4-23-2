@@ -14,23 +14,36 @@ class CollisionPolygon():
         return lst
     
     def rotate(self, value:Vector3):
-        for v in self.get_vectors(): v.rotate(value)
+        for v in self.get_vectors(): 
+            v.rotate_2d(value)
     
     def transform(self, value:float, rotation_axis):
-        for v in self.__vector_list: v.transform_2d_2d(value, rotation_axis)
+        for v in self.__vector_list: 
+            v.transform_2d_2d(value, rotation_axis)
+    
+    def will_collide(self, ref_position_from:Vector3, transform_len:float, rotation_axis:Vector3, ref_position_other:Vector3, other_polygon):
+        self_vector_list = self.get_vectors(ref_position_from).copy()
+        other_vector_list = other_polygon.get_vectors(ref_position_other).copy()
+        
+        last_v = self_vector_list[0]
+        for v in self_vector_list[1:]:
+            last_v2 = other_vector_list[0]
+            for v2 in other_vector_list[1:]: 
+                if Vector3.will_collide_2d(transform_len, rotation_axis,[last_v, v], [last_v2, v2]): return True
+                last_v2 = v2
+            last_v = v
+            
+        return False
     
     def get_collisions_descriptions(self, ref_position_from:Vector3, ref_position_other:Vector3, other_polygon):
         collisions_descriptions = []
         
         self_vector_list = self.get_vectors(ref_position_from).copy()
-        self_vector_list.append(self_vector_list[0])
-        
         other_vector_list = other_polygon.get_vectors(ref_position_other).copy()
-        other_vector_list.append(other_vector_list[0])
         
-        last_v = self_vector_list[1]
+        last_v = self_vector_list[0]
         for v in self_vector_list[1:]:
-            last_v2 = other_vector_list[1]
+            last_v2 = other_vector_list[0]
             
             for v2 in other_vector_list[1:]: 
                 intersection_point = Vector3.get_2d_point_intersection([last_v, v], [last_v2, v2])

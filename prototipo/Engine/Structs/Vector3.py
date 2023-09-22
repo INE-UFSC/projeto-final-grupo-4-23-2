@@ -23,15 +23,38 @@ class Vector3:
         self.__z += vector.get_z()
         return self
     
+    def sub(self, vector):
+        self.__x -= vector.get_x()
+        self.__y -= vector.get_y()
+        self.__z -= vector.get_z()
+        return self
+    
     def transform_2d(self, value:float, rotation_axis):
         self.__x += value * math.sin(rotation_axis.get_x())
         self.__y += value * math.cos(rotation_axis.get_x())
-        self.__z += value * math.sin(rotation_axis.get_x())
         return self
     
-    def rotate(self, axis_values):
+    def rotate_2d(self, rotation_axis):
+        hip = math.sqrt(self.get_x()**2 + self.get_y()**2)
+        self.__x += hip*math.cos(rotation_axis.get_x())
+        self.__y += math.sin(rotation_axis.get_x())
+        return self
+    
+    def translate_2d(self, ref_pos, rotation_axis):
+        hip = math.sqrt(self.get_x()**2 + self.get_y()**2)
+        self.__x += hip*math.cos(rotation_axis.get_x())
+        self.__y += math.sin(rotation_axis.get_x())
+        return self
+    
+    def is_inside(self, edges):
+        count = 0
+        for e in edges:
+            (x1, y1) = (e[0].get_x(), e[0].get_y())
+            (x2, y2) = (e[1].get_x(), e[1].get_y())
+            if (self.__y < y1) != (self.__y < y2) and self.__x < x1 + ((self.__y-y1)/(y2-y1))*(x2-x1):
+                count += 1
         
-        pass
+        return count%2==1
     
     def get_2d_point_intersection(pair_1:[], pair_2:[]):
         v1 = ((pair_1[0].get_x(),pair_1[0].get_y()),(pair_1[1].get_x(),pair_1[1].get_y()))
@@ -55,3 +78,19 @@ class Vector3:
             if y > max(vlst[i][0][1], vlst[i][1][1]) or y < min(vlst[i][0][1], vlst[i][1][1]): return None
         
         return Vector3(x, y, 0)  # Retorna as coordenadas do cruzamento
+    
+    def will_collide_2d(transform_len, rotation_axis, pair_1:[], pair_2:[]):
+        pv1 = pair_1[0].copy().transform_2d(transform_len, rotation_axis)
+        pv2 = pair_1[1].copy().transform_2d(transform_len, rotation_axis)
+        
+        it_points = [
+            Vector3.get_2d_point_intersection([pair_1[0], pv1], pair_2),
+            Vector3.get_2d_point_intersection([pair_1[1], pv2], pair_2),
+            Vector3.get_2d_point_intersection([pv1, pv2], pair_2),
+        ]
+        it_points_collide = any([x != None for x in it_points])
+        
+        poly = [pair_1, [pair_1[0], pv1], [pair_1[1], pv2], [pv1, pv2]]
+        inside = pair_2[0].is_inside(poly) or pair_2[1].is_inside(poly)
+        
+        return inside or it_points_collide
