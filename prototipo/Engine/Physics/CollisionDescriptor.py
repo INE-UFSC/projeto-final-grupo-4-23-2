@@ -1,5 +1,4 @@
-from Structs.Vector3 import Vector3
-
+from Engine.Structs.Vector3 import Vector3
 
 class CollisionDescriptor:
     def __init__(self, 

@@ -1,6 +1,6 @@
 import pygame
-from Structs import Vector3, Rectangle
-from Graphics.IGraphicsApi import IGraphicsApi
+from Engine.Structs import Vector3, Rectangle
+from Engine.Graphics.IGraphicsApi import IGraphicsApi
 
 class PygameGraphics(IGraphicsApi):
     def __init__(self, surface=None):

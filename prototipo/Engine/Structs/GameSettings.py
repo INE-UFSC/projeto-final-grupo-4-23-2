@@ -1,4 +1,4 @@
-from Graphics.PygameGraphics import PygameGraphics
+from Engine.Graphics.PygameGraphics import PygameGraphics
 
 class GameSettings:
     def __init__(self, graphics_api=PygameGraphics(None), game_title:str="MyGame", width:int=800, height:int=600):

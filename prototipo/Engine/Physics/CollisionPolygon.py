@@ -1,5 +1,5 @@
-from Physics.CollisionDescriptor import *
-from Structs.Vector3 import Vector3
+from Engine.Physics.CollisionDescriptor import *
+from Engine.Structs.Vector3 import Vector3
 
 class CollisionPolygon():
     def __init__(self, name:str="GenericPolygon", vector_list:list[Vector3]=[]):

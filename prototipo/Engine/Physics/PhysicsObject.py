@@ -1,8 +1,8 @@
 import math
 from abc import ABC, abstractclassmethod
-from Physics.CollisionPolygon import CollisionPolygon
-from Physics.PhysicsDescriptor import PhysicsDescriptor
-from Structs.Vector3 import Vector3
+from Engine.Physics.CollisionPolygon import CollisionPolygon
+from Engine.Physics.PhysicsDescriptor import PhysicsDescriptor
+from Engine.Structs.Vector3 import Vector3
 
 class PhysicsObject(ABC):
     def __init__(self ,

@@ -3,10 +3,10 @@ import math
 import time
 import pygame, sys
 from time import sleep
-from Structs.Vector3 import Vector3
-from Structs.GameSettings import GameSettings
-from Structs.World import World, WorldRotineStatusEnum
-from IO.KeyboardHooker import *
+from Engine.Structs.Vector3 import Vector3
+from Engine.Structs.GameSettings import GameSettings
+from Engine.Structs.World import World, WorldRotineStatusEnum
+from Engine.IO.KeyboardHooker import *
 
 class Game(ABC):
     def __init__(self, settings:GameSettings=GameSettings()):

@@ -1,5 +1,5 @@
 from abc import ABC
-from Graphics.IGraphicsApi import IGraphicsApi
+from Engine.Graphics.IGraphicsApi import IGraphicsApi
 
 class GraphicsObject(ABC):
     def __init__(self, graphics_api:IGraphicsApi):

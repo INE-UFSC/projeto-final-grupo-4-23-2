@@ -1,5 +1,5 @@
-from Physics.CollisionDescriptor import CollisionDescriptor
-#from Structs.GameObject import GameObject
+from Engine.Physics.CollisionDescriptor import CollisionDescriptor
+#from Engine.Structs.GameObject import GameObject
 
 class PhysicsDescriptor:
     def __init__(self, collisions_descriptions:[CollisionDescriptor]=[]):

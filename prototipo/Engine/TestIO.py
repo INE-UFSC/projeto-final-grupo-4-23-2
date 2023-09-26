@@ -1,5 +1,5 @@
 from time import sleep
-from IO.KeyboardHooker import *
+from Engine.IO.KeyboardHooker import *
 
 hooker = KeyboardHooker()
 hooker.hook_keyboard("a", KeyEventEnum.ALL, lambda key, event: print(f"Shazamm ({key}, {event})"))

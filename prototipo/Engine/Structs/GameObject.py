@@ -3,11 +3,11 @@ import math
 import time
 
 from abc import abstractclassmethod, ABC
-from Graphics.GraphicsObject import GraphicsObject
-from Graphics.IGraphicsApi import IGraphicsApi
-from Physics.CollisionPolygon import CollisionPolygon
-from Structs.Vector3 import Vector3
-from Physics.PhysicsObject import PhysicsObject
+from Engine.Graphics.GraphicsObject import GraphicsObject
+from Engine.Graphics.IGraphicsApi import IGraphicsApi
+from Engine.Physics.CollisionPolygon import CollisionPolygon
+from Engine.Structs.Vector3 import Vector3
+from Engine.Physics.PhysicsObject import PhysicsObject
 
 class GameObject(PhysicsObject, GraphicsObject, ABC):
     

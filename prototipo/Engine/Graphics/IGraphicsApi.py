@@ -1,6 +1,6 @@
 from abc import ABC, abstractclassmethod
-from Structs.Rectangle import Rectangle
-from Structs.Vector3 import Vector3
+from Engine.Structs.Rectangle import Rectangle
+from Engine.Structs.Vector3 import Vector3
 
 
 class IGraphicsApi(ABC):    

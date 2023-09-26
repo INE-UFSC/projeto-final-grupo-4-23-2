@@ -55,52 +55,54 @@ class Graph:
         minimum_spanning_tree.add(edge)
         self.union(parent, rank, root_u, root_v)
     return minimum_spanning_tree
-
-size = 20
-width = size
-height = size
-
-# mapeia todos os 'vertices' como coordenadas de uma matriz
-vertices = [(x, y) for x in range(width) 
-                  for y in range(height)]
-
-# for y in range(height):
-#   for x in range(width):
-#     print((x, y), end=" ") 
-#   print()
-
-g = Graph(vertices)
-
-for v in vertices:
-  if v[0] < size-1:
-    g.add_edge(v, (v[0]+1, v[1]))
-  if v[1] < size-1:
-    g.add_edge(v, (v[0], v[1]+1))
-
-mst = g.kruskal()
-
-mat = [[1 for _ in range((size*2)+1)] for _ in range((size*2)+1)]
-
-for edge in mst:
-  u, v = edge
-
-  xu = u[0]*2 + 1
-  yu = u[1]*2 + 1
-
-  xv = v[0]*2 + 1
-  yv = v[1]*2 + 1
-
-  if u[0] == v[0]:
-    mat[xu][yu] = 0
-    mat[xu][yu + 1] = 0
-    mat[xv][yv] = 0
-  else:
-    mat[xu][yu] = 0
-    mat[xu + 1][yu] = 0
-    mat[xv][yv] = 0
-
-for i in range((size*2)+1):
-  for j in range((size*2)+1):
-    print(" " if mat[i][j] == 0 else "∆", end=" ")
-  print()
   
+  def binaryMatrix(size:int=20):
+    width = size
+    height = size
+
+    # mapeia todos os 'vertices' como coordenadas de uma matriz
+    vertices = [(x, y) for x in range(width) 
+                      for y in range(height)]
+
+    # for y in range(height):
+    #   for x in range(width):
+    #     print((x, y), end=" ") 
+    #   print()
+
+    g = Graph(vertices)
+
+    for v in vertices:
+      if v[0] < size-1:
+        g.add_edge(v, (v[0]+1, v[1]))
+      if v[1] < size-1:
+        g.add_edge(v, (v[0], v[1]+1))
+
+    mst = g.kruskal()
+
+    mat = [[1 for _ in range((size*2)+1)] for _ in range((size*2)+1)]
+
+    for edge in mst:
+      u, v = edge
+
+      xu = u[0]*2 + 1
+      yu = u[1]*2 + 1
+
+      xv = v[0]*2 + 1
+      yv = v[1]*2 + 1
+
+      if u[0] == v[0]:
+        mat[xu][yu] = 0
+        mat[xu][yu + 1] = 0
+        mat[xv][yv] = 0
+      else:
+        mat[xu][yu] = 0
+        mat[xu + 1][yu] = 0
+        mat[xv][yv] = 0
+
+    return mat
+      
+""" m = Graph.binaryMatrix(20)
+for i in range(len(m)):
+      for j in range(len(m[i])):
+        print(" " if m[i][j] == 0 else "∆", end=" ")
+      print() """
