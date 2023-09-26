@@ -24,7 +24,7 @@ class Maze(Game):
     def create_maze_with_delay(self, size=20):
         s=10
         iw,ih=100,100
-        m = Graph.binaryMatrix(5)
+        m = Graph.binaryMatrix(size)
         for i in range(len(m)):
             for j in range(len(m[i])):
                 #print(" " if m[i][j] == 0 else "∆", end=" ")
@@ -36,5 +36,5 @@ class Maze(Game):
             #print()
 
 game = Maze()
-game.create_maze_with_delay()
+game.create_maze_with_delay(size=10)
 game.run()
