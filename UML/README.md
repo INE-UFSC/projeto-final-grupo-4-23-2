@@ -2,6 +2,6 @@ Documente aqui os diagramas UML criados pelo grupo. A ideia não é ter a versã
 
 Nessa quesito, serão avaliados o uso adequado das relações UML e a sintaxe adequada na descrição dos diagramas.
 
-#Diagrama inicial
+# Diagrama inicial
 
 ![projetofinal drawio](https://github.com/INE-UFSC/projeto-final-grupo-4-23-2/assets/128431650/5bb490de-56b3-4835-a3a1-0a14f555c320)
