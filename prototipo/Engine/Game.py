@@ -7,16 +7,19 @@ from Engine.Structs.Vector3 import Vector3
 from Engine.Structs.GameSettings import GameSettings
 from Engine.Structs.World import World, WorldRotineStatusEnum
 from Engine.IO.KeyboardHooker import *
+from Engine.Kernel.CollisionKernel import *
 
 class Game(ABC):
     def __init__(self, settings:GameSettings=GameSettings()):
         self.__settings = settings 
-        self.__keyboard_hook_helper = KeyboardHooker()
-        
-        self.initialize_surface()
         self.__graphics_api = self.__settings.get_graphics_api()
+        self.__keyboard_hook_helper = KeyboardHooker()
+        self.__collision_kernel = CollisionKernel()
+        self.load_resources()
+        
         self.__graphics_api.set_surface(self.__surface)
         self.__world = World(self.__graphics_api)
+        
     
     def get_world(self): return self.__world
     
@@ -36,6 +39,10 @@ class Game(ABC):
     def render_fps(self):
         fps_txt = f"FPS: {str(int(self.__world.get_fps()))}"
         self.__graphics_api.draw_2d_text(fps_txt, 30, 10, (255,0,0), (0,0,0), font_size=12)
+    
+    def load_resources(self):
+        self.__collision_kernel.build()
+        self.initialize_surface()
     
     def run(self):
         self.__world.run()
