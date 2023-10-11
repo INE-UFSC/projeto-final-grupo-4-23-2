@@ -6,8 +6,8 @@ from CollisionKernel import CollisionKernel
 kernel = CollisionKernel()
 kernel.build()
 
-a_np = np.random.rand(1000000).astype(np.float32)
-b_np = np.random.rand(1000000).astype(np.float32)
+a_np = np.random.rand(10000).astype(np.float32)
+b_np = np.random.rand(10000).astype(np.float32)
 
 while True:
     t = time.time()

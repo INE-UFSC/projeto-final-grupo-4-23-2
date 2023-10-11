@@ -18,6 +18,7 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
                 break_cof:float=0,max_speed=math.inf,
                 collision_polygons:[CollisionPolygon]=[]
             ):
+        self.__have_physics = True
         self.__render_collisions_polygons = False
         self.__position = initial_position
         self.__rotation_axis = initial_rotation_axis
@@ -25,8 +26,11 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
                          initial_acceleration=initial_acceleration,initial_speed=initial_speed,
                          break_cof=break_cof,max_speed=max_speed)
     
+    def have_physics(self): return self.__have_physics
     def get_position(self): return self.__position
     def get_rotation_axis(self): return self.__rotation_axis
+    
+    def set_have_physics(self, value): self.__have_physics = value
     
     def set_rotation_axis(self, value:Vector3): 
         dif = self.get_rotation_axis().sub(value)
@@ -60,30 +64,14 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
     def render_graphics(self, graphics_api:IGraphicsApi):
         super().render_graphics(self.get_position(), self.get_rotation_axis())
         if self.__render_collisions_polygons: self.__render_collision_polys()
-        
+    
+    
     def process_physics(self, delta_time: float, world_game_objects: []):
         tr_len = super().get_transform_len(delta_time, 1)
         if tr_len == 0: return
         os.system('cls')
         
         objs = [(i,obj) for i, obj in enumerate([x for x in world_game_objects if x != self].copy())]
-        
-        """ t = time.time()
-        col_distances = [
-            self.get_approximate_collision_distance(
-                self.get_position(), 
-                tr_len, 
-                self.get_rotation_axis(), 
-                x[1].get_position(), 
-                x[1].get_collision_polygons()) 
-            for x in objs]
-        tf = time.time() - t
-        print(f"CollideDistance: {tf*1000}")
-        
-        col_distances = [x for x in col_distances if x!=None]
-        will_collide = len(col_distances) > 0
-        
-        if len(col_distances) > 0: tr_len = min(col_distances) """
         
         t = time.time()
         will_collides = [

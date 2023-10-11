@@ -13,11 +13,7 @@ class CubePlayer(GameObject):
                          initial_acceleration=initial_acceleration,initial_speed=initial_speed,
                          break_cof=break_cof,max_speed=max_speed)
         
-    def handle_on_collision(self, collisions_descriptions):
-        """ for cp in collisions_descriptions:
-            self.get_graphics_api().draw_2d_lines(cp.get_vec_pair1(),color=(0,255,0),width=5)
-            self.get_graphics_api().draw_2d_lines(cp.get_vec_pair2(),color=(0,255,0),width=5)
-            self.get_graphics_api().draw_2d_circle(cp.get_intersection_point(),color=(0,255,0),radius=3,width=3) """
+    def handle_on_collision(self, collisions_descriptions): pass
         
 class Wall(GameObject):
     def __init__(self,initial_position:Vector3=Vector3(0,0,0),

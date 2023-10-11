@@ -22,7 +22,7 @@ class PygameGraphics(IGraphicsApi):
         pygame.draw.lines(self.__surface, color, False, points, width)
     
     def draw_2d_rect(self, x:int, y:int, width:int, height:int, color=(255,0,0)):
-        pygame.draw.rect(self.__surface, color, pygame.Rect(x, y, width, height))
+        pygame.draw.rect(self.__surface, color, pygame.Rect(x-width//2, y-height//2, width, height))
     
     def draw_2d_sprite(self, name:str, file_data_position:Rectangle, world_position:Rectangle): pass
     

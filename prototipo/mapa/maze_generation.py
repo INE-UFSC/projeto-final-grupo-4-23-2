@@ -99,6 +99,9 @@ class Graph:
         mat[xu + 1][yu] = 0
         mat[xv][yv] = 0
 
+    mat[0][1] = 0
+    mat[-1][-2] = 0
+    
     return mat
       
 """ m = Graph.binaryMatrix(20)

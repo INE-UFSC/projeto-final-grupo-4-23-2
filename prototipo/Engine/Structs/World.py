@@ -37,8 +37,9 @@ class World:
         return self.__world_objects
     
     def process_physics(self):
-        for obj in self.__world_objects:
-            obj.process_physics(self.__delta_time, self.__world_objects)
+        only_have_physics = [x for x in self.__world_objects if x.have_physics()]
+        for obj in only_have_physics:
+            obj.process_physics(self.__delta_time, only_have_physics)
     
     def render_world(self):
         self.__world_objects.sort(key=lambda x: x.get_position().get_z())
