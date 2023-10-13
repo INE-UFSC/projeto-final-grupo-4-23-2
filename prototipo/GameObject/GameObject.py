@@ -21,7 +21,6 @@ class GameObject(ABC):
     def block(self, block):
         self.__block = block
   
-    @abstractmethod
     def handle_on_collision(self):
         pass
        

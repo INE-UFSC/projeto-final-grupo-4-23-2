@@ -22,7 +22,7 @@ class PowerUp(GameObject):
         return self.__points
     
     def handle_on_collision(self):
-         return True
+        return super().handle_on_collision()
     
 
     def is_life_powerup(self):

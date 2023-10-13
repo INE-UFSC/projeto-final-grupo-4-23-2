@@ -21,8 +21,6 @@ class Player(GameObject):
     def life(self):
         return self.__life
     
-    def handle_on_collision(self):
-        return True
     
     def powerup_collision(self, other_object):
         if isinstance(other_object, PowerUp ):
