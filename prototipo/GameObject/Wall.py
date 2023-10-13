@@ -5,8 +5,8 @@ class Wall(GameObject):
         super().__init__(position, block)
 
     
-    def handle_on_collision(self):
+    def handle_on_collision(self): #método herdado de gameobjetc
         return super().handle_on_collision()
     
     def wall(self):
-        pass
+        return True
