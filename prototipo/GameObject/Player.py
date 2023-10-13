@@ -21,15 +21,20 @@ class Player(GameObject):
     def life(self):
         return self.__life
     
-    def handle_on_collision(self, other_object):
+    def handle_on_collision(self):
+        return True
+    
+    def powerup_collision(self, other_object):
         if isinstance(other_object, PowerUp ):
             if other_object.is_life_powerup():
                 self.life = other_object.get_life()
             else:
                 self.score= other_object.get_score()
 
-        elif isinstance(other_object, Obstacle):
-            if other_object.is_life_powerup():
+
+    def obstacle_collision(self, other_object):
+        if isinstance(other_object, Obstacle):
+            if other_object.is_life_obstacle():
                 self.life = other_object.remove_life()
             else:
                 self.score= other_object.remove_score()

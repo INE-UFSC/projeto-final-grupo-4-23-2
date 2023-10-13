@@ -12,3 +12,5 @@ class Obstacle(GameObject):
     def remove_live(self):
         pass
 
+    def is_life_obstacle(self):
+        pass 
