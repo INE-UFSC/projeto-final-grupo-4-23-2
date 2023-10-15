@@ -7,7 +7,7 @@ from Engine.Structs.Vector3 import Vector3
 from Engine.Structs.GameSettings import GameSettings
 from Engine.Structs.World import World, WorldRotineStatusEnum
 from Engine.IO.KeyboardHooker import *
-from Engine.Kernel.CollisionKernel import *
+#from Engine.Kernel.CollisionKernel import *
 
 PYOPENCL_CTX='0'
 
@@ -16,7 +16,7 @@ class Game(ABC):
         self.__settings = settings 
         self.__graphics_api = self.__settings.get_graphics_api()
         self.__keyboard_hook_helper = KeyboardHooker()
-        self.__collision_kernel = CollisionKernel()
+        #self.__collision_kernel = CollisionKernel()
         self.load_resources()
         
         self.__graphics_api.set_surface(self.__surface)
@@ -43,7 +43,7 @@ class Game(ABC):
         self.__graphics_api.draw_2d_text(fps_txt, 30, 10, (255,0,0), (0,0,0), font_size=12)
     
     def load_resources(self):
-        self.__collision_kernel.build()
+        #self.__collision_kernel.build()
         self.initialize_surface()
     
     def run(self):
