@@ -30,6 +30,9 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
     def get_position(self): return self.__position
     def get_rotation_axis(self): return self.__rotation_axis
     
+    def set_position(self, value): self.__position = value
+    def set_collision_polygons(self, value): self.__collision_polygons = value
+    
     def set_have_physics(self, value): self.__have_physics = value
     
     def set_rotation_axis(self, value:Vector3): 

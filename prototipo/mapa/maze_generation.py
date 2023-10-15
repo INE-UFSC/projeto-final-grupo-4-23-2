@@ -99,13 +99,7 @@ class Graph:
         mat[xu + 1][yu] = 0
         mat[xv][yv] = 0
 
-    mat[0][1] = 0
+    #mat[0][1] = 0
     mat[-1][-2] = 0
     
     return mat
-      
-""" m = Graph.binaryMatrix(20)
-for i in range(len(m)):
-      for j in range(len(m[i])):
-        print(" " if m[i][j] == 0 else "∆", end=" ")
-      print() """

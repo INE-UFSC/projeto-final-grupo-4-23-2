@@ -9,6 +9,8 @@ from Engine.Structs.World import World, WorldRotineStatusEnum
 from Engine.IO.KeyboardHooker import *
 from Engine.Kernel.CollisionKernel import *
 
+PYOPENCL_CTX='0'
+
 class Game(ABC):
     def __init__(self, settings:GameSettings=GameSettings()):
         self.__settings = settings 
