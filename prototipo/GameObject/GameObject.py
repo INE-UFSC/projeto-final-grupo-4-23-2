@@ -20,7 +20,13 @@ class GameObject(ABC):
     @block.setter
     def block(self, block):
         self.__block = block
-  
+
+    
+    @abstractmethod
     def handle_on_collision(self):
+        pass
+
+    @abstractmethod
+    def update(self): #para atualizar o estado do objeto
         pass
        
