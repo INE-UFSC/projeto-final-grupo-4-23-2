@@ -5,7 +5,6 @@ from Constantes import ANIMATION_TIME, NEW_HEIGHT, NEW_WIDTH, PLAYER_SPEED
 from Sprites import PLAYER_IMAGES
 
 
-
 # Redimensiona todas as imagens (a original tem 800 x 800)
 
 for i in range(len(PLAYER_IMAGES)):

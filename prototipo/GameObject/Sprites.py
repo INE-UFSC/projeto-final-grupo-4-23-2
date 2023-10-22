@@ -1,4 +1,4 @@
-import os
+import os 
 import pygame
 from imgs import *
 
@@ -8,7 +8,9 @@ script_directory = os.path.dirname(os.path.abspath(__file__))
 # Constrói o caminho completo para a pasta "sprites"
 sprites_directory = os.path.join(script_directory, "imgs")
 
-# Lista de imagens
+##################### GUAXINIM/PLAYER ##################### 
+
+
 PLAYER_IMAGES = [
     pygame.image.load(os.path.join(sprites_directory, "walk0001.png")),
     pygame.image.load(os.path.join(sprites_directory, "walk0003.png")),
