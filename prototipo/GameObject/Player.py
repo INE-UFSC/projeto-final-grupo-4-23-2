@@ -2,38 +2,14 @@ from GameObject import GameObject
 import pygame
 import os
 from Constantes import ANIMATION_TIME, NEW_HEIGHT, NEW_WIDTH, PLAYER_SPEED
+from Sprites import PLAYER_IMAGES
 
 
 
-
-# Obtém o diretório do script Python atual
-script_directory = os.path.dirname(os.path.abspath(__file__))
-
-# Define a pasta de trabalho atual para o diretório do script (meu python não estava reconhecendo as pastas)
-os.chdir(script_directory)
-
-
-PLAYER_IMAGES = [
-    pygame.image.load(os.path.join("sprites", "walk0001.png")),
-    pygame.image.load(os.path.join("sprites", "walk0003.png")),
-    pygame.image.load(os.path.join("sprites", "walk0005.png")),
-    pygame.image.load(os.path.join("sprites", "walk0007.png")),
-    pygame.image.load(os.path.join("sprites", "walk0009.png")),
-    pygame.image.load(os.path.join("sprites", "walk0011.png")),
-    pygame.image.load(os.path.join("sprites", "walk0013.png")),
-    pygame.image.load(os.path.join("sprites", "walk0015.png")),
-    pygame.image.load(os.path.join("sprites", "walk0017.png")),
-    pygame.image.load(os.path.join("sprites", "walk0019.png")),
-    pygame.image.load(os.path.join("sprites", "walk0021.png"))
-]
 # Redimensiona todas as imagens (a original tem 800 x 800)
 
 for i in range(len(PLAYER_IMAGES)):
     PLAYER_IMAGES[i] = pygame.transform.scale(PLAYER_IMAGES[i], (NEW_WIDTH, NEW_HEIGHT))
-
-
-
-
 
 class Player(GameObject):
 
