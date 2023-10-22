@@ -1,5 +1,9 @@
 import math
+import time
 
+
+tn = [0,0,0]
+tc = tn.copy()
 
 class Vector3:
     def __init__(self, x:float=0, y:float=0, z:float=0):
@@ -46,6 +50,18 @@ class Vector3:
         self.__y += math.sin(rotation_axis.get_x())
         return self
     
+    def det(a, b): 
+        return a[0] * b[1] - a[1] * b[0]
+    
+    def det_kernel():
+        return """
+            __kernel void det(__global const float *a_g, __global const float *b_g, __global float *res_g)
+            {
+                int gid = get_global_id(0);
+                res_g = a_g[0] * b_g[1] - a_g[1] * b_g[0];
+            }
+        """
+    
     def is_inside(self, edges):
         count = 0
         for e in edges:
@@ -57,21 +73,20 @@ class Vector3:
         return count%2==1
     
     def get_2d_point_intersection(pair_1:[], pair_2:[]):
-        v1 = ((pair_1[0].get_x(),pair_1[0].get_y()),(pair_1[1].get_x(),pair_1[1].get_y()))
-        v2 = ((pair_2[0].get_x(),pair_2[0].get_y()),(pair_2[1].get_x(),pair_2[1].get_y()))
-        vlst = [v1, v2]
+        vlst = (
+            ((pair_1[0].get_x(),pair_1[0].get_y()),(pair_1[1].get_x(),pair_1[1].get_y())),
+            ((pair_2[0].get_x(),pair_2[0].get_y()),(pair_2[1].get_x(),pair_2[1].get_y()))
+        )
         
-        xdiff = (v1[0][0] - v1[1][0], v2[0][0] - v2[1][0])
-        ydiff = (v1[0][1] - v1[1][1], v2[0][1] - v2[1][1])
+        xdiff = (vlst[0][0][0] - vlst[0][1][0], vlst[1][0][0] - vlst[1][1][0])
+        ydiff = (vlst[0][0][1] - vlst[0][1][1], vlst[1][0][1] - vlst[1][1][1])
 
-        def det(a, b): return a[0] * b[1] - a[1] * b[0]
-
-        div = det(xdiff, ydiff)
+        div = Vector3.det(xdiff, ydiff)
         if div == 0: return None  # Linhas não se cruzam
 
-        d = (det(*v1), det(*v2))
-        x = det(d, xdiff) / div
-        y = det(d, ydiff) / div
+        d = (Vector3.det(*vlst[0]), Vector3.det(*vlst[1]))
+        x = Vector3.det(d, xdiff) / div
+        y = Vector3.det(d, ydiff) / div
         
         for i in range(2):
             if x > max(vlst[i][0][0], vlst[i][1][0]) or x < min(vlst[i][0][0], vlst[i][1][0]): return None
@@ -83,14 +98,11 @@ class Vector3:
         pv1 = pair_1[0].copy().transform_2d(transform_len, rotation_axis)
         pv2 = pair_1[1].copy().transform_2d(transform_len, rotation_axis)
         
-        it_points = [
-            Vector3.get_2d_point_intersection([pair_1[0], pv1], pair_2),
-            Vector3.get_2d_point_intersection([pair_1[1], pv2], pair_2),
-            Vector3.get_2d_point_intersection([pv1, pv2], pair_2),
-        ]
-        it_points_collide = any([x != None for x in it_points])
+        if Vector3.get_2d_point_intersection([pair_1[0], pv1], pair_2): return  True
+        if Vector3.get_2d_point_intersection([pair_1[1], pv2], pair_2): return  True
+        if Vector3.get_2d_point_intersection([pv1, pv2], pair_2): return  True
         
         poly = [pair_1, [pair_1[0], pv1], [pair_1[1], pv2], [pv1, pv2]]
         inside = pair_2[0].is_inside(poly) or pair_2[1].is_inside(poly)
         
-        return inside or it_points_collide
+        return inside

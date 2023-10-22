@@ -31,7 +31,6 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
     def get_rotation_axis(self): return self.__rotation_axis
     
     def set_position(self, value): self.__position = value
-    def set_collision_polygons(self, value): self.__collision_polygons = value
     
     def set_have_physics(self, value): self.__have_physics = value
     
@@ -86,7 +85,7 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
                 x[1].get_collision_polygons()) 
             for x in objs]
         tf = time.time() - t
-        print(f"WillCollide: {tf*1000}")
+        #print(f"WillCollide: {tf*1000}")
         
         will_collide = any([x for x in will_collides])
         
@@ -102,7 +101,7 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
                     x[1].get_collision_polygons()) 
                 for x in objs]
             tf = time.time() - t
-            print(f"Collisions: {tf*1000}")
+            #print(f"Collisions: {tf*1000}")
             
             collisions_lsts = [x for x in collisions_lsts if len(x)>0]
             collisions = []

@@ -21,7 +21,8 @@ class PhysicsObject(ABC):
     def get_break_cof_inv(self): return 0 if self.__break_cof==0 else 1/self.__break_cof
     def get_speed(self): return self.__speed
     def get_collision_polygons(self): return self.__collision_polygons
-    
+
+    def set_collision_polygons(self, value): self.__collision_polygons = value    
     def set_max_speed(self, value): self.__max_speed = value
     def set_acceleration(self, value): self.__acceleration = value  
     def set_speed(self, value): self.__speed = value  
