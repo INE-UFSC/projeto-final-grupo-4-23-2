@@ -1,7 +1,9 @@
 from GameObject import GameObject
 import pygame
 import os
-import pygame.transform
+from Constantes import ANIMATION_TIME, NEW_HEIGHT, NEW_WIDTH, PLAYER_SPEED
+
+
 
 
 # Obtém o diretório do script Python atual
@@ -25,9 +27,9 @@ PLAYER_IMAGES = [
     pygame.image.load(os.path.join("sprites", "walk0021.png"))
 ]
 # Redimensiona todas as imagens (a original tem 800 x 800)
-nova_largura, nova_altura = 100, 100
+
 for i in range(len(PLAYER_IMAGES)):
-    PLAYER_IMAGES[i] = pygame.transform.scale(PLAYER_IMAGES[i], (nova_largura, nova_altura))
+    PLAYER_IMAGES[i] = pygame.transform.scale(PLAYER_IMAGES[i], (NEW_WIDTH, NEW_HEIGHT))
 
 
 
@@ -35,15 +37,13 @@ for i in range(len(PLAYER_IMAGES)):
 
 class Player(GameObject):
 
-    TEMPO_ANIMACAO = 2 #define o tempo de animação do guaxinim (quanto menor, mais rápido)
-
     def __init__(self, position: (int, int), name: str, score: int, life: int, block: bool):
         super().__init__(position, block)
         self.__name = name
         self.__score = score
         self.__life = life
         self.__sprites = PLAYER_IMAGES
-        self.__velocidade = 2 
+        self.__velocidade = 10 #quanto maior, mais rápido (diretamente proporcional)
         self.contagem_imagem = 0
         self.__imagem = self.__sprites[0]
     
@@ -78,11 +78,11 @@ class Player(GameObject):
         self.contagem_imagem += 1 # Incrementa o contador de imagem a cada quadro
 
         for i in range(len(PLAYER_IMAGES)):
-            if self.contagem_imagem < self.TEMPO_ANIMACAO * (i + 1): # Verifica em qual parte da animação estamos
+            if self.contagem_imagem < ANIMATION_TIME * (i + 1): # Verifica em qual parte da animação estamos
                 self.imagem = self.__sprites[i] # Atualiza a imagem para a correspondente à parte atual da animação
                 break
 
-        if self.contagem_imagem >= self.TEMPO_ANIMACAO * 11:
+        if self.contagem_imagem >= ANIMATION_TIME * 11:
             self.contagem_imagem = 0  # reiniciada após atingir o limite/completar a animação
         tela.blit(self.imagem, self.position) #desenha a imagem na tela
 
