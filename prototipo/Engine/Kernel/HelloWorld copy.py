@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from ctypes import sizeof
 import math
 import random
 import pyopencl as cl
@@ -19,11 +20,11 @@ b_g = cl.Buffer(ctx, mf.READ_ONLY | mf.COPY_HOST_PTR, hostbuf=b_np)
 kernel = open("Vector3.cl", "r").read()
 prg = cl.Program(ctx, kernel).build()
 
-res_g = cl.Buffer(ctx, mf.WRITE_ONLY, a_np.nbytes)
+res_g = cl.Buffer(ctx, mf.WRITE_ONLY, 4)
 knl = prg.det  # Use this Kernel object for repeated calls
 knl(queue, a_np.shape, None, a_g, b_g, res_g)
 
-res_np = np.empty_like(a_np)
+res_np = float(0)
 cl.enqueue_copy(queue, res_np, res_g)
 
 # Check on CPU with Numpy:

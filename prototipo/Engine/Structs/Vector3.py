@@ -50,32 +50,29 @@ class Vector3:
         self.__y += math.sin(rotation_axis.get_x())
         return self
     
-    def det(a, b): 
+    def get_float_array(self):
+        return [self.get_x(), self.get_y(), self.get_z()]
+    
+    def det(a:[float], b:[float]): 
         return a[0] * b[1] - a[1] * b[0]
     
-    def det_kernel():
-        return """
-            __kernel void det(__global const float *a_g, __global const float *b_g, __global float *res_g)
-            {
-                int gid = get_global_id(0);
-                res_g = a_g[0] * b_g[1] - a_g[1] * b_g[0];
-            }
-        """
-    
-    def is_inside(self, edges):
+    def is_inside(self_vec3:[float], edges:[[float]]):
         count = 0
+        sx = self_vec3[0]
+        sy = self_vec3[1]
+        
         for e in edges:
-            (x1, y1) = (e[0].get_x(), e[0].get_y())
-            (x2, y2) = (e[1].get_x(), e[1].get_y())
-            if (self.__y < y1) != (self.__y < y2) and self.__x < x1 + ((self.__y-y1)/(y2-y1))*(x2-x1):
+            (x1, y1) = (e[0][0], e[0][1])
+            (x2, y2) = (e[1][0], e[1][1])
+            if (sy < y1) != (sy < y2) and sx < x1 + ((sy-y1)/(y2-y1))*(x2-x1):
                 count += 1
         
         return count%2==1
     
-    def get_2d_point_intersection(pair_1:[], pair_2:[]):
+    def get_2d_point_intersection(vec3_pair_1:[[float]], vec3_pair_2:[[float]]):
         vlst = (
-            ((pair_1[0].get_x(),pair_1[0].get_y()),(pair_1[1].get_x(),pair_1[1].get_y())),
-            ((pair_2[0].get_x(),pair_2[0].get_y()),(pair_2[1].get_x(),pair_2[1].get_y()))
+            ((vec3_pair_1[0][0],vec3_pair_1[0][1]),(vec3_pair_1[1][0],vec3_pair_1[1][1])),
+            ((vec3_pair_2[0][0],vec3_pair_2[0][1]),(vec3_pair_2[1][0],vec3_pair_2[1][1]))
         )
         
         xdiff = (vlst[0][0][0] - vlst[0][1][0], vlst[1][0][0] - vlst[1][1][0])
@@ -84,6 +81,7 @@ class Vector3:
         div = Vector3.det(xdiff, ydiff)
         if div == 0: return None  # Linhas não se cruzam
 
+        t = Vector3.det(*vlst[0])
         d = (Vector3.det(*vlst[0]), Vector3.det(*vlst[1]))
         x = Vector3.det(d, xdiff) / div
         y = Vector3.det(d, ydiff) / div
@@ -94,15 +92,23 @@ class Vector3:
         
         return Vector3(x, y, 0)  # Retorna as coordenadas do cruzamento
     
-    def will_collide_2d(transform_len, rotation_axis, pair_1:[], pair_2:[]):
-        pv1 = pair_1[0].copy().transform_2d(transform_len, rotation_axis)
-        pv2 = pair_1[1].copy().transform_2d(transform_len, rotation_axis)
+    def get_projection_vec3_arrays(transform_len:float, rotation_axis:[float], vec_pair:[[float]]):
+        pv1 = vec_pair[0]
+        pv1[0] += transform_len * math.sin(rotation_axis[0])
+        pv1[1] += transform_len * math.cos(rotation_axis[0])
         
-        if Vector3.get_2d_point_intersection([pair_1[0], pv1], pair_2): return  True
-        if Vector3.get_2d_point_intersection([pair_1[1], pv2], pair_2): return  True
-        if Vector3.get_2d_point_intersection([pv1, pv2], pair_2): return  True
+        pv2 = vec_pair[1]
+        pv2[0] += transform_len * math.sin(rotation_axis[0])
+        pv2[1] += transform_len * math.cos(rotation_axis[0])
         
-        poly = [pair_1, [pair_1[0], pv1], [pair_1[1], pv2], [pv1, pv2]]
-        inside = pair_2[0].is_inside(poly) or pair_2[1].is_inside(poly)
+        return [pv1, pv2]
+    
+    def will_collide_2d(pv:[[float]], vec_pair_1:[[float]], vec_pair_2:[[float]]):
+        if Vector3.get_2d_point_intersection([vec_pair_1[0], pv[0]], vec_pair_2): return  True
+        if Vector3.get_2d_point_intersection([vec_pair_1[1], pv[1]], vec_pair_2): return  True
+        if Vector3.get_2d_point_intersection([pv[0], pv[1]], vec_pair_2): return  True
+        
+        poly = [vec_pair_1, [vec_pair_1[0], pv[0]], [vec_pair_1[1], pv[1]], [pv[0], pv[1]]]
+        inside = Vector3.is_inside(vec_pair_2[0], poly) or Vector3.is_inside(vec_pair_2[1], poly)
         
         return inside
