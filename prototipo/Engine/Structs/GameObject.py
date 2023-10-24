@@ -11,13 +11,14 @@ from Engine.Physics.PhysicsObject import PhysicsObject
 
 class GameObject(PhysicsObject, GraphicsObject, ABC):
     
-    def __init__(self, 
+    def __init__(self,
                 initial_position:Vector3=Vector3(0,0,0),
                 initial_rotation_axis:Vector3=Vector3(0,0,0), 
                 initial_speed:float=0,initial_acceleration:float=0,
                 break_cof:float=0,max_speed=math.inf,
                 collision_polygons:[CollisionPolygon]=[]
             ):
+        self.__world = None
         self.__have_physics = True
         self.__render_collisions_polygons = False
         self.__position = initial_position
@@ -29,20 +30,24 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
     def have_physics(self): return self.__have_physics
     def get_position(self): return self.__position
     def get_rotation_axis(self): return self.__rotation_axis
+    def get_world(self): return self.__world
+    
+    def in_collision_range(self, other_object):
+        min_dist = self.get_longest_len() + other_object.get_longest_len()
+        dst = self.get_position().get_abs_distance_2d(other_object.get_position())
+        return dst <= min_dist
     
     def set_position(self, value): self.__position = value
-    
+    def set_world(self, value): self.__world = value
     def set_have_physics(self, value): self.__have_physics = value
     def set_render_collisions_polygons(self, value): self.__render_collisions_polygons = value
     
     def set_rotation_axis(self, value:Vector3): 
         dif = self.get_rotation_axis().sub(value)
-        #super().rotate(dif)
         self.__rotation_axis = value
     
     def rotate(self, value:Vector3): 
         self.__rotation_axis.add(value)
-        #super().rotate(value)
         
     @abstractclassmethod
     def handle_on_collision(self, collisions_descriptions): pass
@@ -73,8 +78,7 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
         tr_len = super().get_transform_len(delta_time, 1)
         if tr_len == 0: return
         
-        objs = [x for x in world_game_objects if x != self]
-        #objs.sort(key=lambda x: x.get)
+        objs = [x for x in world_game_objects if x != self and self.in_collision_range(x)]
         will_collide = False
         for obj in objs:
             if self.will_collide(
@@ -104,3 +108,6 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
             if len(collisions)>0: self.handle_on_collision(collisions)
         else: 
             self.get_position().transform_2d(tr_len, self.get_rotation_axis())
+            
+    @abstractclassmethod
+    def loop(self): pass

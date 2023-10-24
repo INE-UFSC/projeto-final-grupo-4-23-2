@@ -33,21 +33,12 @@ class World:
         
     def add_object(self, new_object:GameObject):
         new_object.set_graphics_api(self.__graphics_api)
+        new_object.set_world(self)
         self.__world_objects.append(new_object)
         
     def get_world_objects(self): 
         return self.__world_objects
     
-    def process_physics(self):
-        only_have_physics = [x for x in self.__world_objects if x.have_physics()]
-        for obj in only_have_physics:
-            obj.process_physics(self.__delta_time, only_have_physics)
-    
-    def render_world(self):
-        self.__world_objects.sort(key=lambda x: x.get_position().get_z())
-        for obj in self.__world_objects:
-            obj.render_graphics(self.__graphics_api, self.get_delta_time())
-        
     def pause(self):
         self.__pause = True
     
@@ -71,8 +62,14 @@ class World:
             newTime = time.time()
             self.__delta_time = (newTime - self.__last_run_time)
             self.__last_run_time = newTime
-            self.process_physics()
-            self.render_world()
+            
+            self.__world_objects.sort(key=lambda x: x.get_position().get_z())
+            only_have_physics = [x for x in self.__world_objects if x.have_physics()]
+            for obj in self.__world_objects:
+                obj.loop()
+                if obj.have_physics(): obj.process_physics(self.__delta_time, only_have_physics)
+                obj.render_graphics(self.__graphics_api, self.get_delta_time())
+            
             self.__rotine_status = WorldRotineStatusEnum.FINISH
             self.__fps = 1/max(self.__delta_time, 1/1000)
     

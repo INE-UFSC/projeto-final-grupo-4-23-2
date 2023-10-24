@@ -14,10 +14,12 @@ class CubePlayer(GameObject):
                          break_cof=break_cof,max_speed=max_speed)
         
     def handle_on_collision(self, collisions_descriptions):
-        """ for cp in collisions_descriptions:
+        for cp in collisions_descriptions:
             self.get_graphics_api().draw_2d_lines(cp.get_vec_pair1(),color=(0,255,0),width=5)
             self.get_graphics_api().draw_2d_lines(cp.get_vec_pair2(),color=(0,255,0),width=5)
-            self.get_graphics_api().draw_2d_circle(cp.get_intersection_point(),color=(0,255,0),radius=3,width=3) """
+            self.get_graphics_api().draw_2d_circle(cp.get_intersection_point(),color=(0,255,0),radius=3,width=3)
+            
+    def loop(self):pass
         
 class Wall(GameObject):
     def __init__(self,initial_position:Vector3=Vector3(0,0,0),
@@ -30,18 +32,18 @@ class Wall(GameObject):
                          break_cof=break_cof,max_speed=max_speed)
     
     def handle_on_collision(self, collisions_descriptions): pass
+    def loop(self):pass
 
 class CubeGame(Game):    
     def add_local_player(self):
         s = 10
-        md = 0.01
         plocal = CubePlayer(break_cof=45, initial_position=Vector3(150,500,200), collision_polygons=[CollisionPolygon(vector_list=[
             #Vector3(2*s,0,0), Vector3(0,2*s,0)
             Vector3(0,0,0),
-            Vector3(s,md,0),
-            Vector3(s-md,s,0),
-            Vector3(0,s+md,0),
-            Vector3(md,md,0)
+            Vector3(s,0,0),
+            Vector3(s,s,0),
+            Vector3(0,s,0),
+            Vector3(0,0,0)
             ]
         )])
         plocal.set_render_collisions_polygons(True)
@@ -50,18 +52,18 @@ class CubeGame(Game):
         new_wall = Wall(initial_position=Vector3(200,500,200), collision_polygons=[
             CollisionPolygon(vector_list=[
                 Vector3(0,0,0),
-                Vector3(s*count,md,0),
-                Vector3(s*count-md,s,0),
-                Vector3(0,s+md,0),
-                Vector3(md,md,0)
+                Vector3(s*count,0,0),
+                Vector3(s*count,s,0),
+                Vector3(0,s,0),
+                Vector3(0,0,0)
             ]),
                              
             CollisionPolygon(vector_list=[
                 Vector3(0,0+s*5,0),
-                Vector3(s*count,md+s*5,0),
-                Vector3(s*count-md,s+s*5,0),
-                Vector3(0,s+md+s*5,0),
-                Vector3(md,md+s*5,0)
+                Vector3(s*count,0+s*5,0),
+                Vector3(s*count,s+s*5,0),
+                Vector3(0,s+s*5,0),
+                Vector3(0,0+s*5,0)
             ])
         ])
         

@@ -17,11 +17,13 @@ class PhysicsObject(ABC):
         self.__acceleration = initial_acceleration
         self.__collision_polygons = collision_polygons
         self.__smooth_fac = 1.0
+        self.__longest_len = max([x.get_longest_len() for x in self.__collision_polygons])
     
+    def get_longest_len(self): return self.__longest_len
     def get_break_cof_inv(self): return 0 if self.__break_cof==0 else 1/self.__break_cof
     def get_speed(self): return self.__speed
     def get_collision_polygons(self): return self.__collision_polygons
-
+    
     def set_collision_polygons(self, value): self.__collision_polygons = value    
     def set_max_speed(self, value): self.__max_speed = value
     def set_acceleration(self, value): self.__acceleration = value  
@@ -37,22 +39,6 @@ class PhysicsObject(ABC):
     
     def get_transform_len(self, delta_time:float, smooth_fac:float):
         return delta_time*self.__smooth_fac*self.get_speed()
-    
-    def get_approximate_collision_distance(self, ref_pos_from:Vector3, transform_len:float, rotation_axis:Vector3, ref_pos_other:Vector3, other_collision_polygons:[]):
-        s = 1
-        ms = 0.9
-        
-        will_collide = True
-        while will_collide and s > ms:
-            tr_len = transform_len*s
-            for scp in self.__collision_polygons:
-                for wcp in other_collision_polygons:
-                    if scp == wcp: continue
-                    will_collide = scp.will_collide(ref_pos_from, tr_len, rotation_axis, ref_pos_other, wcp)
-                    
-            if will_collide: s *= 0.9
-
-        return None if not will_collide else s*transform_len
     
     def will_collide(self, ref_pos_from:Vector3, transform_len:float, rotation_axis:Vector3, ref_pos_other:Vector3, other_collision_polygons:[]):
         for scp in self.__collision_polygons:
