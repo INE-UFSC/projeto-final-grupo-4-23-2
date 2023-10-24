@@ -59,7 +59,7 @@ class PhysicsObject(ABC):
             for wcp in other_collision_polygons:
                 if scp == wcp: continue
                 if scp.will_collide(ref_pos_from, transform_len, rotation_axis, ref_pos_other, wcp): return True
-
+        
         return False
     
     def get_collisions(self, ref_pos_from:Vector3, ref_pos_other:Vector3, other_collision_polygons:[]):

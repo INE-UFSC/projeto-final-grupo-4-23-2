@@ -22,18 +22,18 @@ class CollisionPolygon():
             v.transform_2d_2d(value, rotation_axis)
     
     def will_collide(self, ref_position_from:Vector3, transform_len:float, rotation_axis:Vector3, ref_position_other:Vector3, other_polygon):
-        self_vector_list = self.get_vectors(ref_position_from)
-        other_vector_list = other_polygon.get_vectors(ref_position_other)
+        self_vector_list = [x.get_float_array() for x in self.get_vectors(ref_position_from)]
+        other_vector_list = [x.get_float_array() for x in other_polygon.get_vectors(ref_position_other)]
         rot_axis_arr = rotation_axis.get_float_array()
         
         last_v = self_vector_list[0]
         for v in self_vector_list[1:]:
             last_v2 = other_vector_list[0]
-            vec1_pair = [last_v.get_float_array(), v.get_float_array()]
+            vec1_pair = [last_v, v]
             pv = Vector3.get_projection_vec3_arrays(transform_len, rot_axis_arr, vec1_pair)
             
             for v2 in other_vector_list[1:]: 
-                if Vector3.will_collide_2d(pv, vec1_pair, [last_v2.get_float_array(), v2.get_float_array()]): return True
+                if Vector3.will_collide_2d(pv, vec1_pair, [last_v2, v2]): return True
                 last_v2 = v2
                 
             last_v = v

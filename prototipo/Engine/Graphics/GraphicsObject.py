@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
 
 class GraphicsObject(ABC):
@@ -10,6 +10,5 @@ class GraphicsObject(ABC):
     def set_graphics_api(self, new_api):
         self.__graphics_api = new_api
     
-    def render_graphics(self, position, rotation_axis, color=(255,0,0)):
-        self.__graphics_api.draw_2d_rect(position.get_x(), position.get_y(), 10, 10, color)
-        #pass
+    @abstractmethod
+    def render_graphics(self, position, rotation_axis, color=(255,0,0)): pass

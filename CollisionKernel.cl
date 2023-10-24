@@ -1,16 +1,15 @@
 /* 
-    def det(a:[float], b:[float]): 
+    def vector3_det(a:[float], b:[float]): 
         return a[0] * b[1] - a[1] * b[0] 
 */
-float det(float* a_g, float* b_g)
+float vector3_det(float* a_g, float* b_g)
 {
-    int gid = get_global_id(0);
     return a_g[0] * b_g[1] - a_g[1] * b_g[0];
 }
 
 
 /* 
-    def is_inside(self_vec3:[float], edges:[[float]]):
+    def vector3_is_inside(self_vec3:[float], edges:[[float]]):
         count = 0
         sx = self_vec3[0]
         sy = self_vec3[1]
@@ -23,7 +22,7 @@ float det(float* a_g, float* b_g)
         
         return count%2==1 
 */
-bool is_inside(float* self_vec3, float*** edges, int edges_len)
+bool vector3_is_inside(float* self_vec3, float*** edges, int edges_len)
 {
     int tid = get_global_id(0);
     
@@ -48,7 +47,7 @@ bool is_inside(float* self_vec3, float*** edges, int edges_len)
 
 
 /* 
-    def get_2d_point_intersection(vec3_pair_1:[[float]], vec3_pair_2:[[float]]):
+    def vector3_get_2d_point_intersection(vec3_pair_1:[[float]], vec3_pair_2:[[float]]):
         vlst = (
             ((vec3_pair_1[0][0],vec3_pair_1[0][1]),(vec3_pair_1[1][0],vec3_pair_1[1][1])),
             ((vec3_pair_2[0][0],vec3_pair_2[0][1]),(vec3_pair_2[1][0],vec3_pair_2[1][1]))
@@ -57,12 +56,12 @@ bool is_inside(float* self_vec3, float*** edges, int edges_len)
         xdiff = (vlst[0][0][0] - vlst[0][1][0], vlst[1][0][0] - vlst[1][1][0])
         ydiff = (vlst[0][0][1] - vlst[0][1][1], vlst[1][0][1] - vlst[1][1][1])
 
-        div = Vector3.det(xdiff, ydiff)
+        div = Vector3.vector3_det(xdiff, ydiff)
         if div == 0: return None  # Linhas não se cruzam
 
-        d = (Vector3.det(*vlst[0]), Vector3.det(*vlst[1]))
-        x = Vector3.det(d, xdiff) / div
-        y = Vector3.det(d, ydiff) / div
+        d = (Vector3.vector3_det(*vlst[0]), Vector3.vector3_det(*vlst[1]))
+        x = Vector3.vector3_det(d, xdiff) / div
+        y = Vector3.vector3_det(d, ydiff) / div
         
         for i in range(2):
             if x > max(vlst[i][0][0], vlst[i][1][0]) or x < min(vlst[i][0][0], vlst[i][1][0]): return None
@@ -70,7 +69,7 @@ bool is_inside(float* self_vec3, float*** edges, int edges_len)
         
         return Vector3(x, y, 0)  # Retorna as coordenadas do cruzamento
 */
-float* get_2d_point_intersection(float** vec3_pair_1, float** vec3_pair_2){
+float* vector3_get_2d_point_intersection(float** vec3_pair_1, float** vec3_pair_2){
     float* result;
 
     float*** vlst;
@@ -87,16 +86,16 @@ float* get_2d_point_intersection(float** vec3_pair_1, float** vec3_pair_2){
     ydiff[0] = vlst[0][0][1] - vlst[0][1][1];
     ydiff[1] = vlst[1][0][1] - vlst[1][1][1];
 
-    float div = det(xdiff, ydiff);
+    float div = vector3_det(xdiff, ydiff);
     if (div == 0) return result;
 
-    //d = (Vector3.det(*vlst[0]), Vector3.det(*vlst[1]))
+    //d = (Vector3.vector3_det(*vlst[0]), Vector3.vector3_det(*vlst[1]))
     float* d;
-    d[0] = det(vlst[0][0], vlst[0][1]); //REVISAR !!!
-    d[1] = det(vlst[1][0], vlst[1][1]);
+    d[0] = vector3_det(vlst[0][0], vlst[0][1]); //REVISAR !!!
+    d[1] = vector3_det(vlst[1][0], vlst[1][1]);
 
-    float x = det(d, xdiff) / div;
-    float y = det(d, ydiff) / div;
+    float x = vector3_det(d, xdiff) / div;
+    float y = vector3_det(d, ydiff) / div;
     
     for (int i = 0; i < 2; i++){
         if ((x > max(vlst[i][0][0], vlst[i][1][0])) || (x < min(vlst[i][0][0], vlst[i][1][0]))) return result;
@@ -144,12 +143,12 @@ float** get_projection_vec3_arrays(float transform_len, float* rotation_axis, fl
 
 /* 
     def will_collide_2d(pv, vec_pair_1:[[float]], vec_pair_2:[[float]]):
-        if Vector3.get_2d_point_intersection([vec_pair_1[0], pv[0]], vec_pair_2): return  True
-        if Vector3.get_2d_point_intersection([vec_pair_1[1], pv[1]], vec_pair_2): return  True
-        if Vector3.get_2d_point_intersection([pv[0], pv[1]], vec_pair_2): return  True
+        if Vector3.vector3_get_2d_point_intersection([vec_pair_1[0], pv[0]], vec_pair_2): return  True
+        if Vector3.vector3_get_2d_point_intersection([vec_pair_1[1], pv[1]], vec_pair_2): return  True
+        if Vector3.vector3_get_2d_point_intersection([pv[0], pv[1]], vec_pair_2): return  True
         
         poly = [vec_pair_1, [vec_pair_1[0], pv[0]], [vec_pair_1[1], pv[1]], [pv[0], pv[1]]]
-        inside = Vector3.is_inside(vec_pair_2[0], poly) or Vector3.is_inside(vec_pair_2[1], poly)
+        inside = Vector3.vector3_is_inside(vec_pair_2[0], poly) or Vector3.vector3_is_inside(vec_pair_2[1], poly)
         
         return inside 
 */
@@ -158,14 +157,14 @@ bool  will_collide_2d(float** pv, float** vec_pair_1, float** vec_pair_2){
 
     tmp[0] = vec_pair_1[0];
     tmp[1] = pv[0];
-    if (get_2d_point_intersection(tmp, vec_pair_2)) return true;
+    if (vector3_get_2d_point_intersection(tmp, vec_pair_2)) return true;
 
     tmp[0] = vec_pair_1[1];
     tmp[1] = pv[1];
-    if (get_2d_point_intersection(tmp, vec_pair_2)) return true;
+    if (vector3_get_2d_point_intersection(tmp, vec_pair_2)) return true;
 
     tmp[0] = pv[0];
-    if (get_2d_point_intersection(tmp, vec_pair_2)) return true;
+    if (vector3_get_2d_point_intersection(tmp, vec_pair_2)) return true;
     
     float*** poly;
     poly[0] = vec_pair_1;
@@ -176,7 +175,51 @@ bool  will_collide_2d(float** pv, float** vec_pair_1, float** vec_pair_2){
     poly[3][0] = pv[0];
     poly[3][1] = pv[1];
 
-    bool inside = (is_inside(vec_pair_2[0], poly, 4) || is_inside(vec_pair_2[1], poly, 4));
+    bool inside = (vector3_is_inside(vec_pair_2[0], poly, 4) || vector3_is_inside(vec_pair_2[1], poly, 4));
     
     return inside;
+}
+
+
+
+
+
+
+
+
+/* 
+    def will_collide(self, ref_position_from:Vector3, transform_len:float, rotation_axis:Vector3, ref_position_other:Vector3, other_polygon):
+        self_vector_list = self.get_vectors(ref_position_from)
+        other_vector_list = other_polygon.get_vectors(ref_position_other)
+        rot_axis_arr = rotation_axis.get_float_array()
+        
+        last_v = self_vector_list[0]
+        for v in self_vector_list[1:]:
+            last_v2 = other_vector_list[0]
+            vec1_pair = [last_v.get_float_array(), v.get_float_array()]
+            pv = Vector3.get_projection_vec3_arrays(transform_len, rot_axis_arr, vec1_pair)
+            
+            for v2 in other_vector_list[1:]: 
+                if Vector3.will_collide_2d(pv, vec1_pair, [last_v2.get_float_array(), v2.get_float_array()]): return True
+                last_v2 = v2
+                
+            last_v = v
+            
+        return False
+*/
+
+__kernel void will_collide(
+    __global float* values, __global bool* ret
+    /* __global float* transform_len, __global float* rotation_axis, 
+    __global float* ref_position_from, __global float* from_polygon_vec_lst, __global int* from_poly_vec_lst_count,
+    __global float* ref_position_other,__global float* other_polygon_vec_lst, __global int* other_poly_vec_lst_count */
+    )
+{
+    int gid = get_global_id(0);
+    float mov_objs_count = values[0];
+    
+    /* for (int i = 0; i < *from_poly_vec_lst_count; i++){
+        
+    } */
+
 }

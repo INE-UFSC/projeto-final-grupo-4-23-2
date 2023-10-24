@@ -34,35 +34,40 @@ class Wall(GameObject):
 class CubeGame(Game):    
     def add_local_player(self):
         s = 10
+        md = 0.01
         plocal = CubePlayer(break_cof=45, initial_position=Vector3(150,500,200), collision_polygons=[CollisionPolygon(vector_list=[
             #Vector3(2*s,0,0), Vector3(0,2*s,0)
             Vector3(0,0,0),
-            Vector3(s,1,0),
-            Vector3(s-1,s,0),
-            Vector3(0,s+1,0),
-            Vector3(1,1,0)
+            Vector3(s,md,0),
+            Vector3(s-md,s,0),
+            Vector3(0,s+md,0),
+            Vector3(md,md,0)
             ]
         )])
-                
-        for i in range(5):
-            self.get_world().add_object(Wall(initial_position=Vector3(200+s*i,500,200), collision_polygons=[CollisionPolygon(vector_list=[
-                #Vector3(0,0,0), Vector3(2*s,2*s,0)
-                Vector3(0,0,0),
-                Vector3(s,1,0),
-                Vector3(s-1,s,0),
-                Vector3(0,s+1,0),
-                Vector3(1,1,0)
-                ]
-            )]))
-            self.get_world().add_object(Wall(initial_position=Vector3(200+s*i,500+s*5,200), collision_polygons=[CollisionPolygon(vector_list=[
-                Vector3(0,0,0),
-                Vector3(s,1,0),
-                Vector3(s,s,0),
-                Vector3(0,s+1,0),
-                Vector3(0,1,0)
-                ]
-            )]))
+        plocal.set_render_collisions_polygons(True)
         
+        count = 10
+        new_wall = Wall(initial_position=Vector3(200,500,200), collision_polygons=[
+            CollisionPolygon(vector_list=[
+                Vector3(0,0,0),
+                Vector3(s*count,md,0),
+                Vector3(s*count-md,s,0),
+                Vector3(0,s+md,0),
+                Vector3(md,md,0)
+            ]),
+                             
+            CollisionPolygon(vector_list=[
+                Vector3(0,0+s*5,0),
+                Vector3(s*count,md+s*5,0),
+                Vector3(s*count-md,s+s*5,0),
+                Vector3(0,s+md+s*5,0),
+                Vector3(md,md+s*5,0)
+            ])
+        ])
+        
+        
+        new_wall.set_render_collisions_polygons(True)
+        self.get_world().add_object(new_wall)
         self.get_world().add_object(plocal)
         def move_player(key, event):
             keys_rot = {

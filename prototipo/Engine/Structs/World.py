@@ -23,6 +23,8 @@ class World:
     def get_fps(self):
         return self.__fps
     
+    def get_delta_time(self): return self.__delta_time
+    
     def get_graphics_api(self): return self.__graphics_api
     
     def get_rotine_status(self): return self.__rotine_status
@@ -44,7 +46,7 @@ class World:
     def render_world(self):
         self.__world_objects.sort(key=lambda x: x.get_position().get_z())
         for obj in self.__world_objects:
-            obj.render_graphics(self.__graphics_api)
+            obj.render_graphics(self.__graphics_api, self.get_delta_time())
         
     def pause(self):
         self.__pause = True

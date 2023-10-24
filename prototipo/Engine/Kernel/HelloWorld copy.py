@@ -17,7 +17,7 @@ mf = cl.mem_flags
 a_g = cl.Buffer(ctx, mf.READ_ONLY | mf.COPY_HOST_PTR, hostbuf=a_np)
 b_g = cl.Buffer(ctx, mf.READ_ONLY | mf.COPY_HOST_PTR, hostbuf=b_np)
 
-kernel = open("Vector3.cl", "r").read()
+kernel = open("CollisionKernel.cl", "r").read()
 prg = cl.Program(ctx, kernel).build()
 
 res_g = cl.Buffer(ctx, mf.WRITE_ONLY, 4)
