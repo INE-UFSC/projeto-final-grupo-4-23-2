@@ -68,7 +68,7 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
                 
                 lv = v
             
-    @abstractclassmethod
+    #@abstractclassmethod
     def render_graphics(self, graphics_api:IGraphicsApi):
         if self.__render_collisions_polygons: self.__render_collision_polys(self.get_world().get_delta_time())
     
@@ -91,18 +91,17 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
         ref_pos_from_proj = self.get_position().copy()
         if will_collide: 
             ref_pos_from_proj.transform_2d(tr_len, self.get_rotation_axis())
-            
-            collisions_lsts = [
-                self.get_collisions(
-                    ref_pos_from_proj,
-                    x.get_position(), 
-                    x.get_collision_polygons()) 
-                for x in objs]
-            
-            collisions_lsts = [x for x in collisions_lsts if len(x)>0]
             collisions = []
-            for c in collisions_lsts: collisions.extend(c)
             
+            for obj in objs:
+                cols = self.get_collisions(ref_pos_from_proj, obj.get_position(), obj.get_collision_polygons()) 
+                if len(cols)>0:
+                    for c in cols:
+                        c.set_game_object1(self)
+                        c.set_game_object2(obj)
+                    
+                    collisions.extend(cols)
+
             if len(collisions)>0: self.handle_on_collision(collisions)
         else: 
             self.get_position().transform_2d(tr_len, self.get_rotation_axis())
