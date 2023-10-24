@@ -23,4 +23,7 @@ class IGraphicsApi(ABC):
     def draw_2d_sprite(self, name:str, file_data_position:Rectangle, world_position:Rectangle): pass
     
     @abstractclassmethod
-    def draw_2d_text(self, text:str, x:int, y:int, color, background_color, font_size:int=32, font_family:str="freesansbold.ttf"): pass        
+    def draw_2d_text(self, text:str, x:int, y:int, color, background_color, font_size:int=32, font_family:str="freesansbold.ttf"): pass   
+    
+    @abstractclassmethod
+    def draw_2d_sprite(self, imp, x:int, y:int, x_frame:int=None, y_frame:int=None, sprite_size:int=None): pass

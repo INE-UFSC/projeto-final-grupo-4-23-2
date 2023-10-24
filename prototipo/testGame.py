@@ -5,6 +5,9 @@ from Engine.Game import *
 from Engine.Physics.CollisionDescriptor import CollisionDescriptor
 from Engine.Physics.CollisionPolygons.Square import Square
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
+from Engine.Graphics.Animation import Animation
+
+player_speed = 50
 
 class EndMazeFlag(GameObject):
     def __init__(self,initial_position:Vector3=Vector3(0,0,0),
@@ -22,7 +25,9 @@ class EndMazeFlag(GameObject):
     def render_graphics(self, graphics_api:IGraphicsApi):
         super().render_graphics(graphics_api)
 
-class CubePlayer(GameObject):
+
+
+class PowerUp(GameObject):
     def __init__(self,initial_position:Vector3=Vector3(0,0,0),
                 initial_rotation_axis:Vector3=Vector3(0,0,0), 
                 initial_speed:float=0,initial_acceleration:float=0,
@@ -32,17 +37,49 @@ class CubePlayer(GameObject):
                          initial_acceleration=initial_acceleration,initial_speed=initial_speed,
                          break_cof=break_cof,max_speed=max_speed)
         
-    def handle_on_collision(self, collisions_descriptions:CollisionDescriptor):
-        for cp in collisions_descriptions:
-            if isinstance(cp.get_game_object2(), EndMazeFlag): print("WIN!")
-            self.get_graphics_api().draw_2d_lines(cp.get_vec_pair1(),color=(0,255,0),width=5)
-            self.get_graphics_api().draw_2d_lines(cp.get_vec_pair2(),color=(0,255,0),width=5)
-            self.get_graphics_api().draw_2d_circle(cp.get_intersection_point(),color=(0,255,0),radius=3,width=3)
-            
+    def handle_on_collision(self, collisions_descriptions):pass
     def loop(self): pass
     def start(self): pass
     def render_graphics(self, graphics_api:IGraphicsApi):
         super().render_graphics(graphics_api)
+    
+    def active(self):
+        global player_speed
+        player_speed = 200
+
+
+
+class CubePlayer(GameObject):
+    def __init__(self,initial_position:Vector3=Vector3(0,0,0),
+                initial_rotation_axis:Vector3=Vector3(0,0,0), 
+                initial_speed:float=0,initial_acceleration:float=0,
+                break_cof:float=0,max_speed=math.inf,
+                collision_polygons:[CollisionPolygon]=[]):
+        super().__init__(initial_position=initial_position, collision_polygons=collision_polygons,
+                         initial_acceleration=initial_acceleration,initial_speed=initial_speed,
+                         break_cof=break_cof,max_speed=max_speed)
+        self.__main_animation = Animation("Assets\\1 Pink_Monster\\Pink_Monster_Run_6.png", 6, 32, speed=10)
+        
+    def handle_on_collision(self, collisions_descriptions:CollisionDescriptor):
+        for cp in collisions_descriptions:
+            if isinstance(cp.get_game_object2(), EndMazeFlag): print("WIN!")
+            if isinstance(cp.get_game_object2(), PowerUp):
+                cp.get_game_object2().active()
+                print("Active Power UP!")
+            
+    def loop(self):
+        self.__main_animation.play(self.get_world().get_delta_time())
+        
+    def start(self): pass
+    def render_graphics(self, graphics_api:IGraphicsApi):
+        super().render_graphics(graphics_api)
+        self.__main_animation.render(graphics_api, self.get_position().get_x(), self.get_position().get_y())
+        
+        
+        
+        
+        
+        
         
 class Wall(GameObject):
     def __init__(self,initial_position:Vector3=Vector3(0,0,0),
@@ -60,14 +97,21 @@ class Wall(GameObject):
     def render_graphics(self, graphics_api:IGraphicsApi):
         super().render_graphics(graphics_api)
 
+
+
+
+
+
 class CubeGame(Game):    
     def add_local_player(self):
         s = 10
-        plocal = CubePlayer(break_cof=45, initial_position=Vector3(150,500,200), collision_polygons=[Square(s)])
+        plocal = CubePlayer(break_cof=45, initial_position=Vector3(150,500,200), collision_polygons=[Square(32)])
         flag = EndMazeFlag(initial_position=Vector3(350,500,200), collision_polygons=[Square(size=15)])
+        powerup = PowerUp(initial_position=Vector3(450,500,200), collision_polygons=[Square(size=35)])
         
         plocal.set_render_collisions_polygons(True)
         flag.set_render_collisions_polygons(True)
+        powerup.set_render_collisions_polygons(True)
         
         count = 10
         new_wall = Wall(initial_position=Vector3(200,500,200), collision_polygons=[
@@ -93,6 +137,8 @@ class CubeGame(Game):
         self.get_world().add_object(new_wall)
         self.get_world().add_object(plocal)
         self.get_world().add_object(flag)
+        self.get_world().add_object(powerup)
+        
         def move_player(key, event):
             keys_rot = {
                 "w":180,
@@ -102,7 +148,7 @@ class CubeGame(Game):
             }
             if event in [KeyEventEnum.DOWN,KeyEventEnum.PRESS]:
                 plocal.set_rotation_axis(Vector3(math.radians(keys_rot[key]),0,0))
-                plocal.set_speed(50)
+                plocal.set_speed(player_speed)
             else:
                 plocal.set_speed(0)
             
