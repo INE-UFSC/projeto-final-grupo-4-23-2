@@ -68,24 +68,22 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
                 
                 lv = v
             
-    
-    def render_graphics(self, graphics_api:IGraphicsApi, delta_time:float):
-        super().render_graphics(self.get_position(), self.get_rotation_axis())
-        if self.__render_collisions_polygons: self.__render_collision_polys(delta_time)
+    @abstractclassmethod
+    def render_graphics(self, graphics_api:IGraphicsApi):
+        if self.__render_collisions_polygons: self.__render_collision_polys(self.get_world().get_delta_time())
     
     
     def process_physics(self, delta_time: float, world_game_objects: []):
         tr_len = super().get_transform_len(delta_time, 1)
         if tr_len == 0: return
         
+        spos = self.get_position()
+        srot = self.get_rotation_axis()
         objs = [x for x in world_game_objects if x != self and self.in_collision_range(x)]
+        
         will_collide = False
         for obj in objs:
-            if self.will_collide(
-                self.get_position(), tr_len, 
-                self.get_rotation_axis(), 
-                obj.get_position(), 
-                obj.get_collision_polygons()):
+            if self.will_collide(spos, tr_len, srot, obj.get_position(), obj.get_collision_polygons()):
                 will_collide = True
                 break
         
@@ -111,3 +109,6 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
             
     @abstractclassmethod
     def loop(self): pass
+    
+    @abstractclassmethod
+    def start(self): pass

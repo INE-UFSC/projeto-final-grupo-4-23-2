@@ -11,4 +11,4 @@ class GraphicsObject(ABC):
         self.__graphics_api = new_api
     
     @abstractmethod
-    def render_graphics(self, position, rotation_axis, color=(255,0,0)): pass
+    def render_graphics(self): pass

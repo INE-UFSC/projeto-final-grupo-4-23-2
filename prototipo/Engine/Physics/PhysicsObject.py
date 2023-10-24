@@ -17,14 +17,22 @@ class PhysicsObject(ABC):
         self.__acceleration = initial_acceleration
         self.__collision_polygons = collision_polygons
         self.__smooth_fac = 1.0
-        self.__longest_len = max([x.get_longest_len() for x in self.__collision_polygons])
+        self.__longest_len = 0
+        self.__set_longest_len()
     
     def get_longest_len(self): return self.__longest_len
     def get_break_cof_inv(self): return 0 if self.__break_cof==0 else 1/self.__break_cof
     def get_speed(self): return self.__speed
     def get_collision_polygons(self): return self.__collision_polygons
     
-    def set_collision_polygons(self, value): self.__collision_polygons = value    
+    def __set_longest_len(self):
+        if len(self.__collision_polygons)>0:
+            self.__longest_len = max([x.get_longest_len() for x in self.__collision_polygons])
+            
+    def set_collision_polygons(self, value): 
+        self.__collision_polygons = value    
+        self.__set_longest_len()
+        
     def set_max_speed(self, value): self.__max_speed = value
     def set_acceleration(self, value): self.__acceleration = value  
     def set_speed(self, value): self.__speed = value  

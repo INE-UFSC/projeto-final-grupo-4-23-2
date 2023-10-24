@@ -20,16 +20,21 @@ class GenericPlayer(GameObject):
     def render_graphics(self, graphics_api: IGraphicsApi):
         pos = self.get_position()
         self.get_graphics_api().draw_2d_rect(pos.get_x(), pos.get_y(), ps, ps, (0,255,0))
+        
+    def loop(self): pass
+    def start(self): pass
 
 class Wall(GameObject):
     def __init__(self):
         super().__init__()
     
-    def handle_on_collision(self, collisions_descriptions): return
-    
     def render_graphics(self, graphics_api: IGraphicsApi):
         pos = self.get_position()
         self.get_graphics_api().draw_2d_rect(pos.get_x(), pos.get_y(), s, s, (255,0,0))
+        
+    def loop(self): pass
+    def start(self): pass
+    def handle_on_collision(self, collisions_descriptions): pass
 
 class Maze(Game):
     def __init__(self, settings=GameSettings()):
@@ -59,18 +64,17 @@ plocal.set_collision_polygons([Square(s)])
 game.get_world().add_object(plocal)
 
 def move_player(key, event):
-    speed = 1
     keys_rot = {
-        "w": Vector3(0,-speed,0),
-        "s": Vector3(0,speed,0),
-        "a": Vector3(-speed,0,0),
-        "d": Vector3(speed,0,0),
+        "w":180,
+        "s":0,
+        "a":270,
+        "d":90,
     }
-    
     if event in [KeyEventEnum.DOWN,KeyEventEnum.PRESS]:
-        future = plocal.get_position().copy().add(keys_rot[key])
-        if not game.collision_map.will_collide(future):
-            plocal.get_position().add(keys_rot[key])
+        plocal.set_rotation_axis(Vector3(math.radians(keys_rot[key]),0,0))
+        plocal.set_speed(50)
+    else:
+        plocal.set_speed(0)
     
 game.get_keyboard_hooker().hook_keyboard(
     ["w","s","d","a"], KeyEventEnum.ALL, 

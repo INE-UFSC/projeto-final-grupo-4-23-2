@@ -19,7 +19,8 @@ class CubePlayer(GameObject):
             self.get_graphics_api().draw_2d_lines(cp.get_vec_pair2(),color=(0,255,0),width=5)
             self.get_graphics_api().draw_2d_circle(cp.get_intersection_point(),color=(0,255,0),radius=3,width=3)
             
-    def loop(self):pass
+    def loop(self): pass
+    def start(self): pass
         
 class Wall(GameObject):
     def __init__(self,initial_position:Vector3=Vector3(0,0,0),
@@ -32,13 +33,13 @@ class Wall(GameObject):
                          break_cof=break_cof,max_speed=max_speed)
     
     def handle_on_collision(self, collisions_descriptions): pass
-    def loop(self):pass
+    def loop(self): pass
+    def start(self): pass
 
 class CubeGame(Game):    
     def add_local_player(self):
         s = 10
         plocal = CubePlayer(break_cof=45, initial_position=Vector3(150,500,200), collision_polygons=[CollisionPolygon(vector_list=[
-            #Vector3(2*s,0,0), Vector3(0,2*s,0)
             Vector3(0,0,0),
             Vector3(s,0,0),
             Vector3(s,s,0),

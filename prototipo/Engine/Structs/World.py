@@ -14,7 +14,7 @@ class World:
         self.__fps = 0
         self.__run = True
         self.__pause = False
-        self.__delta_time = 0
+        self.__delta_time = -1
         self.__last_run_time = time.time()
         self.__graphics_api = graphics_api
         self.__world_objects:[GameObject] = []
@@ -59,6 +59,9 @@ class World:
     def __world_rotine(self):
         while self.__run:
             if not self.runner_control(): continue
+            if self.get_delta_time()<0:
+                for obj in self.__world_objects: obj.start()
+            
             newTime = time.time()
             self.__delta_time = (newTime - self.__last_run_time)
             self.__last_run_time = newTime
@@ -68,7 +71,7 @@ class World:
             for obj in self.__world_objects:
                 obj.loop()
                 if obj.have_physics(): obj.process_physics(self.__delta_time, only_have_physics)
-                obj.render_graphics(self.__graphics_api, self.get_delta_time())
+                obj.render_graphics(self.__graphics_api)
             
             self.__rotine_status = WorldRotineStatusEnum.FINISH
             self.__fps = 1/max(self.__delta_time, 1/1000)

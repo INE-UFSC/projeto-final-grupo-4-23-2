@@ -5,7 +5,11 @@ class CollisionPolygon():
     def __init__(self, name:str="GenericPolygon", vector_list:list[Vector3]=[]):
         self.__vector_list = vector_list
         self.__name = name
-        self.__longest_len = max([x.get_abs_distance_2d(Vector3()) for x in vector_list])
+        
+        if len(vector_list)>0:
+            self.__longest_len = max([x.get_abs_distance_2d(Vector3()) for x in vector_list])
+        else:
+            self.__longest_len = 0
     
     def get_name(self): return self.__name
     
