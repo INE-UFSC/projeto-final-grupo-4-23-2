@@ -49,6 +49,9 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
     def rotate(self, value:Vector3): 
         self.__rotation_axis.add(value)
         
+    def kill(self):
+        self.__world.kill_game_object(self)
+    
     @abstractclassmethod
     def handle_on_collision(self, collisions_descriptions): pass
     

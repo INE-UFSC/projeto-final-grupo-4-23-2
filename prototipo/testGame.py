@@ -34,6 +34,7 @@ class PowerUp(GameObject):
     def active(self):
         global player_speed
         player_speed = 200
+        self.kill()
 
 
 

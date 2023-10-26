@@ -39,6 +39,10 @@ class World:
     def get_world_objects(self): 
         return self.__world_objects
     
+    def kill_game_object(self, game_object):
+        if game_object in self.__world_objects:
+            self.__world_objects.remove(game_object)
+    
     def pause(self):
         self.__pause = True
     
