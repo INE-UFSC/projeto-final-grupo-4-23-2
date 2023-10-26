@@ -7,10 +7,10 @@ class Square(CollisionPolygon):
         s = size*0.5
         super().__init__(
             vector_list=[
-            Vector3(0,0,0).add(vec3_offset),
-            Vector3(s,0,0).add(vec3_offset),
+            Vector3(-s,-s,0).add(vec3_offset),
+            Vector3(s,-s,0).add(vec3_offset),
             Vector3(s,s,0).add(vec3_offset),
-            Vector3(0,s,0).add(vec3_offset),
-            Vector3(0,0,0).add(vec3_offset)
+            Vector3(-s,s,0).add(vec3_offset),
+            Vector3(-s,-s,0).add(vec3_offset)
             ]
         )
