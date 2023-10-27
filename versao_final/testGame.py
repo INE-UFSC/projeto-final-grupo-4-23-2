@@ -6,6 +6,7 @@ from Engine.Physics.CollisionDescriptor import CollisionDescriptor
 from Engine.Physics.CollisionPolygons.Square import Square
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
 from Engine.Graphics.Animation import Animation
+from MazeGame.Objects.Maze import Maze
 
 player_speed = 50
 
@@ -82,39 +83,21 @@ class Wall(GameObject):
 class CubeGame(Game):    
     def add_local_player(self):
         s = 10
-        plocal = CubePlayer(initial_position=Vector3(150,500,200), collision_polygons=[Square(32)])
-        flag = EndMazeFlag(initial_position=Vector3(350,500,200), collision_polygons=[Square(size=15)])
-        powerup = PowerUp(initial_position=Vector3(450,500,200), collision_polygons=[Square(size=35)])
+        plocal = CubePlayer(initial_position=Vector3(50+32,50+32,200), collision_polygons=[Square(32)])
+        maze = Maze(initial_position=Vector3(50,50,0),size=5, block_size=32)
+        #flag = EndMazeFlag(initial_position=Vector3(350,500,200), collision_polygons=[Square(size=15)])
+        #powerup = PowerUp(initial_position=Vector3(450,500,200), collision_polygons=[Square(size=35)])
         
-        plocal.set_render_collisions_polygons(True)
-        flag.set_render_collisions_polygons(True)
-        powerup.set_render_collisions_polygons(True)
+        #plocal.set_render_collisions_polygons(True)
+        #flag.set_render_collisions_polygons(True)
+        #powerup.set_render_collisions_polygons(True)
         
-        count = 10
-        new_wall = Wall(initial_position=Vector3(200,500,200), collision_polygons=[
-            CollisionPolygon(vector_list=[
-                Vector3(0,0,0),
-                Vector3(s*count,0,0),
-                Vector3(s*count,s,0),
-                Vector3(0,s,0),
-                Vector3(0,0,0)
-            ]),
-                             
-            CollisionPolygon(vector_list=[
-                Vector3(0,0+s*5,0),
-                Vector3(s*count,0+s*5,0),
-                Vector3(s*count,s+s*5,0),
-                Vector3(0,s+s*5,0),
-                Vector3(0,0+s*5,0)
-            ])
-        ])
+       # maze.set_render_collisions_polygons(True)
         
-        
-        new_wall.set_render_collisions_polygons(True)
-        self.get_world().add_object(new_wall)
         self.get_world().add_object(plocal)
-        self.get_world().add_object(flag)
-        self.get_world().add_object(powerup)
+        self.get_world().add_object(maze)
+        #self.get_world().add_object(flag)
+        #self.get_world().add_object(powerup)
         
         def move_player(key, event):
             keys_rot = {

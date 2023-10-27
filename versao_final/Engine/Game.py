@@ -25,6 +25,8 @@ class Game(ABC):
     
     def get_world(self): return self.__world
     
+    def add_game_object(self, game_object): self.__world.add_object(game_object)
+    
     def get_keyboard_hooker(self): return self.__keyboard_hook_helper
     
     def initialize_surface(self):
