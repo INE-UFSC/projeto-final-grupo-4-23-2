@@ -6,6 +6,16 @@ from Engine.Physics.CollisionDescriptor import CollisionDescriptor
 from Engine.Physics.CollisionPolygons.Square import Square
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
 from Engine.Graphics.Animation import Animation
+import pygame
+from pygame import mixer
+
+pygame.init()
+
+pygame.mixer.music.set_volume(0.05)
+musica_de_fundo = pygame.mixer.music.load('prototipo/GameObject/songs/BoxCat Games - Tricks.mp3')
+pygame.mixer.music.play(-1)
+
+som_end_flag = pygame.mixer.Sound('prototipo/GameObject/songs/smw_message_block.wav')
 
 player_speed = 50
 
@@ -46,6 +56,7 @@ class CubePlayer(GameObject):
     def handle_on_collision(self, collisions_descriptions:CollisionDescriptor):
         for cp in collisions_descriptions:
             if isinstance(cp.get_game_object2(), EndMazeFlag): print("WIN!")
+            if isinstance(cp.get_game_object2(), EndMazeFlag): som_end_flag.play()
             if isinstance(cp.get_game_object2(), PowerUp):
                 cp.get_game_object2().active()
                 print("Active Power UP!")
