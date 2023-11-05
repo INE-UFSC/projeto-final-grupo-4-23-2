@@ -1,5 +1,22 @@
 from Player import Player
 import pygame
+from versao_final.Engine.Physics.CollisionPolygon import CollisionPolygon
+from versao_final.Engine.Structs.Vector3 import Vector3
+
+
+#######instanciando os objetos para teste
+
+
+# Instancie a classe Player com os argumentos acima
+player = Player(
+    Vector3(150, 500, 200),
+    [Square(8)],
+    name="Victória",
+    score=100,
+    life=3
+)
+
+
 
 largura = 640
 altura = 480
@@ -9,7 +26,7 @@ PRETO = (0, 0, 0)
 tela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption('Sprites')
 
-player = Player((4, 4), "victória", 100, 5, block=None)
+
 relogio = pygame.time.Clock()
 
 executando = True

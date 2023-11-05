@@ -1,13 +1,15 @@
 import os
 import math
 import time
-
+import sys
 from abc import abstractclassmethod, ABC
-from Engine.Graphics.GraphicsObject import GraphicsObject
-from Engine.Graphics.IGraphicsApi import IGraphicsApi
-from Engine.Physics.CollisionPolygon import CollisionPolygon
-from Engine.Structs.Vector3 import Vector3
-from Engine.Physics.PhysicsObject import PhysicsObject
+from versao_final.Engine.Graphics.GraphicsObject import GraphicsObject
+from versao_final.Engine.Graphics.IGraphicsApi import IGraphicsApi
+from versao_final.Engine.Physics.CollisionPolygon import CollisionPolygon
+from versao_final.Engine.Structs.Vector3 import Vector3
+from versao_final.Engine.Physics.PhysicsObject import PhysicsObject
+
+
 
 class GameObject(PhysicsObject, GraphicsObject, ABC):
     
@@ -109,8 +111,7 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
         else: 
             self.get_position().transform_2d(tr_len, self.get_rotation_axis())
             
-    @abstractclassmethod
-    def loop(self): pass
-    
-    @abstractclassmethod
-    def start(self): pass
+    #@abstractclassmethod
+    def loop(self): pass  
+    #@abstractclassmethod
+    def start(self): pass 

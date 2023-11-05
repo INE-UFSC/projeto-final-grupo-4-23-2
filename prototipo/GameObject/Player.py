@@ -18,7 +18,7 @@ class Player(GameObject):
         self.__score = score
         self.__life = life
         self.__sprites = PLAYER_IMAGES
-        self.__velocidade = 10 #quanto maior, mais rápido (diretamente proporcional)
+        self.__velocidade = 1  #quanto maior, mais rápido (diretamente proporcional)
         self.contagem_imagem = 0
         self.__imagem = self.__sprites[0]
     

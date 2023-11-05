@@ -1,3 +1,5 @@
+#tem as funções 
+
 import os 
 import pygame
 from imgs import *
