@@ -1,7 +1,9 @@
-from Player import Player
+from Game.Player import Player
 import pygame
-from versao_final.Engine.Physics.CollisionPolygon import CollisionPolygon
-from versao_final.Engine.Structs.Vector3 import Vector3
+from Engine.Physics.CollisionPolygon import CollisionPolygon
+from Engine.Structs.Vector3 import Vector3
+from Engine.Physics.CollisionPolygons.Square import Square
+
 
 
 #######instanciando os objetos para teste
@@ -9,15 +11,12 @@ from versao_final.Engine.Structs.Vector3 import Vector3
 
 # Instancie a classe Player com os argumentos acima
 player = Player(
-    Vector3(150, 500, 200),
-    [Square(8)],
+    initial_position=Vector3(150, 500, 200),
+    collision_polygons=[Square(8)],
     name="Victória",
     score=100,
     life=3
 )
-
-
-
 largura = 640
 altura = 480
 
@@ -48,7 +47,7 @@ while executando:
         player.move(pygame.K_RIGHT)
         
     tela.fill(PRETO)
-    player.draw_raccon(tela)
+    player.draw_player(tela)
     pygame.display.flip()
     relogio.tick(30)
 

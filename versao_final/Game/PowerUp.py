@@ -1,14 +1,13 @@
 from abc import abstractclassmethod, ABC
 import math
-from Player import Player
-from GameObject import*
+from Game.GameObject import*
 from versao_final.Engine.Physics.CollisionPolygon import CollisionPolygon
 from versao_final.Engine.Structs.Vector3 import Vector3
 
 class PowerUp(GameObject):
     def __init__(self, initial_position: Vector3 = ..., initial_rotation_axis: Vector3 = ..., initial_speed: float = 0, 
                  initial_acceleration: float = 0, break_cof: float = 0, max_speed=math.inf,
-                   collision_polygons: [CollisionPolygon] = ..., duration, points):
+                   collision_polygons: [CollisionPolygon] = ..., duration= 0, points= 0):
         super().__init__(initial_position, initial_rotation_axis, initial_speed, initial_acceleration, break_cof, max_speed, collision_polygons)
         self.__duration = duration
         self.__points = points #a classe power up que vai herdar, pode tratar os pontos como pontuação do jogo ou como pontuação de vida        
@@ -22,8 +21,8 @@ class PowerUp(GameObject):
         return self.__points
 
 
-    @abstractclassmethod
-    def active(self, player: Player): #implementar nas classes derivadas e herdar o método kill
+    @abstractclassmethod # em tempo de execução, ele sabe que é o player
+    def active(self, player): #implementar nas classes derivadas e herdar o método kill
         pass
 
     def handle_on_collision(self, collisions_descriptions): #VERIFICAR O PADRÃO PARA NÃO DEIXAR O MÉTODO SOLTO E SEM USO

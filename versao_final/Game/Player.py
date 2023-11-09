@@ -1,13 +1,15 @@
-import math
-from GameObject import*
-from PowerUp import*
-from EndMazeFlag import*
 import pygame
 import os
-from Constantes import ANIMATION_TIME, NEW_HEIGHT, NEW_WIDTH, PLAYER_SPEED
-from Sprites import PLAYER_IMAGES
-from versao_final.Engine.Physics.CollisionPolygon import CollisionPolygon
-from versao_final.Engine.Structs.Vector3 import Vector3
+import math
+from Game.GameObject import*
+from Game.PowerUp import PowerUp
+from Game.EndMazeFlag import*
+from Game.Constantes import ANIMATION_TIME, NEW_HEIGHT, NEW_WIDTH, PLAYER_SPEED
+from Game.Sprites import PLAYER_IMAGES
+from Engine.Physics.CollisionPolygon import CollisionPolygon
+from Engine.Structs.Vector3 import Vector3
+from Engine.Physics.CollisionDescriptor import CollisionDescriptor
+
 
 # Redimensiona todas as imagens do coala (a original tem 800 x 800)
 for i in range(len(PLAYER_IMAGES)):
@@ -23,8 +25,17 @@ class Player(GameObject):
         self.__player_speed = 5 #quanto maior, mais rápido (diretamente proporcional)
         self.contagem_imagem = 0 #variável auxiliar para a animação
         self.__imagem = self.__sprites[0]
+        self.__position = initial_position
     
   
+
+    @property
+    def position(self):  # Update getter method name here
+        return self.__position
+
+    @position.setter  # Update setter method name here
+    def position(self, position):
+        self.__position = position
 
     @property
     def name(self):

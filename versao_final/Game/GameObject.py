@@ -2,12 +2,13 @@ import os
 import math
 import time
 import sys
+sys.path.append('../')
 from abc import abstractclassmethod, ABC
-from versao_final.Engine.Graphics.GraphicsObject import GraphicsObject
-from versao_final.Engine.Graphics.IGraphicsApi import IGraphicsApi
-from versao_final.Engine.Physics.CollisionPolygon import CollisionPolygon
-from versao_final.Engine.Structs.Vector3 import Vector3
-from versao_final.Engine.Physics.PhysicsObject import PhysicsObject
+from Engine.Graphics.GraphicsObject import GraphicsObject
+from Engine.Graphics.IGraphicsApi import IGraphicsApi
+from Engine.Physics.CollisionPolygon import CollisionPolygon
+from Engine.Structs.Vector3 import Vector3
+from Engine.Physics.PhysicsObject import PhysicsObject
 
 
 
