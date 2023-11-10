@@ -14,10 +14,7 @@ class Maze(GameObject):
         self.__block_size = block_size
         self.__bin_matrix = Graph.binaryMatrix(size)
         self.create_collision_polygons()
-        self.__fences_img = pygame.image.load("Assets\\Objects\\fences.png").convert()
-        self.__fence_xy = {
-            [0,]
-        }
+        self.__fences_img = pygame.image.load("MazeGame\\Assets\\Images\\fences.png").convert()
     
     def get_connections(self, x, y, visited):
         top = (x,y-1)
@@ -120,6 +117,6 @@ class Maze(GameObject):
         for x in range(len(m)):
             for y in range(len(m[x])):
                 if m[x][y] == 1: # and x==0 and y==0
-                    self.get_graphics_api().draw_2d_rect(pos.get_x() + s*x, pos.get_y() + s*y, s, s, (255,0,0))
+                    pass#self.get_graphics_api().draw_2d_rect(pos.get_x() + s*x, pos.get_y() + s*y, s, s, (255,0,0))
         
     def handle_on_collision(self, collisions_descriptions): pass
