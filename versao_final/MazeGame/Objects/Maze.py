@@ -1,7 +1,7 @@
 import pygame
 from MazeGame.MazeGenerator.maze_generation import Graph
 
-from Engine.Structs.GameObject import GameObject
+from Game.GameObject import GameObject
 from Engine.Structs.Vector3 import Vector3
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
 from Engine.Physics.CollisionPolygon import CollisionPolygon

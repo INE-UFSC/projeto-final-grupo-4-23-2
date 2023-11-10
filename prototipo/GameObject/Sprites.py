@@ -1,6 +1,6 @@
 import os 
 import pygame
-from imgs import *
+from GameObject.imgs import *
 
 # Obtém o diretório do script Python atual
 script_directory = os.path.dirname(os.path.abspath(__file__))

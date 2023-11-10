@@ -8,15 +8,16 @@ from Engine.Graphics.IGraphicsApi import IGraphicsApi
 from Engine.Graphics.Animation import Animation
 import pygame
 from pygame import mixer
+from GameObject.Player import Player
 
 pygame.init()
-
+'''
 pygame.mixer.music.set_volume(0.05)
 musica_de_fundo = pygame.mixer.music.load('prototipo/GameObject/songs/BoxCat Games - Tricks.mp3')
 pygame.mixer.music.play(-1)
 
 som_end_flag = pygame.mixer.Sound('prototipo/GameObject/songs/smw_message_block.wav')
-
+'''
 player_speed = 50
 
 class EndMazeFlag(GameObject):
@@ -93,7 +94,8 @@ class Wall(GameObject):
 class CubeGame(Game):    
     def add_local_player(self):
         s = 10
-        plocal = CubePlayer(initial_position=Vector3(150,500,200), collision_polygons=[Square(32)])
+        #plocal = CubePlayer(initial_position=Vector3(150,500,200), collision_polygons=[Square(32)])
+        plocal = Player(initial_position=Vector3(150, 500, 200),collision_polygons=[Square(8)],name="Victória",score=100,life=3)
         flag = EndMazeFlag(initial_position=Vector3(350,500,200), collision_polygons=[Square(size=15)])
         powerup = PowerUp(initial_position=Vector3(450,500,200), collision_polygons=[Square(size=35)])
         

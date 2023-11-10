@@ -9,7 +9,7 @@ from Game.Sprites import PLAYER_IMAGES
 from Engine.Physics.CollisionPolygon import CollisionPolygon
 from Engine.Structs.Vector3 import Vector3
 from Engine.Physics.CollisionDescriptor import CollisionDescriptor
-
+from Engine.Structs.Vector3 import Vector3
 
 # Redimensiona todas as imagens do coala (a original tem 800 x 800)
 for i in range(len(PLAYER_IMAGES)):
@@ -72,7 +72,10 @@ class Player(GameObject):
 
         if self.contagem_imagem >= ANIMATION_TIME * 11:
             self.contagem_imagem = 0  # reiniciada após atingir o limite/completar a animação
-        tela.blit(self.imagem, self.position) #desenha a imagem na tela
+        x, y = int(self.position.get_x()), int(self.position.get_y())
+        tela.blit(self.imagem, (x, y)) 
+        
+        #tela.blit(self.imagem, self.position) #desenha a imagem na tela
 
 
     def move(self, key:str): #No pygame, a direção p cima é negativa

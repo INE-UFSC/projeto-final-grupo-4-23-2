@@ -1,5 +1,4 @@
-from GameObject import GameObject
-from Player import Player
+from Engine.Structs.GameObject import GameObject
 
 class PowerUp(GameObject):
     def __init__(self, position: (int, int), block: None,  duration: int, points: None):
@@ -26,8 +25,5 @@ class PowerUp(GameObject):
 
     
     def handle_on_collision(self, other_object):
-        if isinstance(other_object, Player): 
-            if self.duration > 0:
-                self.points += self.points
-                self.duration -=1
+        pass
 

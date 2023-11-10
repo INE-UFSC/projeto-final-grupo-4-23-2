@@ -2,7 +2,8 @@ from threading import Thread
 import time
 
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
-from Engine.Structs.GameObject import GameObject,Vector3
+from Engine.Structs import Vector3
+from Game.GameObject import GameObject
 
 class WorldRotineStatusEnum:
     WAITING_START_PERMISSION = 1,
