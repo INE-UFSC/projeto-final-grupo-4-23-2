@@ -20,7 +20,7 @@ class Game(ABC):
         self.load_resources()
         
         self.__graphics_api.set_surface(self.__surface)
-        self.__world = World(self.__graphics_api)
+        self.__world = World(self, self.__graphics_api)
         
     
     def get_world(self): return self.__world

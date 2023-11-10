@@ -2,8 +2,11 @@ from threading import Thread
 import time
 
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
-from Engine.Structs import Vector3
-from Game.GameObject import GameObject
+
+from Engine.Structs.GameObject import GameObject
+from Engine.Structs.Vector3 import Vector3
+from Engine import Game
+
 
 class WorldRotineStatusEnum:
     WAITING_START_PERMISSION = 1,
@@ -11,11 +14,12 @@ class WorldRotineStatusEnum:
     FINISH = 4
 
 class World:
-    def __init__(self, graphics_api:IGraphicsApi):
+    def __init__(self, game:Game, graphics_api:IGraphicsApi):
         self.__fps = 0
         self.__run = True
         self.__pause = False
         self.__delta_time = -1
+        self.__game = game
         self.__last_run_time = time.time()
         self.__graphics_api = graphics_api
         self.__world_objects:[GameObject] = []
@@ -23,6 +27,8 @@ class World:
     
     def get_fps(self):
         return self.__fps
+    
+    def get_game(self): return self.__game
     
     def get_delta_time(self): return self.__delta_time
     
