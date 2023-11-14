@@ -5,6 +5,7 @@ from Game.GameObject import GameObject
 from Engine.Structs.Vector3 import Vector3
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
 from Engine.Physics.CollisionPolygon import CollisionPolygon
+from Engine.Structs.ResourceManager import ResourceManager
 
 
 class Maze(GameObject):
@@ -14,7 +15,7 @@ class Maze(GameObject):
         self.__block_size = block_size
         self.__bin_matrix = Graph.binaryMatrix(size)
         self.create_collision_polygons()
-        self.__fences_img = pygame.image.load("MazeGame\\Assets\\Images\\fences.png").convert()
+        self.__fences_img = ResourceManager.load_resource_image("fences.png")
     
     def get_connections(self, x, y, visited):
         top = (x,y-1)
