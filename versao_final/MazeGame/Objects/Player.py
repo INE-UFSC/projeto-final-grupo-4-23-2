@@ -16,6 +16,9 @@ class GenericPlayer(GameObject):
         super().render_graphics(graphics_api)
         pos = self.get_position()
         self.get_graphics_api().draw_2d_rect(pos.get_x(), pos.get_y(), self.__player_size, self.__player_size, (0,255,0))
+
+
+
         
     def loop(self): pass
     def start(self):
