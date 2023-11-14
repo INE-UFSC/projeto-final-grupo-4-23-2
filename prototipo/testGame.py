@@ -17,8 +17,13 @@ musica_de_fundo = pygame.mixer.music.load('prototipo/GameObject/songs/BoxCat Gam
 pygame.mixer.music.play(-1)
 
 som_end_flag = pygame.mixer.Sound('prototipo/GameObject/songs/smw_message_block.wav')
+<<<<<<< HEAD
 '''
 player_speed = 50
+=======
+
+player_speed = 200
+>>>>>>> 73b21507b5b5580773baff9ac18649e5b172f4dc
 
 class EndMazeFlag(GameObject):
     def __init__(self,initial_position:Vector3=Vector3(0,0,0),collision_polygons:[CollisionPolygon]=[]):
@@ -29,6 +34,8 @@ class EndMazeFlag(GameObject):
     def start(self): pass
     def render_graphics(self, graphics_api:IGraphicsApi):
         super().render_graphics(graphics_api)
+        
+        
 
 
 
@@ -44,9 +51,24 @@ class PowerUp(GameObject):
     
     def active(self):
         global player_speed
-        player_speed = 200
+        player_speed = 500
         self.kill()
+        
 
+class Obstaculo(GameObject):
+    def __init__(self,initial_position:Vector3=Vector3(0,0,0),collision_polygons:[CollisionPolygon]=[]):
+        super().__init__(initial_position=initial_position, collision_polygons=collision_polygons)
+        
+    def handle_on_collision(self, collisions_descriptions):pass
+    def loop(self): pass
+    def start(self): pass
+    def render_graphics(self, graphics_api:IGraphicsApi):
+        super().render_graphics(graphics_api)
+    
+    def active(self):
+        global player_speed
+        player_speed = 20
+        self.kill()
 
 
 class CubePlayer(GameObject):
@@ -61,6 +83,9 @@ class CubePlayer(GameObject):
             if isinstance(cp.get_game_object2(), PowerUp):
                 cp.get_game_object2().active()
                 print("Active Power UP!")
+            if isinstance(cp.get_game_object2(), Obstaculo):
+                cp.get_game_object2().active()
+                print("Active obstaculo!")
             
     def loop(self):
         self.__main_animation.play(self.get_world().get_delta_time())
@@ -71,7 +96,7 @@ class CubePlayer(GameObject):
         self.__main_animation.render(graphics_api, self.get_position().get_x(), self.get_position().get_y())
         
         
-        
+
         
         
         
@@ -98,10 +123,12 @@ class CubeGame(Game):
         plocal = Player(initial_position=Vector3(150, 500, 200),collision_polygons=[Square(8)],name="Victória",score=100,life=3)
         flag = EndMazeFlag(initial_position=Vector3(350,500,200), collision_polygons=[Square(size=15)])
         powerup = PowerUp(initial_position=Vector3(450,500,200), collision_polygons=[Square(size=35)])
+        obstaculo = Obstaculo(initial_position=Vector3(350,200,100), collision_polygons=[Square(size=35)])
         
         plocal.set_render_collisions_polygons(True)
         flag.set_render_collisions_polygons(True)
         powerup.set_render_collisions_polygons(True)
+        obstaculo.set_render_collisions_polygons(True)
         
         count = 10
         new_wall = Wall(initial_position=Vector3(200,500,200), collision_polygons=[
@@ -128,6 +155,7 @@ class CubeGame(Game):
         self.get_world().add_object(plocal)
         self.get_world().add_object(flag)
         self.get_world().add_object(powerup)
+        self.get_world().add_object(obstaculo)
         
         def move_player(key, event):
             keys_rot = {
