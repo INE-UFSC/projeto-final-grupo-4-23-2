@@ -1,6 +1,6 @@
 from abc import abstractclassmethod, ABC
 import math
-from Game.GameObject import*
+from Engine.Structs.GameObject import GameObject
 from Engine.Physics.CollisionPolygon import CollisionPolygon
 from Engine.Structs.Vector3 import Vector3
 

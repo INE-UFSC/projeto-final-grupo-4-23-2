@@ -30,16 +30,16 @@ class Player(GameObject):
     def loop(self): pass
     def start(self):
         self.get_world().get_game().get_keyboard_hooker().hook_keyboard(
-            ["UP","DOWN","LEFT","RIGHT"], KeyEventEnum.ALL, 
+            ["w","s","a","d"], KeyEventEnum.ALL, 
             lambda key, event: self.move_player(key, event)
         )
         
     def move_player(self, key, event):
         keys_rot = {
-            "UP":180,
-            "DOWN":0,
-            "LEFT":270,
-            "RIGHT":90,
+            "w":180,
+            "s":0,
+            "a":270,
+            "d":90,
         }
         if event in [KeyEventEnum.DOWN,KeyEventEnum.PRESS]:
             self.set_rotation_axis(Vector3(math.radians(keys_rot[key]),0,0))
