@@ -1,4 +1,4 @@
-from GameObject import*
+from Engine.Structs.GameObject import*
 
 class EndMazeFlag(GameObject):
     def __init__(self, position: (int, int), block: bool):

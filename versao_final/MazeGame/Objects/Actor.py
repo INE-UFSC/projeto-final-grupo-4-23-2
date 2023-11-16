@@ -1,10 +1,10 @@
 from abc import abstractclassmethod, ABC
 import math
-from Game.GameObject import*
-from versao_final.Engine.Physics.CollisionPolygon import CollisionPolygon
-from versao_final.Engine.Structs.Vector3 import Vector3
+from Engine.Structs.GameObject import GameObject
+from Engine.Physics.CollisionPolygon import CollisionPolygon
+from Engine.Structs.Vector3 import Vector3
 
-class PowerUp(GameObject):
+class Actor(GameObject):
     def __init__(self, initial_position: Vector3 = ..., initial_rotation_axis: Vector3 = ..., initial_speed: float = 0, 
                  initial_acceleration: float = 0, break_cof: float = 0, max_speed=math.inf,
                    collision_polygons: [CollisionPolygon] = ..., duration= 0, points= 0):

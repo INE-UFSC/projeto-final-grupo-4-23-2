@@ -1,6 +1,6 @@
 from Engine.Game import *
 from Engine.Structs.GameSettings import GameSettings
-from MazeGame.Objects.Player import GenericPlayer
+from MazeGame.Objects.Player import Player
 from MazeGame.Objects.Maze import Maze
 from Engine.Physics.CollisionPolygons.Square import Square
 
@@ -16,7 +16,7 @@ class MazeGame(Game):
         mazeMap.set_render_collisions_polygons(True)
         self.get_world().add_object(mazeMap)
 
-        plocal = GenericPlayer(player_size=ps)
+        plocal = Player(player_size=ps)
         plocal.set_position(Vector3(iw+s,ih+s,0))
         plocal.set_collision_polygons([Square(ps)])
         self.get_world().add_object(plocal)

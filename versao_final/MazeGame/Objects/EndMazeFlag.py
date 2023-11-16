@@ -1,0 +1,2 @@
+class EndMazeFlag():
+    pass

@@ -1,12 +1,13 @@
 import math
 from Engine.Physics.CollisionPolygon import CollisionPolygon
-from Engine.Structs.GameObject import GameObject
+from Game.GameObject import GameObject
 from Engine.Game import *
 from Engine.Physics.CollisionDescriptor import CollisionDescriptor
 from Engine.Physics.CollisionPolygons.Square import Square
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
 from Engine.Graphics.Animation import Animation
 from MazeGame.Objects.Maze import Maze
+from Game.Player import Player
 
 player_speed = 50
 
@@ -84,6 +85,7 @@ class CubeGame(Game):
     def add_local_player(self):
         s = 10
         plocal = CubePlayer(initial_position=Vector3(50+32,50+32,200), collision_polygons=[Square(32)])
+        #plocal = Player(initial_position=Vector3(150, 500, 200),collision_polygons=[Square(8)],name="Victória", score=100,life=)
         maze = Maze(initial_position=Vector3(50,50,0),size=5, block_size=32)
         #flag = EndMazeFlag(initial_position=Vector3(350,500,200), collision_polygons=[Square(size=15)])
         #powerup = PowerUp(initial_position=Vector3(450,500,200), collision_polygons=[Square(size=35)])

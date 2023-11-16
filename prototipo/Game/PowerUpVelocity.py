@@ -32,7 +32,7 @@ class PowerUpVelocity(PowerUp):
 
     def update(self):
         if self.is_active:
-            self.active_time +=- 1
+            self.active_time += -1
             if self.active_time >= self.duration:
                 self.is_active = False
                 self.player_speed -= self.points
