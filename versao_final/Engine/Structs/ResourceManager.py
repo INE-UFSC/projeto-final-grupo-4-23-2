@@ -24,6 +24,10 @@ class ResourceManager(metaclass=Singleton):
             # Inicialização de instância aqui, se necessário.
         return cls._instance
 
+    def load_all_resources(self):
+        self.load_resource_image()
+        self.load_resource_sound()
+    
     def load_resource_image(self): #carrega os recursos
         try:
             imgabs = os.path.abspath("./versao_final/MazeGame/Assets/Images")

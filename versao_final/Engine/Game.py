@@ -7,6 +7,7 @@ from Engine.Structs.Vector3 import Vector3
 from Engine.Structs.GameSettings import GameSettings
 from Engine.Structs.World import World, WorldRotineStatusEnum
 from Engine.IO.KeyboardHooker import *
+from Engine.Structs.ResourceManager import ResourceManager
 #from Engine.Kernel.CollisionKernel import *
 
 PYOPENCL_CTX='0'
@@ -33,6 +34,8 @@ class Game(ABC):
         pygame.init()
         self.__surface = pygame.display.set_mode((self.__settings.get_width(), self.__settings.get_height()))
         pygame.display.set_caption(self.__settings.get_game_title())
+        resource_manager = ResourceManager()
+        resource_manager.load_all_resources()
     
     def begin_scene(self):
         self.__surface.fill((0,0,0))
