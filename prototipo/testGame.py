@@ -17,13 +17,8 @@ musica_de_fundo = pygame.mixer.music.load('prototipo/GameObject/songs/BoxCat Gam
 pygame.mixer.music.play(-1)
 
 som_end_flag = pygame.mixer.Sound('prototipo/GameObject/songs/smw_message_block.wav')
-<<<<<<< HEAD
 '''
 player_speed = 50
-=======
-
-player_speed = 200
->>>>>>> 73b21507b5b5580773baff9ac18649e5b172f4dc
 
 class EndMazeFlag(GameObject):
     def __init__(self,initial_position:Vector3=Vector3(0,0,0),collision_polygons:[CollisionPolygon]=[]):
