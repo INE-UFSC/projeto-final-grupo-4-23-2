@@ -3,6 +3,7 @@ from Engine.Structs.GameSettings import GameSettings
 from MazeGame.Objects.Player import Player
 from MazeGame.Objects.Maze import Maze
 from Engine.Physics.CollisionPolygons.Square import Square
+from MazeGame.Objects.PowerUpSpeed import PowerUpSpeed
 
 class MazeGame(Game):
     def __init__(self, settings=GameSettings()):
@@ -20,3 +21,10 @@ class MazeGame(Game):
         plocal.set_position(Vector3(iw+s,ih+s,0))
         plocal.set_collision_polygons([Square(ps)])
         self.get_world().add_object(plocal)
+        
+        power = PowerUpSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=100, duration=20)
+        #power.set_position(Vector3(iw+s,ih+30,0))
+        #power.set_collision_polygons([Square(ps)])
+        power.set_render_collisions_polygons(True)
+        self.get_world().add_object(power)
+        

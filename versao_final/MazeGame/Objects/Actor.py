@@ -5,10 +5,8 @@ from Engine.Physics.CollisionPolygon import CollisionPolygon
 from Engine.Structs.Vector3 import Vector3
 
 class Actor(GameObject):
-    def __init__(self, initial_position: Vector3 = ..., initial_rotation_axis: Vector3 = ..., initial_speed: float = 0, 
-                 initial_acceleration: float = 0, break_cof: float = 0, max_speed=math.inf,
-                   collision_polygons: [CollisionPolygon] = ..., duration= 0, points= 0):
-        super().__init__(initial_position, initial_rotation_axis, initial_speed, initial_acceleration, break_cof, max_speed, collision_polygons)
+    def __init__(self, initial_position: Vector3 = ..., collision_polygons: [CollisionPolygon] = ..., duration= 0, points= 0):
+        super().__init__(initial_position=initial_position, collision_polygons=collision_polygons)
         self.__duration = duration
         self.__points = points #a classe power up que vai herdar, pode tratar os pontos como pontuação do jogo ou como pontuação de vida        
 

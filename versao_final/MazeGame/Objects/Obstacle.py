@@ -2,7 +2,7 @@ import math
 from Engine.Structs.GameObject import GameObject
 from Engine.Physics.CollisionPolygon import CollisionPolygon
 from Engine.Structs.Vector3 import Vector3
-import Actor
+from MazeGame.Objects.Actor import Actor
 
 class Obstacle(Actor):
     def __init__(self, initial_position: Vector3 = ..., initial_rotation_axis: Vector3 = ..., initial_speed: float = 0, 
