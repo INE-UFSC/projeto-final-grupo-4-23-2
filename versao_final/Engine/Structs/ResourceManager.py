@@ -26,9 +26,10 @@ class ResourceManager(metaclass=Singleton):
 
     def load_resource_image(self): #carrega os recursos
         try:
-            imgabs = os.path.abspath("MazeGame\Assets\Images")
+            imgabs = os.path.abspath("./versao_final/MazeGame/Assets/Images")
+            print(os.listdir(imgabs))
             for file in os.listdir(imgabs):
-                self.resources_image[file] = pygame.image.load(f"{imgabs}\\{file}")
+                self.resources_image[file] = pygame.image.load(f"{imgabs}/{file}") ## ARRUMAR A BARRA PRO WINDOWS
             return self.resources_image
         except Exception as e:
             print(f"Erro ao carregar imagens: {e}")
