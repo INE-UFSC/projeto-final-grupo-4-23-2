@@ -30,10 +30,10 @@ class ResourceManager(metaclass=Singleton):
     
     def load_resource_image(self): #carrega os recursos
         try:
-            imgabs = os.path.abspath("./versao_final/MazeGame/Assets/Images")
-            print(os.listdir(imgabs))
+            imgabs = os.path.abspath("MazeGame/Assets/Images") #caminho victória "MazeGame/Assets/Images"
+            #print(os.listdir(imgabs))
             for file in os.listdir(imgabs):
-                self.resources_image[file] = pygame.image.load(f"{imgabs}/{file}") ## ARRUMAR A BARRA PRO WINDOWS
+                self.resources_image[file] = pygame.image.load(f"{imgabs}\\{file}") ## ARRUMAR A BARRA PRO WINDOWS ()
             return self.resources_image
         except Exception as e:
             print(f"Erro ao carregar imagens: {e}")
@@ -49,8 +49,13 @@ class ResourceManager(metaclass=Singleton):
             print(f"Erro ao carregar sons: {e}")
     
     def get_image(self, name): #recupera os recursos
-        return self.resources_image[name]
+        try:
+            return self.resources_image[name]
+        except Exception as e:
+            print(f"Imagem {e} não está no repositório Assets")
     
     def get_sound(self, name):
-        return self.resources_sound[name]
-    
+        try:
+            return self.resources_sound[name]
+        except Exception as e:
+            print(f"Som {e} não está no repositório")

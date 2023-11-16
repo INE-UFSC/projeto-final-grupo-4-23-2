@@ -6,11 +6,24 @@ from Engine.Physics.CollisionPolygons.Square import Square
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
 from MazeGame.Objects.PowerUp import PowerUp
 from MazeGame.Objects.EndMazeFlag import EndMazeFlag
+from Engine.Graphics.Animation import Animation
+from Engine.Structs.ResourceManager import ResourceManager
+
 
 class Player(GameObject):
     def __init__(self, player_size):
         super().__init__()
         self.__player_size = player_size
+        self.__resource_manager = ResourceManager()
+
+        self.__animations = {"walk": Animation(self.__resource_manager.get_image("player_walk.png"), speed= (15))
+
+        }
+
+    @property
+    def animations(self):
+        return self.__animations
+        
     
     def handle_on_collision(self, collisions_descriptions):
         for obj in collisions_descriptions:
@@ -21,9 +34,7 @@ class Player(GameObject):
 
     def render_graphics(self, graphics_api: IGraphicsApi):
         super().render_graphics(graphics_api)
-        pos = self.get_position()
-        self.get_graphics_api().draw_2d_rect(pos.get_x(), pos.get_y(), self.__player_size, self.__player_size, (0,255,0))
-
+        self.__animations["walk"].render(graphics_api, self.get_position().get_x(), self.get_position().get_y())
 
 
         

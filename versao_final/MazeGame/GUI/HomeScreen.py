@@ -28,21 +28,18 @@ class HomeScreen(ScreenBase):
                 Button(image=button, pos=(400, pos_y), text_input=text, font=font, base_color="white", hovering_color="green")
             )
 
-        
-        self.__observers = []
+   
 
     def screen_view(self):
         #carregando imagens
         background_image = self.resource_manager.get_image("fundo_menu.jpg").convert()
         # background_image = pygame.image.load("imagens/fundo_menu.jpg").convert()
         background_image = pygame.transform.scale(background_image, (self.width, self.height))
-        # mushroom_image = self.resource_manager.get_image("mushroom_cartoon.png").convert_alpha()  
-        # mushroom_image = pygame.image.load("imagens/mushroom_cartoon.png").convert_alpha()  
-        # mushroom_image = pygame.transform.scale(mushroom_image, (500,500))
+
 
         #desenhando
         self.screen.blit(background_image, (0, 0))
-        #self.screen.blit(mushroom_image, (50, 100))
+  
   
 
         for button in self.__buttons:
