@@ -1,7 +1,8 @@
 import pygame
-from Button import *
+from MazeGame.GUI.Button import *
 #from ScreenObserver import *
-from ScreenBase import ScreenBase
+from MazeGame.GUI.ScreenBase import ScreenBase
+from Engine.Structs.ResourceManager import ResourceManager
 pygame.font.init()
 
 class HomeScreen(ScreenBase):
@@ -11,14 +12,16 @@ class HomeScreen(ScreenBase):
         button_spacing = 50
         button_size = 30
         self.__buttons = []
+        self.resource_manager = ResourceManager()
 
         for text, pos_y in [("Iniciar jogo", 210), ("Consultar ranking", 270 + button_spacing), ("Sair", 320 + 2 * button_spacing)]:
             font = pygame.font.SysFont('comicsansms', size=button_size)
             texto_surface = font.render(text, True, (0, 0, 0))
-            largura_texto, altura_texto = texto_surface.get_size() 
+            largura_texto, altura_texto = texto_surface.get_size()
 
             # Carrega a imagem do botão e redimensiona com base na largura do texto
-            button = pygame.image.load("imagens/botao.png").convert_alpha()
+            button = self.resource_manager.get_image(name="botao.png").convert_alpha()
+            # button = pygame.image.load(btn_img).convert_alpha()
             button = pygame.transform.scale(button, (largura_texto + 50, altura_texto + 50))  
 
             self.__buttons.append(
@@ -29,15 +32,13 @@ class HomeScreen(ScreenBase):
         self.__observers = []
 
     def screen_view(self):
-       
-
-  
-        
         #carregando imagens
-        background_image = pygame.image.load("imagens/fundo_menu.jpg").convert()
+        background_image = self.resource_manager.get_image("fundo_menu.jpg").convert()
+        # background_image = pygame.image.load("imagens/fundo_menu.jpg").convert()
         background_image = pygame.transform.scale(background_image, (self.width, self.height))
-        mushroom_image = pygame.image.load("imagens/mushroom_cartoon.png").convert_alpha()  
-        mushroom_image = pygame.transform.scale(mushroom_image, (500,500))
+        # mushroom_image = self.resource_manager.get_image("mushroom_cartoon.png").convert_alpha()  
+        # mushroom_image = pygame.image.load("imagens/mushroom_cartoon.png").convert_alpha()  
+        # mushroom_image = pygame.transform.scale(mushroom_image, (500,500))
 
         #desenhando
         self.screen.blit(background_image, (0, 0))
@@ -49,8 +50,3 @@ class HomeScreen(ScreenBase):
 
         for button in self.__buttons:
             button.update(self.screen)
-
- 
-
-
-

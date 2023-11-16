@@ -1,12 +1,15 @@
 import pygame
-from HomeScreen import HomeScreen  # Substitua o nome do arquivo se necessário
+from MazeGame.GUI.HomeScreen import HomeScreen  # Substitua o nome do arquivo se necessário
+from Engine.Structs.ResourceManager import*
 
 # Inicializar o Pygame
 pygame.init()
 
 # Criar a tela inicial
-home_screen = HomeScreen()
+resource_manager = ResourceManager()
+resource_manager.load_resource_image()
 
+home_screen = HomeScreen()
 # Loop principal
 running = True
 while running:
