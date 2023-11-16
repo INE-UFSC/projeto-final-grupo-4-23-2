@@ -35,7 +35,7 @@ class Game(ABC):
         self.__surface = pygame.display.set_mode((self.__settings.get_width(), self.__settings.get_height()))
         pygame.display.set_caption(self.__settings.get_game_title())
         resource_manager = ResourceManager()
-        resource_manager.load_resource_image()
+        resource_manager.load_all_resources()
     
     def begin_scene(self):
         self.__surface.fill((0,0,0))
