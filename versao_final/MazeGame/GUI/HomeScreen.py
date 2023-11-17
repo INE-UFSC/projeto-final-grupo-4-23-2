@@ -7,11 +7,10 @@ pygame.font.init()
 
 class HomeScreen(ScreenBase):
     def __init__(self):
-        super().__init__("Nome da Janela", 800, 600)  # Substitua "Nome da Janela" por seu título real
+        super().__init__(800, 600)  # Substitua "Nome da Janela" por seu título real
         self.initialize_screen() 
         button_spacing = 50
         button_size = 30
-        self.__buttons = []
         self.resource_manager = ResourceManager()
 
         for text, pos_y in [("Iniciar jogo", 210), ("Consultar ranking", 270 + button_spacing), ("Sair", 320 + 2 * button_spacing)]:
@@ -20,11 +19,10 @@ class HomeScreen(ScreenBase):
             largura_texto, altura_texto = texto_surface.get_size()
 
             # Carrega a imagem do botão e redimensiona com base na largura do texto
-            button = self.resource_manager.get_image(name="botao.png").convert_alpha()
-            # button = pygame.image.load(btn_img).convert_alpha()
+            button = self.resource_manager.get_image(name="botao.png")
             button = pygame.transform.scale(button, (largura_texto + 50, altura_texto + 50))  
 
-            self.__buttons.append(
+            self.buttons.append(
                 Button(image=button, pos=(400, pos_y), text_input=text, font=font, base_color="white", hovering_color="green")
             )
 
@@ -42,8 +40,8 @@ class HomeScreen(ScreenBase):
   
   
 
-        for button in self.__buttons:
+        for button in self.buttons:
             button.change_color(pygame.mouse.get_pos())
 
-        for button in self.__buttons:
+        for button in self.buttons:
             button.update(self.screen)

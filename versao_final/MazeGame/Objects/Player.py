@@ -4,7 +4,7 @@ from Engine.Physics.CollisionPolygon import CollisionPolygon
 from Engine.Structs.GameObject import GameObject
 from Engine.Physics.CollisionPolygons.Square import Square
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
-from MazeGame.Objects.PowerUp import PowerUp
+from MazeGame.Objects.PowerUpSpeed import PowerUpSpeed
 from MazeGame.Objects.EndMazeFlag import EndMazeFlag
 from Engine.Graphics.Animation import Animation
 from Engine.Structs.ResourceManager import ResourceManager
@@ -16,7 +16,9 @@ class Player(GameObject):
         self.__player_size = player_size
         self.__resource_manager = ResourceManager()
 
-        self.__animations = {"walk": Animation(self.__resource_manager.get_image("player_walk.png"), speed= (15))
+        self.__animations = {"walk": Animation(self.__resource_manager.get_image("player_walk.png"), speed= (30)),
+                             "run": Animation(self.__resource_manager.get_image("player_run.png"), speed=50),
+                             "ko": Animation(self.__resource_manager.get_image("player_ko.png"), speed=40),
 
         }
 
@@ -27,18 +29,23 @@ class Player(GameObject):
     
     def handle_on_collision(self, collisions_descriptions):
         for obj in collisions_descriptions:
-            if isinstance(obj, PowerUp):
+            if isinstance(obj, PowerUpSpeed):
                 obj.active()
+                self.animations["run"]
             if isinstance(obj, EndMazeFlag):
                 print("parabeenssss")
 
     def render_graphics(self, graphics_api: IGraphicsApi):
         super().render_graphics(graphics_api)
-        self.__animations["walk"].render(graphics_api, self.get_position().get_x(), self.get_position().get_y())
+        for img in self.animations.values():
+            img.render(graphics_api, self.get_position().get_x(), self.get_position().get_y())
 
 
         
-    def loop(self): pass
+    def loop(self): 
+        for im in self.animations.values():
+            im.play(self.get_world().get_delta_time())
+
     def start(self):
         self.get_world().get_game().get_keyboard_hooker().hook_keyboard(
             ["w","s","a","d"], KeyEventEnum.ALL, 

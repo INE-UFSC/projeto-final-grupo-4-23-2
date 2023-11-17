@@ -4,11 +4,16 @@ from abc import ABC, abstractmethod
 import pygame
 
 class ScreenBase(ABC):
-    def __init__(self, title, width, height):
-        self.__title = title
+    def __init__(self, width, height):
+        self.__title = "Nome do jogo"
         self.__width = width
         self.__height = height
         self.__screen = None  # Inicializamos a tela como None
+        self.__buttons = []
+
+    @property
+    def buttons(self):
+        return self.__buttons
 
     @property
     def title(self):
@@ -25,6 +30,10 @@ class ScreenBase(ABC):
     @property
     def screen(self):
         return self.__screen
+    
+    @buttons.setter
+    def buttons(self, buttons):
+        self.__buttons = buttons
     
     @screen.setter
     def screen(self,screen):
