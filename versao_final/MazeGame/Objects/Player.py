@@ -38,12 +38,14 @@ class Player(GameObject):
     def render_graphics(self, graphics_api: IGraphicsApi):
         super().render_graphics(graphics_api)
         for img in self.animations.values():
+            print(img)
             img.render(graphics_api, self.get_position().get_x(), self.get_position().get_y())
 
 
         
     def loop(self): 
         for im in self.animations.values():
+            print(im)
             im.play(self.get_world().get_delta_time())
 
     def start(self):
