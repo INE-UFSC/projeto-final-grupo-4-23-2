@@ -1,7 +1,7 @@
 import pygame
 from MazeGame.GUI.HomeScreen import HomeScreen  # Substitua o nome do arquivo se necessário
 from Engine.Structs.ResourceManager import*
-
+from MazeGame.GUI.LevelScreen import LevelScreen
 # Inicializar o Pygame
 pygame.init()
 
@@ -9,7 +9,9 @@ pygame.init()
 resource_manager = ResourceManager()
 resource_manager.load_resource_image()
 
+
 home_screen = HomeScreen()
+#level_screen = LevelScreen()
 # Loop principal
 running = True
 while running:
@@ -18,7 +20,9 @@ while running:
             running = False
 
     # Atualizar a tela
-    home_screen.screen_view()
+    
+    home_screen.screen_design()
+#    level_screen.screen_design()
     pygame.display.flip()
   
 

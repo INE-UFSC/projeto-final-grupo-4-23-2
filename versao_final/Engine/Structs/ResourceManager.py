@@ -52,10 +52,10 @@ class ResourceManager(metaclass=Singleton):
         try:
             return self.resources_image[name]
         except Exception as e:
-            print(f"Imagem {e} não está no repositório Assets")
+            print(f"\n\n===================== Imagem {e} não está no repositório Assets =====================\n\n")
     
     def get_sound(self, name):
         try:
             return self.resources_sound[name]
         except Exception as e:
-            print(f"Som {e} não está no repositório")
+            print(f"\n\n===================== Som {e} não está no repositório =====================\n\n")
