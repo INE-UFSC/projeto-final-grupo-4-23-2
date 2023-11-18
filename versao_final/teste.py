@@ -2,6 +2,7 @@ import pygame
 from MazeGame.GUI.HomeScreen import HomeScreen  # Substitua o nome do arquivo se necessário
 from Engine.Structs.ResourceManager import*
 from MazeGame.GUI.LevelScreen import LevelScreen
+from MazeGame.GUI.RegistrationScreen import RestrationScreen
 # Inicializar o Pygame
 pygame.init()
 
@@ -10,8 +11,9 @@ resource_manager = ResourceManager()
 resource_manager.load_resource_image()
 
 
-home_screen = HomeScreen()
+#home_screen = HomeScreen()
 #level_screen = LevelScreen()
+registration_screen = RestrationScreen()
 # Loop principal
 running = True
 while running:
@@ -21,8 +23,10 @@ while running:
 
     # Atualizar a tela
     
-    home_screen.screen_design()
+#    home_screen.screen_design()
 #    level_screen.screen_design()
+    registration_screen.screen_design()
+    
     pygame.display.flip()
   
 
