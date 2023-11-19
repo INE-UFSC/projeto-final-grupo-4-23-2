@@ -8,6 +8,6 @@ class PowerUp(Actor):
     def __init__(self, initial_position: Vector3 = ...,
                    collision_polygons: [CollisionPolygon] = ..., duration= 0, points= 0):
         super().__init__(initial_position, collision_polygons, duration, points)
-        
+    
     def active(self):
         pass
