@@ -29,7 +29,7 @@ class MazeGame(Game):
         flag.set_render_collisions_polygons(True)
         self.get_world().add_object(flag)
 
-        power = PowerUpSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=100, duration=20)
+        power = PowerUpSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=300, duration=20)
         power.set_position(Vector3(iw+70,ih+80,0))
         power.set_collision_polygons([Square(ps)])
         power.set_render_collisions_polygons(True)

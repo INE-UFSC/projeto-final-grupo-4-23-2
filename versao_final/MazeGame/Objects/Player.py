@@ -68,6 +68,6 @@ class Player(GameObject):
         }
         if event in [KeyEventEnum.DOWN,KeyEventEnum.PRESS]:
             self.set_rotation_axis(Vector3(math.radians(keys_rot[key]),0,0))
-            self.set_speed(100)
+            self.set_speed(self.__speed)
         else:
             self.set_speed(0)
