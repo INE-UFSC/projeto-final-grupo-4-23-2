@@ -15,12 +15,13 @@ class PowerUpSpeed(PowerUp):
         super().__init__(initial_position,collision_polygons, duration, points)
         self.__resource_manager = ResourceManager()
         self.__lightning  = Animation(self.__resource_manager.get_image("lightning.png"), speed=20)
+        self.__is_active = False
 
 
     def active(self, player):
         if isinstance(player, Player):
-            if not self.is_active:
-                self.is_active = True
+            if not self.__is_active:
+                self.__is_active = True
                 self.active_time = 0 #para não dar erro caso o powerup apareça novamente
                 #player.speed_up(self.points)
                 #self.kill()
@@ -28,17 +29,17 @@ class PowerUpSpeed(PowerUp):
                 
                 
     def time_update(self):
-        if self.is_active:
+        if self.__is_active:
             self.active_time += 1
             if self.active_time >= self.duration:
-                self.is_active = False
+                self.__is_active = False
                 #player.speed_down(self.points)
                 #self.kill()
                 
     def render_graphics(self, graphics_api: IGraphicsApi):
-        return super().render_graphics(graphics_api)
-        if not self.is_active:
-            self.__lightning.render(graphics_api, self.get_position().get_x(), self.get_position().get_y)
+        super().render_graphics(graphics_api)
+        #if not self.__is_active:
+            #self.__lightning.render(graphics_api, self.get_position().get_x(), self.get_position().get_y)
 
     def loop(self):
         self.__lightning.play(self.get_world().get_delta_time())

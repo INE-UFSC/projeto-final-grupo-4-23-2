@@ -3,6 +3,7 @@ import math
 from Engine.Structs.GameObject import GameObject
 from Engine.Physics.CollisionPolygon import CollisionPolygon
 from Engine.Structs.Vector3 import Vector3
+from MazeGame.Objects.Player import Player
 
 class Actor(GameObject):
     def __init__(self, initial_position: Vector3 = ..., collision_polygons: [CollisionPolygon] = ..., duration= 0, points= 0):
@@ -25,5 +26,6 @@ class Actor(GameObject):
 
     def handle_on_collision(self, collisions_descriptions): #VERIFICAR O PADRÃO PARA NÃO DEIXAR O MÉTODO SOLTO E SEM USO
         for obj in collisions_descriptions:
-            self.active(obj.get_game_object1())
+            if isinstance(obj.get_game_object1(), Player):
+                self.active(obj.get_game_object1())
 
