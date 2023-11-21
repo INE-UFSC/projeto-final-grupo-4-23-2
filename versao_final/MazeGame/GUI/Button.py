@@ -3,7 +3,7 @@ class Button():
     def __init__(self, image, pos: tuple, text_input: str, font: str, base_color, hovering_color):
         self.__image = image
         self.__font = font
-        self.__pos = pos
+        self.__pos = pos #posição x e y 
         self.__base_color = base_color
         self.__hovering_color = hovering_color
         self.__text_input = text_input

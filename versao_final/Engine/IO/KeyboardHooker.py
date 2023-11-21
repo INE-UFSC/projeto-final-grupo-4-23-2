@@ -11,14 +11,16 @@ class KeyboardHooker:
     def __init__(self):
         self.__hooks = {}
         self.__keys_status = {}
-        listener = keyboard.Listener(on_press=self.on_press,on_release=self.on_release)
-        listener.start()
+        # listener = keyboard.Listener(on_press=self.on_press,on_release=self.on_release)
+        # listener.start()
     
-    def on_press(self, key): self.call_hook(str(key), KeyEventEnum.PRESS)
+    def on_press(self, key): 
+        self.call_hook(str(key), KeyEventEnum.PRESS)
     def on_release(self, key): self.call_hook(str(key), KeyEventEnum.UP)
     
     def call_hook(self, key:str, event:KeyEventEnum):
         try:
+            print(key)
             key = key.replace('\'','')
             new_event = event
             if not key in self.__keys_status: self.__keys_status[key] = False
