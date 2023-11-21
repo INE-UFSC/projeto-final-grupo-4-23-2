@@ -10,7 +10,7 @@ class MazeGame(Game):
     def __init__(self, settings=GameSettings()):
         super().__init__(settings)
         
-        iw,ih=50,50
+        iw,ih=50,50 #colocar na singleton e usar nomes mais claros nas variaveis
         s = 20
         ps = s * 0.3
         mazeMap = Maze(size=10)
