@@ -25,5 +25,5 @@ class Actor(GameObject):
 
     def handle_on_collision(self, collisions_descriptions): #VERIFICAR O PADRÃO PARA NÃO DEIXAR O MÉTODO SOLTO E SEM USO
         for obj in collisions_descriptions:
-            self.active(obj)
+            self.active(obj.get_game_object1())
 

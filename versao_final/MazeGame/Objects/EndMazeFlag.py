@@ -17,8 +17,9 @@ class EndMazeFlag(GameObject):
 
     def handle_on_collision(self, collisions_descriptions):
         for obj in collisions_descriptions:
-            if isinstance(obj, Player):
+            if isinstance(obj.get_game_object1(), Player):
                 print("Acabou o jogooo")
+                
     def render_graphics(self, graphics_api: IGraphicsApi):
         return super().render_graphics(graphics_api)
         self.__animation.render(graphics_api,self.get_position().get_x(), self.get_position().get_y())

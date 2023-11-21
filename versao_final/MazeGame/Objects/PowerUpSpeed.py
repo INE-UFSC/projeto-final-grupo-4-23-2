@@ -6,6 +6,7 @@ from MazeGame.Objects.PowerUp import PowerUp
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
 from Engine.Graphics.Animation import Animation
 from Engine.Structs.ResourceManager import ResourceManager
+from MazeGame.Objects.Player import Player
 
 
 class PowerUpSpeed(PowerUp):
@@ -16,25 +17,28 @@ class PowerUpSpeed(PowerUp):
         self.__lightning  = Animation(self.__resource_manager.get_image("lightning.png"), speed=20)
 
 
-    def active(self, player, Player):
+    def active(self, player):
         if isinstance(player, Player):
             if not self.is_active:
                 self.is_active = True
                 self.active_time = 0 #para não dar erro caso o powerup apareça novamente
-                self.player_speed += self.points
-                self.kill()
+                #player.speed_up(self.points)
+                #self.kill()
+                self.set_have_physics(False)
+                
                 
     def time_update(self):
         if self.is_active:
             self.active_time += 1
             if self.active_time >= self.duration:
                 self.is_active = False
-                self.player_speed -= self.points
-                self.kill()
+                #player.speed_down(self.points)
+                #self.kill()
                 
     def render_graphics(self, graphics_api: IGraphicsApi):
         return super().render_graphics(graphics_api)
-        self.__lightning.render(graphics_api, self.get_position().get_x(), self.get_position().get_y)
+        if not self.is_active:
+            self.__lightning.render(graphics_api, self.get_position().get_x(), self.get_position().get_y)
 
     def loop(self):
         self.__lightning.play(self.get_world().get_delta_time())

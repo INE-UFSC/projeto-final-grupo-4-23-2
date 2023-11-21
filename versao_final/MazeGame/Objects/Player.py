@@ -4,8 +4,6 @@ from Engine.Physics.CollisionPolygon import CollisionPolygon
 from Engine.Structs.GameObject import GameObject
 from Engine.Physics.CollisionPolygons.Square import Square
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
-from MazeGame.Objects.PowerUpSpeed import PowerUpSpeed
-from MazeGame.Objects.EndMazeFlag import EndMazeFlag
 from Engine.Graphics.Animation import Animation
 from Engine.Structs.ResourceManager import ResourceManager
 

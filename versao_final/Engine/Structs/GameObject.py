@@ -106,8 +106,14 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
 
             if len(collisions)>0:
                 self.handle_on_collision(collisions)
-                #others = {}
-                #for obj in 
+                others = {}
+                for col in collisions:
+                    obj2 = col.get_game_object2()
+                    if obj2 not in others: others[obj2] = []
+                    others[obj2].append(col)
+                
+                for other_k in others.keys():
+                    other_k.handle_on_collision(others[other_k])
         else: 
             self.get_position().transform_2d(tr_len, self.get_rotation_axis())
             
