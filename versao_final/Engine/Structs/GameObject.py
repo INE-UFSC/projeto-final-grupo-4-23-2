@@ -104,7 +104,10 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
                     
                     collisions.extend(cols)
 
-            if len(collisions)>0: self.handle_on_collision(collisions)
+            if len(collisions)>0:
+                self.handle_on_collision(collisions)
+                others = {}
+                for obj in 
         else: 
             self.get_position().transform_2d(tr_len, self.get_rotation_axis())
             
