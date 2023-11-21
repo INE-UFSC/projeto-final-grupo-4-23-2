@@ -5,6 +5,7 @@ from Engine.Physics.CollisionPolygon import CollisionPolygon
 from Engine.Structs.Vector3 import Vector3
 from Engine.Structs.ResourceManager import ResourceManager
 from Engine.Graphics.Animation import Animation
+from MazeGame.Objects.Player import Player
 
 class EndMazeFlag(GameObject):
     def __init__(self, initial_position, collision_polygons):
@@ -14,9 +15,10 @@ class EndMazeFlag(GameObject):
         self.__animation = Animation(self.__resource_manager.get_image("flag_red.png"), speed=20)
 
 
-    def handle_on_collision(self):
-        pass
-
+    def handle_on_collision(self, collisions_descriptions):
+        for obj in collisions_descriptions:
+            if isinstance(obj, Player):
+                print("Acabou o jogooo")
     def render_graphics(self, graphics_api: IGraphicsApi):
         return super().render_graphics(graphics_api)
         self.__animation.render(graphics_api,self.get_position().get_x(), self.get_position().get_y())

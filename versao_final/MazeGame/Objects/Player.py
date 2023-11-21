@@ -33,12 +33,7 @@ class Player(GameObject):
         
     
     def handle_on_collision(self, collisions_descriptions):
-        for obj in collisions_descriptions:
-            if isinstance(obj, PowerUpSpeed):
-                obj.active()
-                self.current_animation["run"]
-            if isinstance(obj, EndMazeFlag):
-                print("parabeenssss")
+        pass
 
     def render_graphics(self, graphics_api: IGraphicsApi):
         super().render_graphics(graphics_api)
@@ -46,7 +41,8 @@ class Player(GameObject):
 
 
         
-    def loop(self): 
+    def loop(self):
+        
         self.current_animation.play(self.get_world().get_delta_time())
 
     def start(self):
