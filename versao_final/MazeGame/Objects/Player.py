@@ -14,6 +14,8 @@ class Player(GameObject):
     def __init__(self, player_size):
         super().__init__()
         self.__player_size = player_size
+        self.__speed = 50
+
         self.__resource_manager = ResourceManager()
 
         self.__animations = {"walk": Animation(self.__resource_manager.get_image("player_walk.png"), speed= (20)),
@@ -30,6 +32,12 @@ class Player(GameObject):
     @property
     def current_animation(self):
         return self.__current_animation
+    
+    def speed_up(self, points):
+        self.__speed += points
+        
+    def speed_down(self, points):
+        self.__speed -= points
         
     
     def handle_on_collision(self, collisions_descriptions):
