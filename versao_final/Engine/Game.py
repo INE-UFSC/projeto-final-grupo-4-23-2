@@ -54,7 +54,8 @@ class Game(ABC):
     def run(self):
         self.__world.run()
         
-        while not any([e.type==pygame.QUIT for e in pygame.event.get()]): 
+        events = pygame.event.get()
+        while True:
             sleep(0)
             if self.__world.get_rotine_status() == WorldRotineStatusEnum.WAITING_START_PERMISSION:
                 self.begin_scene()
@@ -65,7 +66,15 @@ class Game(ABC):
             if self.__world.get_rotine_status() == WorldRotineStatusEnum.FINISH:
                 self.end_scene()
                 self.__world.set_rotine_status(WorldRotineStatusEnum.WAITING_START_PERMISSION)
-                        
-        self.__world.kill()
-        pygame.quit()
-        sys.exit()  
+                
+            for event in pygame.event.get():
+                
+                if event.type == pygame.KEYDOWN:
+                    self.__keyboard_hook_helper.on_press(chr(event.key))
+                elif event.type == pygame.KEYUP:
+                    self.__keyboard_hook_helper.on_release(chr(event.key))
+                
+                if event.type == pygame.QUIT:
+                    self.__world.kill()
+                    pygame.quit()
+                    sys.exit()
