@@ -4,6 +4,7 @@ from MazeGame.Objects.Player import Player
 from MazeGame.Objects.Maze import Maze
 from Engine.Physics.CollisionPolygons.Square import Square
 from MazeGame.Objects.PowerUpSpeed import PowerUpSpeed
+from MazeGame.Objects.ObstacleSpeed import ObstacleSpeed
 from MazeGame.Objects.EndMazeFlag import EndMazeFlag
 
 class MazeGame(Game):
@@ -29,9 +30,16 @@ class MazeGame(Game):
         flag.set_render_collisions_polygons(True)
         self.get_world().add_object(flag)
 
-        power = PowerUpSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=300, duration=20)
+        power = PowerUpSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=150, duration=20)
         power.set_position(Vector3(iw+70,ih+80,0))
         power.set_collision_polygons([Square(ps)])
         power.set_render_collisions_polygons(True)
         self.get_world().add_object(power)
+        
+        obstacle = ObstacleSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=40, duration=20)
+        obstacle.set_position(Vector3(iw+70,ih+95,0))
+        obstacle.set_collision_polygons([Square(ps)])
+        obstacle.set_render_collisions_polygons(True)
+        self.get_world().add_object(obstacle)
+        
         
