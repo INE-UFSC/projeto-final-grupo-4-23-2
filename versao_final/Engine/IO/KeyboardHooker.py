@@ -20,7 +20,6 @@ class KeyboardHooker:
     
     def call_hook(self, key:str, event:KeyEventEnum):
         try:
-            print(key)
             key = key.replace('\'','')
             new_event = event
             if not key in self.__keys_status: self.__keys_status[key] = False
