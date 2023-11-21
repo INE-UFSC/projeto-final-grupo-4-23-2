@@ -3,7 +3,7 @@ from Engine.Structs.GameSettings import GameSettings
 from Engine.Physics.CollisionPolygon import CollisionPolygon
 from Engine.Structs.GameObject import GameObject
 from Engine.Physics.CollisionPolygons.Square import Square
-from mapa.maze_generation import Graph
+from MazeGame.MazeGenerator.mapa.maze_generation import Graph
 from Engine.SimpleCollision.SimpleCollision import SimpleCollision2DMap
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
 
