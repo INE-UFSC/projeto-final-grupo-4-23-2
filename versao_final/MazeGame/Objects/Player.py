@@ -41,7 +41,7 @@ class Player(GameObject):
 
 
         
-    def loop(self):
+    def loop(self): ##arrumar aqui para a animação variar de acordo com a velocidade do player
         
         self.current_animation.play(self.get_world().get_delta_time())
 
