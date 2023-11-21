@@ -12,7 +12,7 @@ class MazeGame(Game):
         
         iw,ih=50,50
         s = 20
-        ps = s * 0.6
+        ps = s * 0.3
         mazeMap = Maze(size=10)
         mazeMap.set_position(Vector3(iw, ih, 0))
         mazeMap.set_render_collisions_polygons(True)

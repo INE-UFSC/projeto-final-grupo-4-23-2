@@ -21,7 +21,7 @@ class Player(GameObject):
                              "ko": Animation(self.__resource_manager.get_image("player_ko.png"), speed=20),
 
         }
-        self.__current_animation = self.animations["ko"]
+        self.__current_animation = self.animations["walk"]
 
     @property
     def animations(self):

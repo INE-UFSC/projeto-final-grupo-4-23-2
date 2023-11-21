@@ -7,8 +7,8 @@ from Engine.Structs.ResourceManager import ResourceManager
 from Engine.Graphics.Animation import Animation
 
 class EndMazeFlag(GameObject):
-    def __init__(self, flag_size):
-        super().__init__()
+    def __init__(self, initial_position, collision_polygons):
+        super().__init__(initial_position, collision_polygons)
 
         self.__resource_manager = ResourceManager()
         self.__animation = Animation(self.__resource_manager.get_image("flag_red.png"), speed=20)

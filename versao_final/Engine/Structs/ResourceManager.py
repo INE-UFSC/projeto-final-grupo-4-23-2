@@ -30,7 +30,7 @@ class ResourceManager(metaclass=Singleton):
     
     def load_resource_image(self): #carrega os recursos
         try:
-            imgabs = os.path.abspath("MazeGame/Assets/Images") #caminho victória "MazeGame/Assets/Images"
+            imgabs = os.path.abspath("versao_final/MazeGame/Assets/Images") #caminho victória versao_final/MazeGame/Assets/Sounds
             #print(os.listdir(imgabs))
             for file in os.listdir(imgabs):
                 self.resources_image[file] = pygame.image.load(f"{imgabs}\\{file}") ## ARRUMAR A BARRA PRO WINDOWS ()
@@ -41,7 +41,7 @@ class ResourceManager(metaclass=Singleton):
 
     def load_resource_sound(self):
         try:
-            sound = os.path.abspath("MazeGame\Assets\Sounds")
+            sound = os.path.abspath("versao_final/MazeGame/Assets/Sounds")
             for file in os.listdir(sound):
                 self.resources_sound[file] = pygame.mixer.Sound(f"{sound}\\{file}")
             return self.resources_sound
