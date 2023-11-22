@@ -57,8 +57,9 @@ class Maze(GameObject):
         bottom = m[x][y+1] if y < len(m[0])-1 else 0
         left = m[x-1][y] if x > 0 else 0
         
+        size = 16
         x_id,y_id = self.__fence_dict[f"{top}{right}{bottom}{left}"]
-        self.get_graphics_api().draw_2d_sprite(fence, pos.get_x() + x*s, pos.get_y() + y*s, x_id, y_id, 16)
+        self.get_graphics_api().draw_2d_indexed_sprite(fence, pos.get_x() + x*s, pos.get_y() + y*s, x_id, y_id, size, size)
         
     def get_end_flag_vec3(self):
         pos = self.get_position()

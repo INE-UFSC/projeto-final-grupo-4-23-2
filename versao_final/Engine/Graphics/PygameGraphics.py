@@ -33,10 +33,11 @@ class PygameGraphics(IGraphicsApi):
         textRect.center = (x,y)
         self.__surface.blit(text, textRect)
         
-    def draw_2d_sprite(self, imp, x:int, y:int, x_frame_id:int=None, y_frame_id:int=None, sprite_size:int=None):
-        s = sprite_size
-        sp2 = sprite_size//2
-        if x_frame_id!=None and y_frame_id!=None and sprite_size!=None:
-            self.__surface.blit(imp, (x-sp2, y-sp2), (x_frame_id*s, y_frame_id*s, s, s))
+    def draw_2d_indexed_sprite(self, imp, x:int, y:int, x_frame_id:int=None, y_frame_id:int=None, sprite_size_w:int=None, sprite_size_h:int=None):
+        sw, sh = sprite_size_w, sprite_size_h
+        sw2, sh2 = sw//2, sh//2
+        
+        if x_frame_id!=None and y_frame_id!=None and sprite_size_w!=None and sprite_size_h!=None:
+            self.__surface.blit(imp, (x-sw2, y-sh2), (x_frame_id*sw, y_frame_id*sh, sprite_size_w, sprite_size_h))
         else:
-            self.__surface.blit(imp, x, y)
+            self.__surface.blit(imp, x-sw2, y-sh2)
