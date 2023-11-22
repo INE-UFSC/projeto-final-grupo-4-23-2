@@ -15,6 +15,7 @@ class Player(GameObject):
         super().__init__()
         self.__player_size = player_size
         self.__speed = 50
+        self.__life = 2 
 
         self.__resource_manager = ResourceManager()
 
@@ -33,11 +34,24 @@ class Player(GameObject):
     def current_animation(self):
         return self.__current_animation
     
+    
     def speed_up(self, points):
         self.__speed += points
         
     def speed_down(self, points):
         self.__speed -= points
+        
+    def life_up(self, points):
+        if self.__life < 3:
+            self.__life += points
+        else:
+            print("voce já esta com o maximo de vidas")
+            
+    def life_down(self, points):
+        self.__life -= points
+            
+    def show_life(self):
+        print(f"voce tem {self.__life} vida(S)")
         
     
     def handle_on_collision(self, collisions_descriptions):

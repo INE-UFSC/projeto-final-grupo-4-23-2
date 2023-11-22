@@ -5,6 +5,8 @@ from MazeGame.Objects.Maze import Maze
 from Engine.Physics.CollisionPolygons.Square import Square
 from MazeGame.Objects.PowerUpSpeed import PowerUpSpeed
 from MazeGame.Objects.ObstacleSpeed import ObstacleSpeed
+from MazeGame.Objects.ObstacleLife import ObstacleLife
+from MazeGame.Objects.PowerUpLife import PowerUpLife
 from MazeGame.Objects.EndMazeFlag import EndMazeFlag
 
 class MazeGame(Game):
@@ -30,16 +32,30 @@ class MazeGame(Game):
         flag.set_render_collisions_polygons(True)
         self.get_world().add_object(flag)
 
-        power = PowerUpSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=150, duration=20)
-        power.set_position(Vector3(iw+70,ih+80,0))
-        power.set_collision_polygons([Square(ps)])
-        power.set_render_collisions_polygons(True)
-        self.get_world().add_object(power)
+        power_speed = PowerUpSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=150, duration=20)
+        power_speed.set_position(Vector3(iw+50,ih+40,0))
+        power_speed.set_collision_polygons([Square(ps)])
+        power_speed.set_render_collisions_polygons(True)
+        self.get_world().add_object(power_speed)
         
-        obstacle = ObstacleSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=40, duration=20)
-        obstacle.set_position(Vector3(iw+70,ih+95,0))
-        obstacle.set_collision_polygons([Square(ps)])
-        obstacle.set_render_collisions_polygons(True)
-        self.get_world().add_object(obstacle)
+        obstacle_speed = ObstacleSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=40, duration=20)
+        obstacle_speed.set_position(Vector3(iw+50,ih+55,0))
+        obstacle_speed.set_collision_polygons([Square(ps)])
+        obstacle_speed.set_render_collisions_polygons(True)
+        self.get_world().add_object(obstacle_speed)
+        
+        obstacle_life = ObstacleLife(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=1)
+        obstacle_life.set_position(Vector3(iw+50,ih+70,0))
+        obstacle_life.set_collision_polygons([Square(ps)])
+        obstacle_life.set_render_collisions_polygons(True)
+        self.get_world().add_object(obstacle_life)
+        
+        '''power_life = PowerUpLife(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=2)
+        power_life.set_position(Vector3(iw+50,ih+85,0))
+        power_life.set_collision_polygons([Square(ps)])
+        power_life.set_render_collisions_polygons(True)
+        self.get_world().add_object(power_life)
+        '''
+        
         
         
