@@ -17,5 +17,5 @@ class Animation:
     
     def render(self, graphics_api:IGraphicsApi, x:int, y:int):
         img_id = int(self.__time) % self.__duration
-        x_frame = img_id*self.__sprite_size
+        x_frame = img_id
         graphics_api.draw_2d_sprite(self.__img, x, y, x_frame, 0, self.__sprite_size)

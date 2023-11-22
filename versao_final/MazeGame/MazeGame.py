@@ -16,7 +16,7 @@ class MazeGame(Game):
         ps = s * 0.3
         mazeMap = Maze(size=10)
         mazeMap.set_position(Vector3(iw, ih, 0))
-        mazeMap.set_render_collisions_polygons(True)
+        #mazeMap.set_render_collisions_polygons(True)
         self.get_world().add_object(mazeMap)
 
         plocal = Player(player_size=ps)

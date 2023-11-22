@@ -33,9 +33,10 @@ class PygameGraphics(IGraphicsApi):
         textRect.center = (x,y)
         self.__surface.blit(text, textRect)
         
-    def draw_2d_sprite(self, imp, x:int, y:int, x_frame:int=None, y_frame:int=None, sprite_size:int=None):
+    def draw_2d_sprite(self, imp, x:int, y:int, x_frame_id:int=None, y_frame_id:int=None, sprite_size:int=None):
+        s = sprite_size
         sp2 = sprite_size//2
-        if x_frame!=None and y_frame!=None and sprite_size!=None:
-            self.__surface.blit(imp, (x-sp2, y-sp2), (x_frame, y_frame, sprite_size, sprite_size))
+        if x_frame_id!=None and y_frame_id!=None and sprite_size!=None:
+            self.__surface.blit(imp, (x-sp2, y-sp2), (x_frame_id*s, y_frame_id*s, s, s))
         else:
             self.__surface.blit(imp, x, y)

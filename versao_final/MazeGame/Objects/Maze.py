@@ -12,10 +12,55 @@ class Maze(GameObject):
     
     def __init__(self, initial_position:Vector3=Vector3(0,0,0), size:int=20, block_size:int=15):
         super().__init__(initial_position=initial_position)
+        self.__fence_dict = {}
         self.__block_size = block_size
         self.__bin_matrix = Graph.binaryMatrix(size)
+        
         self.create_collision_polygons()
-        self.__fences_img = ResourceManager.load_resource_image("fences.png")
+        self.create_fences_matrix()
+    
+    def create_fences_matrix(self):
+        #[top-right-bottom-left]
+        #[0000]: (x_id, y_id)
+        
+        self.__fence_dict = {
+            "0010": (0,0),
+            "0110": (1,0),
+            "0111": (2,0),
+            "0011": (3,0),
+            
+            "1010": (0,1),
+            "1110": (1,1),
+            "1111": (2,1),
+            "1011": (3,1),
+            
+            "1000": (0,2),
+            "1100": (1,2),
+            "1101": (2,2),
+            "1001": (3,2),
+            
+            "0000": (0,3),
+            "0100": (1,3),
+            "0101": (2,3),
+            "0001": (3,3),            
+        }
+    
+    def render_fence(self,x,y):
+        pos = self.get_position()
+        s = self.__block_size
+        m = self.__bin_matrix
+        fence = ResourceManager().get_image("fences.png")
+        if m[x][y] == 0: return
+        
+        top = m[x][y-1] if y > 0 else 0
+        right = m[x+1][y] if x < len(m)-1 else 0
+        bottom = m[x][y+1] if y < len(m[0])-1 else 0
+        left = m[x-1][y] if x > 0 else 0
+        
+        x_id,y_id = self.__fence_dict[f"{top}{right}{bottom}{left}"]
+        self.get_graphics_api().draw_2d_sprite(fence, pos.get_x() + x*s, pos.get_y() + y*s, x_id, y_id, 16)
+        
+        
     
     def get_connections(self, x, y, visited):
         top = (x,y-1)
@@ -44,7 +89,6 @@ class Maze(GameObject):
                 
         return path
         
-    
     def find_smallest_connections_nodes(self, visited):
         smallest = None
         smallest_len = 0
@@ -112,12 +156,11 @@ class Maze(GameObject):
     
     def render_graphics(self, graphics_api:IGraphicsApi):
         super().render_graphics(graphics_api)
-        pos = self.get_position()
         m = self.__bin_matrix
-        s = self.__block_size
+        
         for x in range(len(m)):
             for y in range(len(m[x])):
-                if m[x][y] == 1: # and x==0 and y==0
-                    pass#self.get_graphics_api().draw_2d_rect(pos.get_x() + s*x, pos.get_y() + s*y, s, s, (255,0,0))
+                self.render_fence(x,y)
+                
         
     def handle_on_collision(self, collisions_descriptions): pass

@@ -31,9 +31,7 @@ class ResourceManager(metaclass=Singleton):
     def load_resource_image(self): #carrega os recursos
         try:
             imgabs = os.path.join('versao_final','MazeGame','Assets','Images') #caminho victória versao_final/MazeGame/Assets/Sounds
-            #print(os.listdir(imgabs))  ###usar o os.join
             for file in os.listdir(imgabs):
-                #self.resources_image[file] = pygame.image.load(f"{imgabs}\\{file}") ## ARRUMAR A BARRA PRO WINDOWS ()
                 filepath = os.path.join(imgabs, file)
                 self.resources_image[file] = pygame.image.load(filepath)
             return self.resources_image
