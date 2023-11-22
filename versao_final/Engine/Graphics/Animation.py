@@ -17,6 +17,10 @@ class Animation:
     def get_end_animation(self):
         return self.__end_animation
     
+    def restart(self):
+        self.__time = 0
+        self.__end_animation = False
+    
     def play(self, delta_time:float):
         new_time = self.__time + delta_time*self.__speed
         if new_time >= self.__loop*self.__duration and self.__loop > 0:
