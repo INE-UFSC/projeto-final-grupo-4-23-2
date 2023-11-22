@@ -94,6 +94,7 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
         if will_collide: 
             ref_pos_from_proj.transform_2d(tr_len, self.get_rotation_axis())
             collisions = []
+            collisions_others = {}
             
             for obj in objs:
                 cols = self.get_collisions(ref_pos_from_proj, obj.get_position(), obj.get_collision_polygons()) 
@@ -103,17 +104,14 @@ class GameObject(PhysicsObject, GraphicsObject, ABC):
                         c.set_game_object2(obj)
                     
                     collisions.extend(cols)
+                    if obj not in collisions_others: 
+                        collisions_others[obj] = []
+                    collisions_others[obj].extend(cols)
 
             if len(collisions)>0:
                 self.handle_on_collision(collisions)
-                others = {}
-                for col in collisions:
-                    obj2 = col.get_game_object2()
-                    if obj2 not in others: others[obj2] = []
-                    others[obj2].append(col)
-                
-                for other_k in others.keys():
-                    other_k.handle_on_collision(others[other_k])
+                for other_k in collisions_others.keys():
+                    other_k.handle_on_collision(collisions_others[other_k])
         else: 
             self.get_position().transform_2d(tr_len, self.get_rotation_axis())
             

@@ -111,6 +111,7 @@ class Vector3:
         return [pv1, pv2]
     
     def will_collide_2d(pv:[[float]], vec_pair_1:[[float]], vec_pair_2:[[float]]):
+        if Vector3.get_2d_point_intersection(vec_pair_1, vec_pair_2)!=None: return  True
         if Vector3.get_2d_point_intersection([vec_pair_1[0], pv[0]], vec_pair_2)!=None: return  True
         if Vector3.get_2d_point_intersection([vec_pair_1[1], pv[1]], vec_pair_2)!=None: return  True
         if Vector3.get_2d_point_intersection([pv[0], pv[1]], vec_pair_2)!=None: return  True
