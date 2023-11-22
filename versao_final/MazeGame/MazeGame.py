@@ -26,7 +26,7 @@ class MazeGame(Game):
         self.get_world().add_object(plocal)
 
 
-        flag = EndMazeFlag(initial_position=Vector3(200,200,200), collision_polygons=[Square(size=15)])
+        flag = EndMazeFlag(initial_position=mazeMap.get_end_flag_vec3(), collision_polygons=[Square(size=15)])
         flag.set_render_collisions_polygons(True)
         self.get_world().add_object(flag)
 
