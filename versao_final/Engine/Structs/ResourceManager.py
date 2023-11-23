@@ -23,6 +23,9 @@ class ResourceManager(metaclass=Singleton):
             cls._instance = super().__new__(cls, *args, **kwargs)
             # Inicialização de instância aqui, se necessário.
         return cls._instance
+    
+    def __init__(self):
+        self.load_all_resources()
 
     def load_all_resources(self):
         self.load_resource_image()
