@@ -30,3 +30,9 @@ class Button():
             self.__text = self.__font.render(self.__text_input, True, self.__hovering_color)
         else:
             self.__text = self.__font.render(self.__text_input, True, self.__base_color)
+
+    def clicked(self, mouse_pos):
+        x, y, width, height = self.__rect
+        is_hovered = x < mouse_pos[0] < x + width and y < mouse_pos[1] < y + height
+        is_left_click = pygame.mouse.get_pressed()[0] == 1 #indice 0 = botão esquerdo do mouse
+        return is_hovered and is_left_click #retorna true se estiver em cima do botão e o botão esquerdo for pressionado
