@@ -15,6 +15,7 @@ class Maze(GameObject):
         self.__fence_dict = {}
         self.__block_size = block_size
         self.__bin_matrix = Graph.binaryMatrix(size)
+        self.__fence = ResourceManager().get_image("fences.png")
         
         self.create_collision_polygons()
         self.create_fences_matrix()
@@ -49,7 +50,7 @@ class Maze(GameObject):
         pos = self.get_position()
         s = self.__block_size
         m = self.__bin_matrix
-        fence = ResourceManager().get_image("fences.png")
+        
         if m[x][y] == 0: return
         
         top = m[x][y-1] if y > 0 else 0
@@ -59,7 +60,7 @@ class Maze(GameObject):
         
         size = 16
         x_id,y_id = self.__fence_dict[f"{top}{right}{bottom}{left}"]
-        self.get_graphics_api().draw_2d_indexed_sprite(fence, pos.get_x() + x*s, pos.get_y() + y*s, x_id, y_id, size, size)
+        self.get_graphics_api().draw_2d_indexed_sprite(self.__fence, pos.get_x() + x*s, pos.get_y() + y*s, x_id, y_id, size, size)
         
     def get_end_flag_vec3(self):
         pos = self.get_position()

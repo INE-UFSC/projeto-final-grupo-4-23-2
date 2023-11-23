@@ -15,7 +15,7 @@ class RandomTerrain(GameObject):
         super().__init__(initial_position=initial_position)
         self.__size = size
         self.__block_size = block_size
-        self.__img = ResourceManager().get_image(graphics_file_name)
+        self.__img = ResourceManager().get_image(graphics_file_name, scale=scale)
         self.__fcount = blocks_count_in_graphics_file
         
         w, h = self.__img.get_size()
@@ -25,7 +25,7 @@ class RandomTerrain(GameObject):
     def create_random_terrain(self):
         for x in range(self.__size):
             for y in range(self.__size):
-                x_frame_id, y_frame_id = random.randint(0, self.__fcount), random.randint(0, self.__fcount)
+                x_frame_id, y_frame_id = random.randint(0, self.__fcount-1), random.randint(0, self.__fcount-1)
                 self.__terrain_matrix[(x,y)] = (x_frame_id, y_frame_id)
     
     def loop(self): pass

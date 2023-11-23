@@ -20,7 +20,7 @@ class MazeGame(Game):
         ih = iw + self.settings.get_padding_top()
 
         
-        terrain = RandomTerrain("TX Tileset Grass.png", 16, block_size=s, size=100)
+        terrain = RandomTerrain("TX Tileset Grass.png", 16, block_size=s, size=50, scale=1.2)
         terrain.create_random_terrain()
         terrain.set_position(Vector3(0, 0, -9999))
         self.get_world().add_object(terrain)
