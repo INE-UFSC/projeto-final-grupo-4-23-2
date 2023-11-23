@@ -6,6 +6,7 @@ from Engine.Physics.CollisionPolygons.Square import Square
 from MazeGame.Objects.PowerUpSpeed import PowerUpSpeed
 from MazeGame.Objects.ObstacleSpeed import ObstacleSpeed
 from MazeGame.Objects.EndMazeFlag import EndMazeFlag
+from MazeGame.Objects.Terrain import RandomTerrain
 
 class MazeGame(Game):
     def __init__(self, settings=GameSettings()):
@@ -14,6 +15,12 @@ class MazeGame(Game):
         iw,ih=50,50 #colocar na singleton e usar nomes mais claros nas variaveis
         s = 20
         ps = s * 0.3
+        
+        terrain = RandomTerrain("TX Tileset Grass.png", 16, block_size=s, size=100)
+        terrain.create_random_terrain()
+        terrain.set_position(Vector3(0, 0, -9999))
+        self.get_world().add_object(terrain)
+        
         mazeMap = Maze(size=10)
         mazeMap.set_position(Vector3(iw, ih, 0))
         #mazeMap.set_render_collisions_polygons(True)
