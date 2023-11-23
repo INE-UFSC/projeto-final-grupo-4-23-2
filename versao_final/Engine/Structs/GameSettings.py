@@ -20,4 +20,3 @@ class GameSettings:
     def get_padding_top(self): return self.__padding_top
     def get_block_size(self): return  self.__block_size
     def get_player_scale(self): return self.__player_scale
-    # def get_block_size(self): return self.__block_size``

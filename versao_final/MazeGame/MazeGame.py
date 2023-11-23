@@ -26,7 +26,7 @@ class MazeGame(Game):
         plocal = Player(player_scale=self.settings.get_player_scale())
         plocal.set_position(Vector3(iw+s,ih+s,0))
         plocal.set_collision_polygons([Square(block_size)])
-        plocal.set_render_collisions_polygons(True)
+        # plocal.set_render_collisions_polygons(True)
         self.get_world().add_object(plocal)
 
 

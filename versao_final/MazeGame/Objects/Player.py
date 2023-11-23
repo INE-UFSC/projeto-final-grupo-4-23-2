@@ -15,11 +15,15 @@ class Player(GameObject):
         super().__init__()
         self.__player_scale = player_scale # tamanho do bixo
         self.__speed = 50
+<<<<<<< HEAD
         self.__life = 3
+=======
+        self.__life = 2
+        self.__keys = set()
+>>>>>>> 78f97ee (ajustes nos hooks de movimentação do player)
 
         self.__resource_manager = ResourceManager()
 
-        print(player_scale)
         self.__animations = {"walk": Animation(self.__resource_manager.get_image("player_walk.png", player_scale), speed=(20)),
                              "run": Animation(self.__resource_manager.get_image("player_run.png"), speed=80),
                              "ko": Animation(self.__resource_manager.get_image("player_ko.png"), speed=20),
@@ -81,8 +85,13 @@ class Player(GameObject):
             "a":270,
             "d":90,
         }
-        if event in [KeyEventEnum.DOWN,KeyEventEnum.PRESS]:
+        if event == KeyEventEnum.PRESS:
             self.set_rotation_axis(Vector3(math.radians(keys_rot[key]),0,0))
             self.set_speed(self.__speed)
+            self.__keys.add(key)
         else:
-            self.set_speed(0)
+            self.__keys.remove(key)
+            if len(self.__keys) > 0:
+                self.move_player(self.__keys.pop(), KeyEventEnum.PRESS)
+            else:
+                self.set_speed(0)
