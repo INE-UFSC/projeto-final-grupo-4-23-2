@@ -15,12 +15,8 @@ class Player(GameObject):
         super().__init__()
         self.__player_scale = player_scale # tamanho do bixo
         self.__speed = 50
-<<<<<<< HEAD
         self.__life = 3
-=======
-        self.__life = 2
         self.__keys = set()
->>>>>>> 78f97ee (ajustes nos hooks de movimentação do player)
 
         self.__resource_manager = ResourceManager()
 
