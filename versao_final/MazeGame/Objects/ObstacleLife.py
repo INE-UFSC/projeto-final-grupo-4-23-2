@@ -26,8 +26,8 @@ class ObstacleLife(Obstacle):
                 
     
     def render_graphics(self, graphics_api: IGraphicsApi):
-        return super().render_graphics(graphics_api)
-        self.__lightning.render(graphics_api, self.get_position().get_x(), self.get_position().get_y)
+        super().render_graphics(graphics_api)
+        self.__lightning.render(graphics_api, self.get_position().get_x(), self.get_position().get_y())
 
     def loop(self):
         self.__lightning.play(self.get_world().get_delta_time())

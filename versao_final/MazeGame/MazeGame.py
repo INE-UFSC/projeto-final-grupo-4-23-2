@@ -34,13 +34,13 @@ class MazeGame(Game):
         flag.set_render_collisions_polygons(True)
         self.get_world().add_object(flag)
 
-        power_speed = PowerUpSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(block_size)],points=150, duration=20)
+        power_speed = PowerUpSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(block_size)],points=150, duration=3)
         power_speed.set_position(Vector3(iw+50,ih+40,0))
         power_speed.set_collision_polygons([Square(block_size)])
         power_speed.set_render_collisions_polygons(True)
         self.get_world().add_object(power_speed)
         
-        obstacle_speed = ObstacleSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(block_size)],points=40, duration=20)
+        obstacle_speed = ObstacleSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(block_size)],points=40, duration=3)
         obstacle_speed.set_position(Vector3(iw+50,ih+80,0))
         obstacle_speed.set_collision_polygons([Square(block_size)])
         obstacle_speed.set_render_collisions_polygons(True)

@@ -15,7 +15,7 @@ class PowerUpLife(PowerUp):
                    collision_polygons: [CollisionPolygon] = [], points=0):
         super().__init__(initial_position,collision_polygons, 0, points)
         self.__resource_manager = ResourceManager()
-        self.__lightning  = Animation(self.__resource_manager.get_image("Rock1.png"), speed=20)
+        self.__lightning  = Animation(self.__resource_manager.get_image("Apple.png", scale=1), speed=3)
         self.is_active = False
 
 
@@ -27,8 +27,8 @@ class PowerUpLife(PowerUp):
                 
     
     def render_graphics(self, graphics_api: IGraphicsApi):
-        return super().render_graphics(graphics_api)
-        self.__lightning.render(graphics_api, self.get_position().get_x(), self.get_position().get_y)
+        super().render_graphics(graphics_api)
+        self.__lightning.render(graphics_api, self.get_position().get_x(), self.get_position().get_y())
 
     def loop(self):
         self.__lightning.play(self.get_world().get_delta_time())
