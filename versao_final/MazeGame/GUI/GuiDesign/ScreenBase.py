@@ -1,7 +1,7 @@
 # No arquivo ScreenBase.py
 
 from abc import ABC, abstractmethod
-from MazeGame.GUI.Button import Button
+from MazeGame.GUI.GuiDesign.Button import Button
 from Engine.Structs.ResourceManager import ResourceManager
 import pygame
 
@@ -11,10 +11,19 @@ class ScreenBase(ABC):
         self.__width = width
         self.__height = height
         self.__screen = None  # Inicializamos a tela como None
-        self.__buttons = []
+        self.__buttons = {}
+        self.__background_image = None
         self.__resource_manager = ResourceManager()
 
+    @property
+    def background_image(self):
+        return self.__background_image
+    
+    @background_image.setter
+    def background_image(self,background_image):
+        self.__background_image = background_image
 
+    
     @property
     def resource_manager(self):
         return self.__resource_manager
@@ -73,8 +82,7 @@ class ScreenBase(ABC):
                 button_width, button_height = button.get_size()
                 button = pygame.transform.scale(button, (text_width + 50, text_height + 50))
 
-        
+            button_key = text        
 
-            self.buttons.append(
-                Button(image=button, pos=(pos_x, pos_y), text_input=text, font=font, base_color="white", hovering_color="green")
-            )
+            self.buttons[button_key] = Button(image=button, pos=(pos_x, pos_y), text_input=text, font=font, base_color="white", hovering_color="green")
+            
