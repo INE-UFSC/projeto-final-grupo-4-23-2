@@ -11,15 +11,16 @@ from Engine.Structs.ResourceManager import ResourceManager
 
 
 class Player(GameObject):
-    def __init__(self, player_size):
+    def __init__(self, player_scale):
         super().__init__()
-        self.__player_size = player_size
+        self.__player_scale = player_scale # tamanho do bixo
         self.__speed = 50
         self.__life = 2 
 
         self.__resource_manager = ResourceManager()
 
-        self.__animations = {"walk": Animation(self.__resource_manager.get_image("player_walk.png"), speed= (20)),
+        print(player_scale)
+        self.__animations = {"walk": Animation(self.__resource_manager.get_image("player_walk.png", player_scale), speed=(20)),
                              "run": Animation(self.__resource_manager.get_image("player_run.png"), speed=80),
                              "ko": Animation(self.__resource_manager.get_image("player_ko.png"), speed=20),
 

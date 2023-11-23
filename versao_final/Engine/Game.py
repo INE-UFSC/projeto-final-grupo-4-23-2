@@ -23,6 +23,9 @@ class Game(ABC):
         self.__graphics_api.set_surface(self.__surface)
         self.__world = World(self, self.__graphics_api)
         
+    @property
+    def settings(self):
+        return self.__settings
     
     def get_world(self): return self.__world
     
