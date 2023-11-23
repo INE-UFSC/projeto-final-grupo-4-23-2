@@ -73,9 +73,9 @@ class Game(ABC):
             for event in pygame.event.get():
                 
                 if event.type == pygame.KEYDOWN:
-                    self.__keyboard_hook_helper.on_press(event.unicode)
+                    self.__keyboard_hook_helper.on_press(str(event.unicode).lower())
                 elif event.type == pygame.KEYUP:
-                    self.__keyboard_hook_helper.on_release(event.unicode)
+                    self.__keyboard_hook_helper.on_release(str(event.unicode).lower())
                 
                 if event.type == pygame.QUIT:
                     self.__world.kill()
