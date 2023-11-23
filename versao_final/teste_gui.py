@@ -7,10 +7,64 @@ from MazeGame.GUI.GuiDesign.GameOverTimeScreen import GameOverTimeScreen
 from MazeGame.GUI.GuiDesign.GameOverLifeScreen import GameOverLifeScreen
 from MazeGame.GUI.GuiState.HomeState import HomeState
 from MazeGame.GUI.GuiState.LevelState import LevelState
+from MazeGame.GUI.GuiDesign.ScreenBase import ScreenBase
+
+##contexto = tela
+##dosomething = renderizar e update
+pygame.init()
+
+class Telas:
+    def __init__(self):
+        self.__display = {
+            'home': HomeState(self),
+            'level': LevelState(self)
+        }
+        self.actual = self.__display['home']
+
+    def state(self, view):
+        self.actual = self.__display[view]
+        return self.actual
+
+telas = Telas()
+running = True
+
+
+while running:
+    events = pygame.event.get()
+    for event in events:
+        if event.type == pygame.QUIT:
+            running = False
+
+    telas.actual.update(events)
+    telas.actual.render()
+    
+    pygame.display.update()
+    
+
+    pygame.display.flip()
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
 # Criar a tela inicial
 resource_manager = ResourceManager()
 resource_manager.load_resource_image()
@@ -48,7 +102,7 @@ class teste:
                 self.state(events)
                 pygame.display.flip()
             pygame.quit()
-
+'''
     # Atualizar a tela
 #    home_screen.screen_design()
  #   home_screen.render()

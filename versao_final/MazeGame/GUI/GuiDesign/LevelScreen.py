@@ -8,7 +8,7 @@ class LevelScreen(ScreenBase):
         self.__mushroom_image = None
         self.__text_rect = None
         self.__text_surface = None
-        self.initialize_screen()
+        #self.initialize_screen()
 
 
     def screen_design(self):

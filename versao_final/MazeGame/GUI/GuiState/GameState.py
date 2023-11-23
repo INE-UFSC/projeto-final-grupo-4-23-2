@@ -2,8 +2,13 @@ from abc import ABC, abstractmethod
 
 
 class GameState(ABC):
-    def __init__(self, view) -> None:
+    def __init__(self, view, game) -> None:
         self.__view = view
+        self.__game = game
+
+    @property
+    def game(self):
+        return self.__game
 
     @property
     def view(self):
