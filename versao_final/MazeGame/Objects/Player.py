@@ -11,14 +11,16 @@ from Engine.Structs.ResourceManager import ResourceManager
 
 
 class Player(GameObject):
-    def __init__(self, player_size):
+    def __init__(self, player_scale):
         super().__init__()
-        self.__player_size = player_size
+        self.__player_scale = player_scale # tamanho do bixo
         self.__speed = 50
+        self.__life = 3
+        self.__keys = set()
 
         self.__resource_manager = ResourceManager()
 
-        self.__animations = {"walk": Animation(self.__resource_manager.get_image("player_walk.png"), speed= (20)),
+        self.__animations = {"walk": Animation(self.__resource_manager.get_image("player_walk.png", player_scale), speed=(20)),
                              "run": Animation(self.__resource_manager.get_image("player_run.png"), speed=80),
                              "ko": Animation(self.__resource_manager.get_image("player_ko.png"), speed=20),
 
@@ -33,11 +35,24 @@ class Player(GameObject):
     def current_animation(self):
         return self.__current_animation
     
+    
     def speed_up(self, points):
         self.__speed += points
         
     def speed_down(self, points):
         self.__speed -= points
+        
+    def life_up(self, points):
+        if self.__life < 3:
+            self.__life += points
+        else:
+            print("voce já esta com o maximo de vidas")
+            
+    def life_down(self, points):
+        self.__life -= points
+            
+    def show_life(self):
+        print(f"voce tem {self.__life} vida(S)")
         
     
     def handle_on_collision(self, collisions_descriptions):
@@ -66,8 +81,13 @@ class Player(GameObject):
             "a":270,
             "d":90,
         }
-        if event in [KeyEventEnum.DOWN,KeyEventEnum.PRESS]:
+        if event == KeyEventEnum.PRESS:
             self.set_rotation_axis(Vector3(math.radians(keys_rot[key]),0,0))
             self.set_speed(self.__speed)
+            self.__keys.add(key)
         else:
-            self.set_speed(0)
+            self.__keys.remove(key)
+            if len(self.__keys) > 0:
+                self.move_player(self.__keys.pop(), KeyEventEnum.PRESS)
+            else:
+                self.set_speed(0)

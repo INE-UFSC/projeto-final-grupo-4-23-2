@@ -20,24 +20,25 @@ class KeyboardHooker:
     
     def call_hook(self, key:str, event:KeyEventEnum):
         try:
-            key = key.replace('\'','')
-            new_event = event
+            # key = key.replace('\'','')
+            # new_event = event
             if not key in self.__keys_status: self.__keys_status[key] = False
             
-            if self.__keys_status[key] == False and event == KeyEventEnum.PRESS: new_event = KeyEventEnum.DOWN
-            elif self.__keys_status[key] == True and event == KeyEventEnum.UP: new_event = KeyEventEnum.UP
-            elif event == KeyEventEnum.PRESS: new_event = KeyEventEnum.PRESS
+            # if self.__keys_status[key] == False and event == KeyEventEnum.PRESS: new_event = KeyEventEnum.DOWN
+            # elif self.__keys_status[key] == True and event == KeyEventEnum.UP: new_event = KeyEventEnum.UP
+            # elif event == KeyEventEnum.PRESS: new_event = KeyEventEnum.PRESS
             
-            self.__keys_status[key] = (event in [KeyEventEnum.PRESS, KeyEventEnum.DOWN])
+            self.__keys_status[key] = event == KeyEventEnum.PRESS
             
             if not key in self.__hooks: return
             
-            if KeyEventEnum.ALL in self.__hooks[key]: 
-                for f in self.__hooks[key][KeyEventEnum.ALL]: f(key, new_event)
+            if KeyEventEnum.ALL in self.__hooks[key]:
+                for f in self.__hooks[key][KeyEventEnum.ALL]: f(key, event)
                 
-            if not new_event in self.__hooks[key]: return
-            for f in self.__hooks[key][new_event]: f(key, new_event)
+            if not event in self.__hooks[key]: return
+            for f in self.__hooks[key][event]: f(key, event)
         except:
+            raise
             print("KeyHooker ERROR")
         
     

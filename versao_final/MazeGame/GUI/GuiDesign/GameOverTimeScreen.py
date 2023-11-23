@@ -1,7 +1,7 @@
 import pygame
-from MazeGame.GUI.ScreenBase import ScreenBase
+from MazeGame.GUI.GuiDesign.ScreenBase import ScreenBase
 
-class GameOverLifeScreen(ScreenBase):
+class GameOverTimeScreen(ScreenBase):
     def __init__(self, width=800, height=600):
         super().__init__(width, height)
 
@@ -11,14 +11,14 @@ class GameOverLifeScreen(ScreenBase):
         background = self.resource_manager.get_image("purple.jpg")
         background = pygame.transform.scale(background, (self.width, self.height))
 
-        clock = self.resource_manager.get_image("heart.png")
+        clock = self.resource_manager.get_image("clock.png")
         clock = pygame.transform.scale(clock, (350, 250))
         clock_x = (self.width - clock.get_width()) // 2
         clock_y = (self.height - clock.get_height()) // 2
 
         font1 = pygame.font.SysFont('Tahoma', size=45)
         game_surface = font1.render("GAME OVER", True,(255,255,255))
-        finish_surface= font1.render("suas vidas acabaram !", True,(255,255,255))
+        finish_surface= font1.render("seu tempo acabou !", True,(255,255,255))
         game_rect = game_surface.get_rect(center=(400,50))
         finish_rect = finish_surface.get_rect(center=(400,110))
 

@@ -23,6 +23,9 @@ class ResourceManager(metaclass=Singleton):
             cls._instance = super().__new__(cls, *args, **kwargs)
             # Inicialização de instância aqui, se necessário.
         return cls._instance
+    
+    def __init__(self):
+        self.load_all_resources()
 
     def load_all_resources(self):
         self.load_resource_image()
@@ -48,9 +51,13 @@ class ResourceManager(metaclass=Singleton):
         except Exception as e:
             print(f"Erro ao carregar sons: {e}")
     
-    def get_image(self, name): #recupera os recursos
+    def get_image(self, name, scale:int=None): #recupera os recursos
         try:
-            return self.resources_image[name]
+            image = self.resources_image[name]
+            if scale != None:
+                w, h = image.get_size()
+                image = pygame.transform.scale_by(image, scale)
+            return image
         except Exception as e:
             print(f"\n\n===================== Imagem {e} não está no repositório Assets =====================\n\n")
     

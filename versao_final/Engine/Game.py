@@ -23,6 +23,9 @@ class Game(ABC):
         self.__graphics_api.set_surface(self.__surface)
         self.__world = World(self, self.__graphics_api)
         
+    @property
+    def settings(self):
+        return self.__settings
     
     def get_world(self): return self.__world
     
@@ -70,9 +73,9 @@ class Game(ABC):
             for event in pygame.event.get():
                 
                 if event.type == pygame.KEYDOWN:
-                    self.__keyboard_hook_helper.on_press(chr(event.key))
+                    self.__keyboard_hook_helper.on_press(str(event.unicode).lower())
                 elif event.type == pygame.KEYUP:
-                    self.__keyboard_hook_helper.on_release(chr(event.key))
+                    self.__keyboard_hook_helper.on_release(str(event.unicode).lower())
                 
                 if event.type == pygame.QUIT:
                     self.__world.kill()

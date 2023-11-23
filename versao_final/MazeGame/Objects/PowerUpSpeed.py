@@ -1,4 +1,5 @@
 import math
+import time
 from Engine.Structs.GameObject import GameObject
 from Engine.Physics.CollisionPolygon import CollisionPolygon
 from Engine.Structs.Vector3 import Vector3
@@ -15,8 +16,10 @@ class PowerUpSpeed(PowerUp):
                    collision_polygons: [CollisionPolygon] = [], duration= 0, points= 0):
         super().__init__(initial_position,collision_polygons, duration, points)
         self.__resource_manager = ResourceManager()
-        self.__lightning  = Animation(self.__resource_manager.get_image("lightning.png"), speed=20, horizontal=False)
+        self.__lightning  = Animation(self.__resource_manager.get_image("Rock1.png", scale=0.4)) #, speed=10, horizontal=True, frame_count=5, loop=5, hide_on_end=True
         self.is_active = False
+        self.__active_time = 0
+        self.__active_player = None
 
 
     def active(self, player):
@@ -25,21 +28,26 @@ class PowerUpSpeed(PowerUp):
                 self.is_active = True
                 self.active_time = 0 #para não dar erro caso o powerup apareça novamente
                 player.speed_up(self.points)
-                self.kill()
+                self.__active_time = time.time()
+                self.__active_player = player
+                self.set_have_physics(False)
                 
                 
-    def time_update(self, player):
+    def time_update(self):
         if self.is_active:
-            self.active_time += 1
-            if self.active_time >= self.duration:
-                self.is_active = False
-                player.speed_down(self.points)
-                #self.kill()
+            dif = time.time() - self.__active_time
+            if dif >= self.duration:
+                self.__active_player.speed_down(self.points)
+                self.kill()
                 
     
     def render_graphics(self, graphics_api: IGraphicsApi):
-        return super().render_graphics(graphics_api)
-        self.__lightning.render(graphics_api, self.get_position().get_x(), self.get_position().get_y)
+        if not self.is_active:
+            super().render_graphics(graphics_api)
+            self.__lightning.render(graphics_api, self.get_position().get_x(), self.get_position().get_y())
 
     def loop(self):
-        self.__lightning.play(self.get_world().get_delta_time())
+        if not self.is_active:
+            self.__lightning.play(self.get_world().get_delta_time())
+        else:
+            self.time_update()
