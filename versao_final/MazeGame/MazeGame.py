@@ -41,23 +41,23 @@ class MazeGame(Game):
         self.get_world().add_object(power_speed)
         
         obstacle_speed = ObstacleSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(block_size)],points=40, duration=20)
-        obstacle_speed.set_position(Vector3(iw+50,ih+55,0))
+        obstacle_speed.set_position(Vector3(iw+50,ih+80,0))
         obstacle_speed.set_collision_polygons([Square(block_size)])
         obstacle_speed.set_render_collisions_polygons(True)
         self.get_world().add_object(obstacle_speed)
         
         obstacle_life = ObstacleLife(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(block_size)],points=1)
-        obstacle_life.set_position(Vector3(iw+50,ih+70,0))
+        obstacle_life.set_position(Vector3(iw+50,ih+120,0))
         obstacle_life.set_collision_polygons([Square(block_size)])
         obstacle_life.set_render_collisions_polygons(True)
         self.get_world().add_object(obstacle_life)
         
-        '''power_life = PowerUpLife(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(ps)],points=2)
-        power_life.set_position(Vector3(iw+50,ih+85,0))
-        power_life.set_collision_polygons([Square(ps)])
+        power_life = PowerUpLife(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(block_size)],points=1)
+        power_life.set_position(Vector3(iw+50,ih+160,0))
+        power_life.set_collision_polygons([Square(block_size)])
         power_life.set_render_collisions_polygons(True)
         self.get_world().add_object(power_life)
-        '''
+        
         
         
         
