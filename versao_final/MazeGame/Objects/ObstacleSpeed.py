@@ -16,7 +16,7 @@ class ObstacleSpeed(Obstacle):
                    collision_polygons: [CollisionPolygon] = [], duration= 0, points= 0):
         super().__init__(initial_position,collision_polygons, duration, points)
         self.__resource_manager = ResourceManager()
-        self.__lightning  = Animation(self.__resource_manager.get_image("Rock2.png", scale=0.5), speed=20)
+        self.__lightning  = Animation(self.__resource_manager.get_image("mud.png", scale=0.07), speed=20)
         self.is_active = False
         self.__active_time = 0
         self.__active_player = None
