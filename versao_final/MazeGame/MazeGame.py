@@ -48,13 +48,13 @@ class MazeGame(Game):
         self.get_world().add_object(flag)
 
     
-    # def loop(self, event=None):
-    #     time_at = time.time()
-    #     self.__current_duration = time_at - self.__start_time
+    def loop(self, event=None):
+        time_at = time.time()
+        self.__current_duration = time_at - self.__start_time
 
-    #     if int(time_at - self.__last_power_up) >= 5:
-    #         self.__last_power_up = time_at
-    #         self.generate_random_power_up()
+        if int(time_at - self.__last_power_up) >= 5:
+            self.__last_power_up = time_at
+            self.generate_random_power_up()
         
     def generate_random_power_up(self):
         PowerUp = random.choice([PowerUpLife, PowerUpSpeed])
