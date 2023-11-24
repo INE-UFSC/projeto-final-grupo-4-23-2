@@ -6,14 +6,34 @@ from Engine.Structs.ResourceManager import ResourceManager
 import pygame
 
 class ScreenBase(ABC):
-    def __init__(self, width, height):
+    def __init__(self):
         self.__title = "Nome do jogo"
-        self.__width = width
-        self.__height = height
+        self.__width = 800
+        self.__height = 600
         self.__screen = None  # Inicializamos a tela como None
         self.__buttons = {}
+        self.__text_rect = None
+        self.__text_surface = None    
         self.__background_image = None
         self.__resource_manager = ResourceManager()
+
+    @property
+    def text_surface(self):
+        return self.__text_surface
+    
+    @text_surface.setter
+    def text_surface(self, text_surface):
+        self.__text_surface = text_surface
+
+    
+    @property
+    def text_rect(self):
+        return self.__text_rect
+    
+    @text_rect.setter
+    def text_rect(self, text_rect):
+        self.__text_rect = text_rect
+
 
     @property
     def background_image(self):

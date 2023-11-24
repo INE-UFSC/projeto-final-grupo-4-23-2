@@ -2,41 +2,48 @@ import pygame
 from MazeGame.GUI.GuiDesign.ScreenBase import ScreenBase
 
 class GameOverLifeScreen(ScreenBase):
-    def __init__(self, width=800, height=600):
-        super().__init__(width, height)
+    def __init__(self):
+        super().__init__()
+        self.__heart = None
+        self.__heart_x = None
+        self.__heart_y= None
+        self.__game_surface = None
+        self.__game_rect = None
+        self.__finish_surface = None
+        self.__finish_rect = None
 
         self.initialize_screen()
 
     def screen_design(self):
-        background = self.resource_manager.get_image("purple.jpg")
-        background = pygame.transform.scale(background, (self.width, self.height))
+        self.background = self.resource_manager.get_image("purple.jpg")
+        self.background = pygame.transform.scale(self.background, (self.width, self.height))
 
-        clock = self.resource_manager.get_image("heart.png")
-        clock = pygame.transform.scale(clock, (350, 250))
-        clock_x = (self.width - clock.get_width()) // 2
-        clock_y = (self.height - clock.get_height()) // 2
+        self.__heart = self.resource_manager.get_image("heart.png")
+        self.__heart = pygame.transform.scale(self.__heart, (350, 250))
+        self.__heart_x = (self.width - self.__heart.get_width()) // 2
+        self.__heart_y =  (self.height - self.__heart.get_height()) // 2
 
         font1 = pygame.font.SysFont('Tahoma', size=45)
-        game_surface = font1.render("GAME OVER", True,(255,255,255))
-        finish_surface= font1.render("suas vidas acabaram !", True,(255,255,255))
-        game_rect = game_surface.get_rect(center=(400,50))
-        finish_rect = finish_surface.get_rect(center=(400,110))
+        self.__game_surface = font1.render("GAME OVER", True,(255,255,255))
+        self.__finish_surface= font1.render("suas vidas acabaram !", True,(255,255,255))
+        self.__game_rect = self.__game_surface.get_rect(center=(400,50))
+        self.__finish_rect = self.__finish_surface.get_rect(center=(400,110))
 
-        self.screen.blit(background, (0, 0))
-        self.screen.blit(game_surface,game_rect)
-        self.screen.blit(finish_surface,finish_rect)
-        self.screen.blit(clock, (clock_x, clock_y))
+
 
         button_info = [("Consultar ranking", 130, 550), ("   Nova partida   ", 400, 550), ("   Menu inicial   ", 650, 550)]
         button_images = ["button_blue.png", "button_blue.png", "button_blue.png"]
 
         self.create_buttons(button_info, images=button_images, size_button=16)
 
-        
+    def render(self):
 
-        for button in self.buttons:
+        self.screen.blit(self.background, (0, 0))
+        self.screen.blit(self.__game_surface,self.__game_rect)
+        self.screen.blit(self.__finish_surface,self.__finish_rect)
+        self.screen.blit(self.__heart, (self.__heart_x, self.__heart_y))
+
+        for key, button in self.buttons.items():
             button.change_color(pygame.mouse.get_pos())
-
-        for button in self.buttons:
             button.update(self.screen)
    

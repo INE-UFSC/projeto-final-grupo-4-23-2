@@ -8,24 +8,37 @@ from MazeGame.GUI.GuiDesign.GameOverLifeScreen import GameOverLifeScreen
 from MazeGame.GUI.GuiState.HomeState import HomeState
 from MazeGame.GUI.GuiState.LevelState import LevelState
 from MazeGame.GUI.GuiDesign.ScreenBase import ScreenBase
-
+from MazeGame.GUI.GuiState.RegistrationState import RegistrationState
+from MazeGame.GUI.GuiState.GameOverState import GameOverState
 ##contexto = tela
 ##dosomething = renderizar e update
 pygame.init()
 
-class Telas:
+class SetStatus:
     def __init__(self):
         self.__display = {
-            'home': HomeState(self),
-            'level': LevelState(self)
+            'home': HomeState(self, HomeScreen()),
+            'level': LevelState(self, LevelScreen()),
+            'registration': RegistrationState(self, RestrationScreen()),
+            'game_over': GameOverState(self, GameOverLifeScreen())
         }
-        self.actual = self.__display['home']
+        self.__actual = self.__display['home']
+
+    @property
+    def actual(self):
+        return self.__actual
+    
+    @actual.setter
+    def actual(self,actual):
+        self.__actual = actual
+    
+
 
     def state(self, view):
         self.actual = self.__display[view]
         return self.actual
 
-telas = Telas()
+telas = SetStatus()
 running = True
 
 
