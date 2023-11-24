@@ -81,6 +81,7 @@ class Player(GameObject):
             "a":270,
             "d":90,
         }
+        # print(key, event)
         if event == KeyEventEnum.PRESS:
             self.set_rotation_axis(Vector3(math.radians(keys_rot[key]),0,0))
             self.set_speed(self.__speed)

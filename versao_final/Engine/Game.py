@@ -53,6 +53,9 @@ class Game(ABC):
     def load_resources(self):
         #self.__collision_kernel.build()
         self.initialize_surface()
+        
+    def loop(self, event=None):
+        pass
     
     def run(self):
         self.__world.run()
@@ -69,14 +72,16 @@ class Game(ABC):
             if self.__world.get_rotine_status() == WorldRotineStatusEnum.FINISH:
                 self.end_scene()
                 self.__world.set_rotine_status(WorldRotineStatusEnum.WAITING_START_PERMISSION)
-                
+            
+            self.loop()
+            
             for event in pygame.event.get():
                 
                 if event.type == pygame.KEYDOWN:
                     self.__keyboard_hook_helper.on_press(str(event.unicode).lower())
                 elif event.type == pygame.KEYUP:
                     self.__keyboard_hook_helper.on_release(str(event.unicode).lower())
-                
+                                
                 if event.type == pygame.QUIT:
                     self.__world.kill()
                     pygame.quit()

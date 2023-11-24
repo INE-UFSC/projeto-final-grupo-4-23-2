@@ -21,11 +21,14 @@ class MazeGame(Game):
         self.__iw=(self.settings.get_width() - (block_size*2) * s)//2 #colocar na singleton e usar nomes mais claros nas variaveis
         self.__ih = self.__iw + self.settings.get_padding_top()
 
+        self.__start_time = time.time()
+        self.__current_duration = 0
+        self.__last_power_up = 0
         
-        terrain = RandomTerrain("TX Tileset Grass.png", 16, block_size=s, size=50, scale=1.2)
-        terrain.create_random_terrain()
-        terrain.set_position(Vector3(0, 0, -9999))
-        self.get_world().add_object(terrain)
+        # terrain = RandomTerrain("TX Tileset Grass.png", 16, block_size=s, size=50, scale=1.2)
+        # terrain.create_random_terrain()
+        # terrain.set_position(Vector3(0, 0, -9999))
+        # self.get_world().add_object(terrain)
         
         mazeMap = Maze(size=s, block_size=block_size)
         mazeMap.set_position(Vector3(self.__iw, self.__ih, 0))
@@ -34,7 +37,7 @@ class MazeGame(Game):
         self.__maze = mazeMap
 
         plocal = Player(player_scale=self.settings.get_player_scale())
-        plocal.set_position(Vector3(self.__iw+s,self.__ih+s,0))
+        plocal.set_position(Vector3(self.__iw+block_size,self.__ih+block_size,0))
         plocal.set_collision_polygons([Square(block_size)])
         plocal.set_render_collisions_polygons(True)
         self.get_world().add_object(plocal)
@@ -44,32 +47,14 @@ class MazeGame(Game):
         flag.set_render_collisions_polygons(True)
         self.get_world().add_object(flag)
 
-        for i in range(3):
-            self.generate_random_power_up()
+    
+    # def loop(self, event=None):
+    #     time_at = time.time()
+    #     self.__current_duration = time_at - self.__start_time
 
-        # power_speed = PowerUpSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(block_size)],points=150, duration=20)
-        # power_speed.set_position(mazeMap.get_random_free_position(margin=Vector3(iw, ih)))
-        # power_speed.set_collision_polygons([Square(block_size*2)])
-        # power_speed.set_render_collisions_polygons(True)
-        # self.get_world().add_object(power_speed)
-        
-        # obstacle_speed = ObstacleSpeed(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(block_size)],points=40, duration=20)
-        # obstacle_speed.set_position(Vector3(iw+50,ih+80,0))
-        # obstacle_speed.set_collision_polygons([Square(block_size)])
-        # obstacle_speed.set_render_collisions_polygons(True)
-        # self.get_world().add_object(obstacle_speed)
-        
-        # obstacle_life = ObstacleLife(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(block_size)],points=1)
-        # obstacle_life.set_position(Vector3(iw+50,ih+120,0))
-        # obstacle_life.set_collision_polygons([Square(block_size)])
-        # obstacle_life.set_render_collisions_polygons(True)
-        # self.get_world().add_object(obstacle_life)
-        
-        # power_life = PowerUpLife(initial_position=Vector3(iw+50,ih+50,0),collision_polygons=[Square(block_size)],points=1)
-        # power_life.set_position(Vector3(iw+50,ih+160,0))
-        # power_life.set_collision_polygons([Square(block_size)])
-        # power_life.set_render_collisions_polygons(True)
-        # self.get_world().add_object(power_life)
+    #     if int(time_at - self.__last_power_up) >= 5:
+    #         self.__last_power_up = time_at
+    #         self.generate_random_power_up()
         
     def generate_random_power_up(self):
         PowerUp = random.choice([PowerUpLife, PowerUpSpeed])
