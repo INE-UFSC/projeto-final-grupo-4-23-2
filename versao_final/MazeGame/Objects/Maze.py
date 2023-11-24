@@ -113,8 +113,9 @@ class Maze(GameObject):
     def get_random_free_position(self, margin:Vector3=Vector3(0,0,0),exclude=[]):
         total_width = (self.__block_size*2+1) * self.__maze_size
 
-        x = total_width - random.randint(1, total_width//(self.__block_size*2)) * (self.__block_size*2) + margin.get_x()
-        y = total_width - random.randint(1, total_width//(self.__block_size*2)) * (self.__block_size*2) + margin.get_y()
+        x = random.randint(1, self.__maze_size) * self.__block_size*2 + margin.get_x() + self.__block_size
+        y = random.randint(1, self.__maze_size) * self.__block_size*2 + margin.get_y() + self.__block_size
+        # y = total_width - random.randint(1, total_width//(self.__block_size*2)) * (self.__block_size*2) + margin.get_y()
         
         return Vector3(x, y, 0)
     
