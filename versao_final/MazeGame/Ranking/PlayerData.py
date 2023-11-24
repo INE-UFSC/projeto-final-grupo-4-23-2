@@ -31,5 +31,5 @@ class PlayerData:
   def get_result(self, mode):
     return self.__results.get(mode)
   
-  def update_time(self, mode, time):
-    self.__results[mode] = time
+  def update_time(self, mode, points):
+    self.__results[mode] = points

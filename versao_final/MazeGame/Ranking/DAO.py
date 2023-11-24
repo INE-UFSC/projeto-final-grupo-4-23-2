@@ -18,12 +18,12 @@ class DAO:
       pickle.dump(self.cache, arquivo)
       arquivo.close()
 
-    def add(self, name, mode, time):
+    def add(self, name, mode, points):
       player_data = self.cache.get(name)
       
       if not player_data:
         player_data = PlayerData(name)
-        player_data.update_time(mode, time)
+        player_data.update_points(mode, points)
         
       self.cache[name] = player_data
       self.dump()  # Salva o cache atualizado no arquivo
@@ -34,9 +34,9 @@ class DAO:
     def get_player_data(self, name):
       return self.cache.get(name)
     
-    def update_player_data(self, name, mode, time):
+    def update_player_data(self, name, mode, points):
       try:
-        self.cache[name].update_time(mode, time)
+        self.cache[name].update_points(mode, points)
       except KeyError:
         raise
 

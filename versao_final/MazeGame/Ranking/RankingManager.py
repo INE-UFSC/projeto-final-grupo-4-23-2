@@ -37,8 +37,8 @@ class RankingManager(metaclass=Singleton):
     if player_data:
       return player_data.results
     
-  def set_player_new_time(self, name, mode, time):
+  def set_player_new_result(self, name, mode, points):
     player_data = self.__dao.get_player_data(name)
     
-    if player_data and player_data.get_result(mode) > time:
-      player_data.update_time(mode, time)
+    if player_data and player_data.get_result(mode) > points:
+      player_data.update_points(mode, points)
