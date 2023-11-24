@@ -1,4 +1,5 @@
 import pygame
+import random
 from MazeGame.MazeGenerator.maze_generation import Graph
 
 from Engine.Structs.GameObject import GameObject
@@ -14,6 +15,7 @@ class Maze(GameObject):
         super().__init__(initial_position=initial_position)
         self.__fence_dict = {}
         self.__block_size = block_size
+        self.__maze_size = size
         self.__bin_matrix = Graph.binaryMatrix(size)
         self.__fence = ResourceManager().get_image("fences.png")
         
@@ -107,6 +109,14 @@ class Maze(GameObject):
                         smallest_len = len(cons)
 
         return smallest
+    
+    def get_random_free_position(self, margin:Vector3=Vector3(0,0,0),exclude=[]):
+        total_width = (self.__block_size*2+1) * self.__maze_size
+
+        x = total_width - random.randint(1, total_width//(self.__block_size*2)) * (self.__block_size*2) + margin.get_x()
+        y = total_width - random.randint(1, total_width//(self.__block_size*2)) * (self.__block_size*2) + margin.get_y()
+        
+        return Vector3(x, y, 0)
     
     def create_collision_polygons(self):
         polys = []
