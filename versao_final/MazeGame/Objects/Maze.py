@@ -64,10 +64,10 @@ class Maze(GameObject):
         x_id,y_id = self.__fence_dict[f"{top}{right}{bottom}{left}"]
         self.get_graphics_api().draw_2d_indexed_sprite(self.__fence, pos.get_x() + x*s, pos.get_y() + y*s, x_id, y_id, size, size)
         
-    def get_end_flag_vec3(self):
-        pos = self.get_position()
-        s = self.__block_size
-        return Vector3(pos.get_x() + s*len(self.__bin_matrix) + 50, pos.get_y() + s*len(self.__bin_matrix), 0);
+    # def get_end_flag_vec3(self):
+    #     pos = self.get_position()
+    #     s = self.__block_size
+    #     return Vector3(pos.get_x() + s*len(self.__bin_matrix) + 50, pos.get_y() + s*len(self.__bin_matrix), 0);
     
     def get_connections(self, x, y, visited):
         top = (x,y-1)
