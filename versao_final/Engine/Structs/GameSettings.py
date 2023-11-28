@@ -1,7 +1,7 @@
 from Engine.Graphics.PygameGraphics import PygameGraphics
 
 class GameSettings:
-    def __init__(self, graphics_api=PygameGraphics(None), game_title:str="MyGame", width:int=600, padding_top:int=45,
+    def __init__(self, graphics_api=PygameGraphics(None), game_title:str="MyGame", width:int=700, padding_top:int=45,
                  maze_size:int=14):
         self.__width = width
         self.__padding_top = padding_top

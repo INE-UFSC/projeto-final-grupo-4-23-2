@@ -66,23 +66,26 @@ class Player(GameObject):
         super().render_graphics(graphics_api)
         self.current_animation.render(graphics_api, self.get_position().get_x(), self.get_position().get_y())
 
-
         
     def loop(self): ##arrumar aqui para a animação variar de acordo com a velocidade do player
-        if self.__speed > 50 and self.__life >= 0:
+        if self.__speed > 50 and self.__life > 0:
             self.current_animation = self.animations['run']
-        
+        elif self.__speed <= 50 and self.__life > 0:
+            self.current_animation = self.animations['walk']
         elif self.__life <= 0:
             self.current_animation = self.animations['ko']
-            
-        self.current_animation.play(self.get_world().get_delta_time())
+        
+        if self.isMoving():
+            self.current_animation.play(self.get_world().get_delta_time())
 
     def start(self):
         self.get_world().get_game().get_keyboard_hooker().hook_keyboard(
             ["w","s","a","d"], KeyEventEnum.ALL, 
             lambda key, event: self.move_player(key, event)
         )
-        
+    
+    def isMoving(self): return len(self.__keys) > 0
+    
     def move_player(self, key, event):
         keys_rot = {
             "w":180,

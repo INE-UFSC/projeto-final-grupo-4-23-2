@@ -13,7 +13,7 @@ from Engine.Structs.ResourceManager import ResourceManager
 
 class PowerUpSpeed(PowerUp):
     def __init__(self, initial_position: Vector3 = Vector3(), 
-                   collision_polygons: [CollisionPolygon] = [], duration= 0, points= 0):
+                   collision_polygons: [CollisionPolygon] = [], duration=20, points=150):
         super().__init__(initial_position,collision_polygons, duration, points)
         self.__resource_manager = ResourceManager()
         self.__lightning  = Animation(self.__resource_manager.get_image("Apple.png", scale=0.4)) #, speed=10, horizontal=True, frame_count=5, loop=5, hide_on_end=True

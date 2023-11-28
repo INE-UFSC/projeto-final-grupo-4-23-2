@@ -25,9 +25,9 @@ class MazeGame(Game):
         self.__current_duration = 0
         self.__last_power_up = 0
         
-        # terrain = RandomTerrain("TX Tileset Grass.png", 16, block_size=s, size=50, scale=1.2)
+        # terrain = RandomTerrain("TX Tileset Grass.png", 16, block_size=block_size, size=s, scale=2)
         # terrain.create_random_terrain()
-        # terrain.set_position(Vector3(0, 0, -9999))
+        # terrain.set_position(Vector3(self.__iw, self.__ih, -9999))
         # self.get_world().add_object(terrain)
         
         mazeMap = Maze(size=s, block_size=block_size)
@@ -59,7 +59,7 @@ class MazeGame(Game):
     def generate_random_power_up(self):
         PowerUp = random.choice([PowerUpLife, PowerUpSpeed])
         random_pos = self.__maze.get_random_free_position(margin=Vector3(self.__iw, self.__ih))
-        power_up = PowerUp(initial_position=random_pos,collision_polygons=[Square(self.settings.get_block_size()*2)],points=150, duration=20)
+        power_up = PowerUp(initial_position=random_pos,collision_polygons=[Square(self.settings.get_block_size()*2)])
         power_up.set_render_collisions_polygons(True)
         self.get_world().add_object(power_up)
         
