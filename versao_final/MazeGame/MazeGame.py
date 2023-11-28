@@ -25,6 +25,8 @@ class MazeGame(Game):
         self.__current_duration = 0
         self.__last_power_up = 0
         
+        self.__count_actors = 0
+        
         # terrain = RandomTerrain("TX Tileset Grass.png", 16, block_size=block_size, size=s, scale=2)
         # terrain.create_random_terrain()
         # terrain.set_position(Vector3(self.__iw, self.__ih, -9999))
@@ -52,9 +54,13 @@ class MazeGame(Game):
         time_at = time.time()
         self.__current_duration = time_at - self.__start_time
 
-        if int(time_at - self.__last_power_up) >= 5:
+        rand = random.randint(5, 10)
+        if int(time_at - self.__last_power_up) >= rand:
             self.__last_power_up = time_at
-            self.generate_random_power_up()
+            if rand % 2 != 0:
+                self.generate_random_power_up()
+            else:
+                self.generate_random_obstacle()
         
     def generate_random_power_up(self):
         PowerUp = random.choice([PowerUpLife, PowerUpSpeed])
@@ -63,4 +69,10 @@ class MazeGame(Game):
         power_up.set_render_collisions_polygons(True)
         self.get_world().add_object(power_up)
         
-        
+    def generate_random_obstacle(self):
+        Obstacle = random.choice([ObstacleLife, ObstacleSpeed])
+        random_pos = self.__maze.get_random_free_position(margin=Vector3(self.__iw, self.__ih))
+        obstacle = Obstacle(initial_position=random_pos,collision_polygons=[Square(self.settings.get_block_size()*2)])
+        obstacle.set_render_collisions_polygons(True)
+        self.get_world().add_object(obstacle)
+          

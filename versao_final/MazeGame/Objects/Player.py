@@ -74,6 +74,8 @@ class Player(GameObject):
             self.current_animation = self.animations['walk']
         elif self.__life <= 0:
             self.current_animation = self.animations['ko']
+            self.current_animation.play(self.get_world().get_delta_time())
+            
         
         if self.isMoving():
             self.current_animation.play(self.get_world().get_delta_time())
