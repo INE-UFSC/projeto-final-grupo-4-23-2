@@ -21,8 +21,8 @@ class Player(GameObject):
         self.__resource_manager = ResourceManager()
 
         self.__animations = {"walk": Animation(self.__resource_manager.get_image("player_walk.png", player_scale), speed=(20)),
-                             "run": Animation(self.__resource_manager.get_image("player_run.png"), speed=80),
-                             "ko": Animation(self.__resource_manager.get_image("player_ko.png"), speed=20),
+                             "run": Animation(self.__resource_manager.get_image("player_run.png", player_scale), speed=80),
+                             "ko": Animation(self.__resource_manager.get_image("player_ko.png", player_scale), speed=20),
 
         }
         self.__current_animation = self.animations["walk"]
@@ -34,6 +34,10 @@ class Player(GameObject):
     @property
     def current_animation(self):
         return self.__current_animation
+    
+    @current_animation.setter
+    def current_animation(self,current_animation):
+        self.__current_animation = current_animation
     
     
     def speed_up(self, points):
@@ -65,7 +69,12 @@ class Player(GameObject):
 
         
     def loop(self): ##arrumar aqui para a animação variar de acordo com a velocidade do player
+        if self.__speed > 50 and self.__life >= 0:
+            self.current_animation = self.animations['run']
         
+        elif self.__life <= 0:
+            self.current_animation = self.animations['ko']
+            
         self.current_animation.play(self.get_world().get_delta_time())
 
     def start(self):

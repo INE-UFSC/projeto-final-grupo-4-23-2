@@ -23,7 +23,7 @@ class RestrationScreen(ScreenBase):
         self.__text2_rect = self.__text2_surface.get_rect(center=(350, 90))      
         
 #######botões
-        button_info = [("Iniciar partida", 690, 250),("Cadastrar", 690, 350), ("Consultar cadastros", 690, 450)]
+        button_info = [("  Iniciar partida  ", 690, 250),("       Cadastrar      ", 690, 350), ("Consultar cadastros", 690, 450)]
         images_buttons = ["button_red.png", "button_red.png", "button_red.png"]
         self.create_buttons(button_info, images=images_buttons, size_button=20)
 ##########caixa de texto

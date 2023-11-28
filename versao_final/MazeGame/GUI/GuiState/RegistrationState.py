@@ -16,10 +16,10 @@ class RegistrationState(GameState):
       for event in events:
          if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                mouse_pos = pygame.mouse.get_pos()
-               if self.view.buttons['Iniciar partida'].clicked(mouse_pos):
+               if self.view.buttons['  Iniciar partida  '].clicked(mouse_pos):
                   print("Botão iniciar partida foi clicado!")
 
-               if self.view.buttons['Cadastrar'].clicked(mouse_pos):
+               if self.view.buttons['       Cadastrar      '].clicked(mouse_pos):
                   print("botão cadastrar clicado")
 
                if self.view.buttons['Consultar cadastros'].clicked(mouse_pos):
