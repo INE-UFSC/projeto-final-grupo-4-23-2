@@ -13,7 +13,7 @@ from Engine.Structs.ResourceManager import ResourceManager
 
 class ObstacleSpeed(Obstacle):
     def __init__(self, initial_position: Vector3 = Vector3(), 
-                   collision_polygons: [CollisionPolygon] = [], duration= 0, points= 0):
+                   collision_polygons: [CollisionPolygon] = [], duration= 0, points=50):
         super().__init__(initial_position,collision_polygons, duration, points)
         self.__resource_manager = ResourceManager()
         self.__lightning  = Animation(self.__resource_manager.get_image("mud.png", scale=0.07), speed=20)

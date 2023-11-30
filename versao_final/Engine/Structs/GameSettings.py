@@ -1,6 +1,23 @@
 from Engine.Graphics.PygameGraphics import PygameGraphics
 
-class GameSettings:
+class Singleton(type):
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
+
+class GameSettings(metaclass=Singleton):
+    _instance = None
+    
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super().__new__(cls, *args, **kwargs)
+            # Inicialização de instância aqui, se necessário.
+        return cls._instance
+    
     def __init__(self, graphics_api=PygameGraphics(None), game_title:str="MyGame", width:int=700, padding_top:int=45,
                  maze_size:int=14):
         self.__width = width
