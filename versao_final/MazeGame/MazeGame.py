@@ -75,4 +75,6 @@ class MazeGame(Game):
         obstacle = Obstacle(initial_position=random_pos,collision_polygons=[Square(self.settings.get_block_size()*2)])
         obstacle.set_render_collisions_polygons(True)
         self.get_world().add_object(obstacle)
+        
+    
           
