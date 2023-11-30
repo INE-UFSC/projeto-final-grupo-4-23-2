@@ -3,6 +3,7 @@ from MazeGame.GUI.GuiDesign.HomeScreen import HomeScreen  # Substitua o nome do 
 from Engine.Structs.ResourceManager import*
 from MazeGame.GUI.GuiDesign.LevelScreen import LevelScreen
 from MazeGame.GUI.GuiDesign.RegistrationScreen import RestrationScreen
+from MazeGame.GUI.GuiDesign.RankingScreen import RankingScreen
 from MazeGame.GUI.GuiDesign.GameOverTimeScreen import GameOverTimeScreen
 from MazeGame.GUI.GuiDesign.GameOverLifeScreen import GameOverLifeScreen
 from MazeGame.GUI.GuiState.HomeState import HomeState
@@ -10,6 +11,7 @@ from MazeGame.GUI.GuiState.LevelState import LevelState
 from MazeGame.GUI.GuiDesign.ScreenBase import ScreenBase
 from MazeGame.GUI.GuiState.RegistrationState import RegistrationState
 from MazeGame.GUI.GuiState.GameOverState import GameOverState
+from MazeGame.GUI.GuiState.RankingState import RankingState
 ##contexto = tela
 ##dosomething = renderizar e update
 pygame.init()
@@ -20,7 +22,8 @@ class SetStatus:
             'home': HomeState(self, HomeScreen()),
             'level': LevelState(self, LevelScreen()),
             'registration': RegistrationState(self, RestrationScreen()),
-            'game_over': GameOverState(self, GameOverLifeScreen())
+            'game_over': GameOverState(self, GameOverLifeScreen()),
+            'ranking': RankingState(self, RankingScreen())
         }
         self.__actual = self.__display['home']
 

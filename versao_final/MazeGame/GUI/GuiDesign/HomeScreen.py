@@ -10,9 +10,12 @@ class HomeScreen(ScreenBase):
     
 
     def screen_design(self):
-        # Carregando imagens
+
+        # Fundo
         self.background_image = self.resource_manager.get_image("background_menu.jpg")
         self.background_image = pygame.transform.scale(self.background_image, (self.width, self.height))
+       
+       #Botões
         button_info = [("Iniciar", 400, 210), ("Consultar ranking", 400, 320), ("Sair", 400, 420)]
         images_buttons = ["button_red.png", "button_red.png", "button_red.png"]
         self.create_buttons(button_info, images_buttons, size_button=25)

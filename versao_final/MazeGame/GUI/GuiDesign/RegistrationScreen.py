@@ -13,9 +13,12 @@ class RestrationScreen(ScreenBase):
 
 
     def screen_design(self):
+
+        #Fundo
         self.background_image = self.resource_manager.get_image("t1.jpg")
         self.background_image = pygame.transform.scale(self.background_image, (self.width, self.height))
         
+        #Textos
         font = pygame.font.SysFont('comicsansms', size=30)
         self.text_surface = font.render("Insira um nome para o seu jogador ou", True, (255, 255, 255))
         self.__text2_surface = font.render("o nome já cadastrado", True, (255, 255, 255))
