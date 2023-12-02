@@ -75,14 +75,13 @@ class Player(GameObject):
         elif self.__life <= 0:
             self.current_animation = self.animations['ko']
             self.current_animation.play(self.get_world().get_delta_time())
-            
         
         if self.isMoving():
             self.current_animation.play(self.get_world().get_delta_time())
 
     def start(self):
         self.get_world().get_game().get_keyboard_hooker().hook_keyboard(
-            ["w","s","a","d"], KeyEventEnum.ALL, 
+            [pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d], KeyEventEnum.ALL, 
             lambda key, event: self.move_player(key, event)
         )
     
@@ -90,10 +89,10 @@ class Player(GameObject):
     
     def move_player(self, key, event):
         keys_rot = {
-            "w":180,
-            "s":0,
-            "a":270,
-            "d":90,
+            pygame.K_w:180,
+            pygame.K_s:0,
+            pygame.K_a:270,
+            pygame.K_d:90,
         }
         # print(key, event)
         if event == KeyEventEnum.PRESS:

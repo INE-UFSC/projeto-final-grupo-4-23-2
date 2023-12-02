@@ -1,4 +1,5 @@
 import random
+import pygame
 from Engine.Game import *
 from Engine.Structs.GameSettings import GameSettings
 from MazeGame.Objects.Player import Player
@@ -27,9 +28,15 @@ class MazeGame(Game):
         
         self.__count_actors = 0
         
+        self.get_world().get_game().get_keyboard_hooker().hook_keyboard(
+            [pygame.K_ESCAPE], KeyEventEnum.PRESS, 
+            lambda key, event: self.get_world().togglePause()
+        )
+        
         self.create_maze_map()
             
     def loop(self, event=None):
+        if self.get_world().pause: return
         time_at = time.time()
         self.__current_duration = time_at - self.__start_time
 
@@ -43,6 +50,8 @@ class MazeGame(Game):
                 self.generate_random_obstacle()
                 
     def create_maze_map(self):
+        s = self.settings.get_maze_size()
+        block_size = self.settings.get_block_size()
         mazeMap = Maze(size=s, block_size=block_size)
         mazeMap.set_position(Vector3(self.__iw, self.__ih, 0))
         #mazeMap.set_render_collisions_polygons(True)

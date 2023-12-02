@@ -50,11 +50,18 @@ class World:
         if game_object in self.__world_objects:
             self.__world_objects.remove(game_object)
     
+    @property
     def pause(self):
-        self.__pause = True
+        return self.__pause
     
-    def resume(self):
-        self.__pause = False
+    # def resume(self):
+    #     self.__pause = False
+        
+    def togglePause(self):
+        if self.__pause:
+            self.__pause = False
+        else:
+            self.__pause = True
     
     def kill(self):
         self.__run = False

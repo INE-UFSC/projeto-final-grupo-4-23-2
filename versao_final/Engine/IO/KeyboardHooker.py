@@ -15,10 +15,10 @@ class KeyboardHooker:
         # listener.start()
     
     def on_press(self, key): 
-        self.call_hook(str(key), KeyEventEnum.PRESS)
-    def on_release(self, key): self.call_hook(str(key), KeyEventEnum.UP)
+        self.call_hook(key, KeyEventEnum.PRESS)
+    def on_release(self, key): self.call_hook(key, KeyEventEnum.UP)
     
-    def call_hook(self, key:str, event:KeyEventEnum):
+    def call_hook(self, key, event:KeyEventEnum):
         try:
             # key = key.replace('\'','')
             # new_event = event

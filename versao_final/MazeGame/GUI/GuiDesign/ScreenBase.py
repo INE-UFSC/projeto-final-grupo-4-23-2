@@ -3,13 +3,14 @@
 from abc import ABC, abstractmethod
 from MazeGame.GUI.GuiDesign.Button import Button
 from Engine.Structs.ResourceManager import ResourceManager
+from Engine.Structs.GameSettings import GameSettings
 import pygame
 
 class ScreenBase(ABC):
-    def __init__(self):
+    def __init__(self, settings=GameSettings()):
         self.__title = "Nome do jogo"
-        self.__width = 800
-        self.__height = 600
+        self.__width = settings.get_width()
+        self.__height = settings.get_height()
         self.__screen = None  # Inicializamos a tela como None
         self.__buttons = {}
         self.__text_rect = None
@@ -77,10 +78,8 @@ class ScreenBase(ABC):
         self.__screen = screen
 
     def initialize_screen(self):
-        pygame.init()
         self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption(self.title)
-     
 
     @abstractmethod
     def screen_design(self):
@@ -105,4 +104,5 @@ class ScreenBase(ABC):
             button_key = text        
 
             self.buttons[button_key] = Button(image=button, pos=(pos_x, pos_y), text_input=text, font=font, base_color="white", hovering_color="green")
-            
+    
+    

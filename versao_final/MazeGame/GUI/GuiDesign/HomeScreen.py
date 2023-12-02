@@ -3,11 +3,12 @@ from MazeGame.GUI.GuiDesign.Button import *
 from MazeGame.GUI.GuiDesign.ScreenBase import ScreenBase
 from Engine.Structs.ResourceManager import ResourceManager
 
+
+
 class HomeScreen(ScreenBase):
     def __init__(self):
         super().__init__()
         self.initialize_screen()
-    
 
     def screen_design(self):
 

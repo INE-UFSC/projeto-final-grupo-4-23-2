@@ -7,7 +7,7 @@ class LevelScreen(ScreenBase):
         super().__init__()
         self.__mushroom_image = None
         self.initialize_screen()
-
+        
 
     def screen_design(self):
 
