@@ -19,7 +19,7 @@ class LevelScreen(ScreenBase):
         #Texto
         font = pygame.font.SysFont('comicsansms', size=40)
         self.text_surface = font.render("Escolha seu nível", True, (255, 255, 255))
-        self.text_rect = self.text_surface.get_rect(center=(400, 60))
+        self.text_rect = self.text_surface.get_rect(center=(self.width//2, 60))
 
 
 
@@ -30,7 +30,7 @@ class LevelScreen(ScreenBase):
 
         #Botões
 
-        button_info = [("Fácil", 400, 250), ("Intermediário", 400, 350), ("Difícil", 400, 450)]
+        button_info = [("Fácil", self.width//2, ( self.height//3)+20), ("Intermediário",self.width//2,( self.height//2)+20), ("Difícil",self.width//2, ( self.height//3)+260)]
         images_buttons = ["button_red.png", "button_red.png", "button_red.png"]
         self.create_buttons(button_info, images=images_buttons, size_button=25)
 
@@ -43,8 +43,8 @@ class LevelScreen(ScreenBase):
 
         self.screen.blit(self.background_image, (0, 0))
         self.screen.blit(self.text_surface, self.text_rect)
-        self.screen.blit(self.__mushroom_image, (0,400))
-        self.screen.blit(self.__mushroom_image, (600,400))
+        self.screen.blit(self.__mushroom_image, (0,self.height//2))
+        self.screen.blit(self.__mushroom_image, ((self.width//2)+100,self.height//2))
 
         for key, button in self.buttons.items():
             button.change_color(pygame.mouse.get_pos())
