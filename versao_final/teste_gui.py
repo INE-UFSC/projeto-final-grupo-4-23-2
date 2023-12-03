@@ -35,8 +35,6 @@ class SetStatus:
     def actual(self,actual):
         self.__actual = actual
     
-
-
     def state(self, view):
         self.actual = self.__display[view]
         return self.actual
@@ -44,14 +42,14 @@ class SetStatus:
 telas = SetStatus()
 running = True
 
-
 while running:
     events = pygame.event.get()
     for event in events:
         if event.type == pygame.QUIT:
             running = False
+        telas.actual.update(event)
+        
 
-    telas.actual.update(events)
     telas.actual.render()
     
     pygame.display.update()

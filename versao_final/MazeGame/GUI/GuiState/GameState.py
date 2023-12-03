@@ -1,31 +1,12 @@
-from abc import ABC, abstractmethod
+from MazeGame.GUI.GuiState.State import State
+from MazeGame.MazeGame import MazeGame
 
-
-class GameState(ABC):
-    def __init__(self, setstatus,view) -> None:
-        self.__view = view
-        self.__setstatus = setstatus
-
-    @property
-    def setstatus(self):
-        return self.__setstatus
-
-    @property
-    def view(self):
-        return self.__view
+class GameState(State):
+  def __init__(self, setstatus, view=None):
+    super().__init__(setstatus, view)
     
-    @view.setter
-    def view(self, view):
-        self.__view = view
-
-
-    @abstractmethod
-    def render(self): #desenha a tela
-        pass
-
-    @abstractmethod
-    def update(self,event): #atualiza os objetos em cada estado
-        pass
-
-
-
+  def render(self):
+    game = MazeGame()
+    game.run()
+        
+  def update(self, events): pass

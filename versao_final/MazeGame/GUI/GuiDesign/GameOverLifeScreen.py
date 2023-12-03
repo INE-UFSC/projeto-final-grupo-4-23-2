@@ -28,14 +28,14 @@ class GameOverLifeScreen(ScreenBase):
         font1 = pygame.font.SysFont('Tahoma', size=45)
         self.text_surface = font1.render("GAME OVER", True,(255,255,255))
         self.__finish_surface= font1.render("suas vidas acabaram !", True,(255,255,255))
-        self.text_rect = self.text_surface.get_rect(center=(400,50))
-        self.__finish_rect = self.__finish_surface.get_rect(center=(400,110))
+        self.text_rect = self.text_surface.get_rect(center=(self.width//2,50))
+        self.__finish_rect = self.__finish_surface.get_rect(center=(self.width//2,110))
 
         #Botões
-        button_info = [("Consultar ranking", 130, 550), ("   Nova partida   ", 400, 550), ("   Menu inicial   ", 650, 550)]
+        button_info = [("Consultar ranking", (self.width//2)-250,(self.height//2)+300), ("   Nova partida   ", self.width//2, (self.height//2)+300), ("   Menu inicial   ", (self.width//2)+250, (self.height//2)+300)]
         button_images = ["button_blue.png", "button_blue.png", "button_blue.png"]
 
-        self.create_buttons(button_info, images=button_images, size_button=16)
+        self.create_buttons(button_info, images=button_images, size_button=self.width//50)
 
     def render(self):
 

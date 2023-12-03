@@ -22,17 +22,17 @@ class RestrationScreen(ScreenBase):
         font = pygame.font.SysFont('comicsansms', size=30)
         self.text_surface = font.render("Insira um nome para o seu jogador ou", True, (255, 255, 255))
         self.__text2_surface = font.render("o nome já cadastrado", True, (255, 255, 255))
-        self.text_rect = self.text_surface.get_rect(center=(350, 60))
-        self.__text2_rect = self.__text2_surface.get_rect(center=(350, 90))      
+        self.text_rect = self.text_surface.get_rect(center=((self.width//3)+100, 60))
+        self.__text2_rect = self.__text2_surface.get_rect(center=((self.width//3)+100, 90))    
         
 #######botões
-        button_info = [("  Iniciar partida  ", 690, 250),("       Cadastrar      ", 690, 350), ("Consultar cadastros", 690, 450)]
+        button_info = [("  Iniciar partida  ", self.width-110,( self.height//3)+50 ),("       Cadastrar      ", self.width-110, ( self.height//3)+150), ("Consultar cadastros", self.width-110, ( self.height//3)+250)]
         images_buttons = ["button_red.png", "button_red.png", "button_red.png"]
-        self.create_buttons(button_info, images=images_buttons, size_button=20)
+        self.create_buttons(button_info, images=images_buttons, size_button=self.width//40)
 ##########caixa de texto
         label_text = "Nome: "
         self.__label_surface = font.render(label_text,True, (255,255,255))
-        self.__input_box = pygame.Rect(150,300,400,30)
+        self.__input_box = pygame.Rect((self.width-(self.width-120), ( self.height//3)+100 ,(self.width//2)-70,35))
         self.__color = pygame.Color('white')
     
     def render(self):
@@ -40,7 +40,7 @@ class RestrationScreen(ScreenBase):
         self.screen.blit(self.background_image, (0, 0))
         self.screen.blit(self.text_surface, self.text_rect)
         self.screen.blit(self.__text2_surface, self.__text2_rect)
-        self.screen.blit(self.__label_surface, (50, 300))
+        self.screen.blit(self.__label_surface, (self.width-(self.width-20),( self.height//3)+100))
         pygame.draw.rect(self.screen, self.__color, self.__input_box)
 
 
