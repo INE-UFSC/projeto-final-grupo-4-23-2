@@ -1,4 +1,4 @@
-import math
+
 from Engine.Structs.GameObject import GameObject
 from Engine.Physics.CollisionPolygon import CollisionPolygon
 from Engine.Structs.Vector3 import Vector3

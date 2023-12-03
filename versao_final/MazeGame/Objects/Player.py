@@ -14,7 +14,7 @@ class Player(GameObject):
     def __init__(self, player_scale):
         super().__init__()
         self.__player_scale = player_scale # tamanho do bixo
-        self.__speed = 50
+        self.__speed = 60
         self.__life = 3
         self.__keys = set()
 
