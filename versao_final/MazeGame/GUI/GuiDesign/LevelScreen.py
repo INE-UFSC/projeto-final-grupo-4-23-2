@@ -32,7 +32,7 @@ class LevelScreen(ScreenBase):
 
         button_info = [("Fácil", self.width//2, ( self.height//3)+20), ("Intermediário",self.width//2,( self.height//2)+20), ("Difícil",self.width//2, ( self.height//3)+260)]
         images_buttons = ["button_red.png", "button_red.png", "button_red.png"]
-        self.create_buttons(button_info, images=images_buttons, size_button=25)
+        self.create_buttons(button_info, images=images_buttons, size_button=self.width//32)
 
 
 

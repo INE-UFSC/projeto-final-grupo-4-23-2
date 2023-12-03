@@ -28,7 +28,7 @@ class RestrationScreen(ScreenBase):
 #######botões
         button_info = [("  Iniciar partida  ", self.width-110,( self.height//3)+50 ),("       Cadastrar      ", self.width-110, ( self.height//3)+150), ("Consultar cadastros", self.width-110, ( self.height//3)+250)]
         images_buttons = ["button_red.png", "button_red.png", "button_red.png"]
-        self.create_buttons(button_info, images=images_buttons, size_button=20)
+        self.create_buttons(button_info, images=images_buttons, size_button=self.width//40)
 ##########caixa de texto
         label_text = "Nome: "
         self.__label_surface = font.render(label_text,True, (255,255,255))

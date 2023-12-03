@@ -35,7 +35,7 @@ class GameOverLifeScreen(ScreenBase):
         button_info = [("Consultar ranking", (self.width//2)-250,(self.height//2)+300), ("   Nova partida   ", self.width//2, (self.height//2)+300), ("   Menu inicial   ", (self.width//2)+250, (self.height//2)+300)]
         button_images = ["button_blue.png", "button_blue.png", "button_blue.png"]
 
-        self.create_buttons(button_info, images=button_images, size_button=16)
+        self.create_buttons(button_info, images=button_images, size_button=self.width//50)
 
     def render(self):
 
