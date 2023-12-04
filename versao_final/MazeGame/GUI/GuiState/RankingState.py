@@ -1,11 +1,15 @@
 import pygame
 from MazeGame.GUI.GuiState.State import State
 from MazeGame.GUI.GuiDesign.RankingScreen import RankingScreen
-
+from MazeGame.Ranking.RankingManager import RankingManager
+from Engine.Structs.GameSettings import GameMode
 
 class RankingState(State):
     def __init__(self,setstatus,view):
        super().__init__(setstatus,view,)
+       self.ranking = RankingManager()
+       
+       self.view.results = self.ranking.get_results_by_mode(GameMode.EASY)
 
     def render(self):
       #  self.view = RankingScreen()

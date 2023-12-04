@@ -9,12 +9,20 @@ class RestrationScreen(ScreenBase):
         self.__label_surface = None
         self.__color = None
         self.__input_box = None
-        self.__typed_name = "Joao"
+        self.__typed_name = ""
         self.__font = None
         self.initialize_screen()
 
     def get_typed_name(self):
         return self.__typed_name
+    
+    @property
+    def typed_name(self):
+        return self.__typed_name
+    
+    @typed_name.setter
+    def typed_name(self, name):
+        self.__typed_name = name
 
     def screen_design(self):
 
@@ -41,14 +49,6 @@ class RestrationScreen(ScreenBase):
         self.__color = pygame.Color('white')
     
     def render(self):
-        keys = " qwertyuiopasdfghjklzxcvbnm0123456789\x08"
-        events = pygame.event.get()
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                if str(event.unicode).lower() in keys:
-                    if event.unicode == "\x08": self.__typed_name = self.__typed_name[:-1]
-                    elif len(self.__typed_name) < 12: self.__typed_name += event.unicode
-                    
         self.screen.blit(self.background_image, (0, 0))
         self.screen.blit(self.text_surface, self.text_rect)
         self.screen.blit(self.__text2_surface, self.__text2_rect)
@@ -56,7 +56,6 @@ class RestrationScreen(ScreenBase):
         
         pygame.draw.rect(self.screen, self.__color, self.__input_box)
         self.screen.blit(self.__font.render(self.__typed_name, True, (0,0,0)), (125, ( self.height//3)+100) )
-        
 
         for key, button in self.buttons.items():
             button.change_color(pygame.mouse.get_pos())

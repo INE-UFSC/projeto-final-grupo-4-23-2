@@ -27,10 +27,10 @@ class RankingManager(metaclass=Singleton):
     
     results_mode = {}
     
-    for r in results:
+    for name, r in results.items():
       time = r.get_result(mode)
       if time:
-        results_mode[r.name] = time ## Seria ideal criar uma DTO para esse tipo de informação
+        results_mode[name] = time ## Seria ideal criar uma DTO para esse tipo de informação
         
     return results_mode
   
