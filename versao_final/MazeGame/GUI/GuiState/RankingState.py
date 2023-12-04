@@ -14,9 +14,6 @@ class RankingState(State):
         
     def update(self, event):
       if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            mouse_pos = pygame.mouse.get_pos()
-            if self.view.buttons['Menu inicial'].clicked(mouse_pos):
-               self.setstatus.state('home')
-
-
-
+        mouse_pos = pygame.mouse.get_pos()
+        if self.view.buttons['Menu inicial'].clicked(mouse_pos):
+            self.setstatus.state('home')

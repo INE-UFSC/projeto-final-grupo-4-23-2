@@ -41,7 +41,7 @@ class GameSettings(metaclass=Singleton):
     def get_height(self): return self.__height
     def get_game_title(self): return self.__game_title
     def get_graphics_api(self): return self.__graphics_api
-    def get_maze_size(self): return 10 + (self.__game_mode.value*5)
+    def get_maze_size(self): return 8 + (self.__game_mode.value*5)
     def get_padding_top(self): return self.__padding_top
     def get_block_size(self): return  int((self.__width-10)/(self.get_maze_size()*2))
     def get_player_scale(self): return (self.get_block_size())*2/100

@@ -99,7 +99,7 @@ class Player(GameObject):
             self.set_rotation_axis(Vector3(math.radians(keys_rot[key]),0,0))
             self.set_speed(self.__speed)
             self.__keys.add(key)
-        else:
+        elif key in self.__keys:
             self.__keys.remove(key)
             if len(self.__keys) > 0:
                 self.move_player(self.__keys.pop(), KeyEventEnum.PRESS)
