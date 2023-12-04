@@ -13,6 +13,8 @@ from MazeGame.GUI.GuiState.RegistrationState import RegistrationState
 from MazeGame.GUI.GuiState.GameOverState import GameOverState
 from MazeGame.GUI.GuiState.RankingState import RankingState
 from MazeGame.GUI.GuiState.GameState import GameState
+from Engine.Structs.GameSettings import GameSettings
+
 
 class SetStatus:
     def __init__(self):
@@ -25,6 +27,7 @@ class SetStatus:
             'play': GameState(self)
         }
         self.__actual = self.__display['home']
+        self.settings = GameSettings()
 
     @property
     def actual(self):
@@ -37,7 +40,6 @@ class SetStatus:
     def state(self, view):
         self.actual = self.__display[view]
         return self.actual
-
 
 telas = SetStatus()
 pygame.init()

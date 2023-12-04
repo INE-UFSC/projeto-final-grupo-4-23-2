@@ -2,6 +2,8 @@ import random
 import pygame
 from Engine.Game import *
 from Engine.Structs.GameSettings import GameSettings
+from Engine.Structs.GameSettings import GameMode
+from MazeGame.Ranking.RankingManager import RankingManager
 from MazeGame.Objects.Player import Player
 from MazeGame.Objects.Maze import Maze
 from Engine.Physics.CollisionPolygons.Square import Square
@@ -13,9 +15,11 @@ from MazeGame.Objects.EndMazeFlag import EndMazeFlag
 from MazeGame.Objects.Terrain import RandomTerrain
 
 
+
 class MazeGame(Game):
-    def __init__(self, settings=GameSettings()):
+    def __init__(self, settings=GameSettings(), ranking=RankingManager()):
         super().__init__(settings)
+        self.__ranking = ranking
         
         s = self.settings.get_maze_size()
         block_size = self.settings.get_block_size()
@@ -34,6 +38,14 @@ class MazeGame(Game):
         )
         
         self.create_maze_map()
+        
+    @property
+    def ranking(self):
+        return self.__ranking
+    
+    @property
+    def current_duration(self):
+        return self.__current_duration
             
     def loop(self, event=None):
         if self.get_world().pause: return

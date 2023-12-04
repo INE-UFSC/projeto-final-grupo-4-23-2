@@ -1,8 +1,3 @@
-class GameModeEnum(Enum):
-  EASY=1,
-  NORMAL=2,
-  HARD=3
-
 class PlayerData:
   # best_time: int (tempo em segundos ou milisegundos) PRECISA DEFINIR
   def __init__(self, name):
@@ -31,5 +26,5 @@ class PlayerData:
   def get_result(self, mode):
     return self.__results.get(mode)
   
-  def update_time(self, mode, points):
+  def update_points(self, mode, points):
     self.__results[mode] = points
