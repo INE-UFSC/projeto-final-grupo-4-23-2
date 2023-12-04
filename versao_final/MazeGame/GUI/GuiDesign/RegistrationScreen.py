@@ -41,11 +41,11 @@ class RestrationScreen(ScreenBase):
         self.__color = pygame.Color('white')
     
     def render(self):
-        keys = "qwertyuiopasdfghjklzxcvbnm0123456789"
+        keys = " qwertyuiopasdfghjklzxcvbnm0123456789\x08"
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.KEYDOWN:
-                if str(event.unicode).lower() in " qwertyuiopasdfghjklzxcvbnm0123456789\x08":
+                if str(event.unicode).lower() in keys:
                     if event.unicode == "\x08": self.__typed_name = self.__typed_name[:-1]
                     elif len(self.__typed_name) < 12: self.__typed_name += event.unicode
                     
