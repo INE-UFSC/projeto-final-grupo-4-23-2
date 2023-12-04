@@ -1,6 +1,6 @@
 import pickle
 import sys
-from PlayerData import PlayerData
+from MazeGame.Ranking.PlayerData import PlayerData
 
 class DAO:
     def __init__(self, datasource='ranking_data'):
@@ -37,6 +37,7 @@ class DAO:
     def update_player_data(self, name, mode, points):
       try:
         self.cache[name].update_points(mode, points)
+        self.dump()
       except KeyError:
         raise
 
