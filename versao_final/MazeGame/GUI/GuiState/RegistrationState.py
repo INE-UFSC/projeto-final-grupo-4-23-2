@@ -16,7 +16,7 @@ class RegistrationState(State):
       
       if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
          mouse_pos = pygame.mouse.get_pos()
-         if self.view.buttons['  Iniciar partida  '].clicked(mouse_pos):
+         if self.view.buttons['  Iniciar partida  '].clicked(mouse_pos) and len(self.view.typed_name) > 0:
             self.setstatus.settings.set_player_name(self.view.typed_name) # pegar o valor do input
             self.setstatus.state('play')
       
