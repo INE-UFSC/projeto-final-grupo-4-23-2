@@ -38,7 +38,7 @@ class MazeGame(Game):
             lambda key, event: self.get_world().togglePause()
         )
         
-        self.__power_up_pos = set()
+        self.__actor_up_pos = set()
         
         self.create_maze_map()
         
@@ -46,6 +46,9 @@ class MazeGame(Game):
     def ranking(self):
         return self.__ranking
     
+    def remove_actor_pos(self, pos):
+        if pos in self.__actor_up_pos:
+            self.__actor_up_pos.remove(pos)
             
     def loop(self, event=None):
         if self.get_world().pause: return
@@ -93,15 +96,16 @@ class MazeGame(Game):
         
     def generate_random_power_up(self):
         PowerUp = random.choice([PowerUpLife, PowerUpSpeed])
-        random_pos = self.__maze.get_random_free_position(margin=Vector3(self.__iw, self.__ih), exclude=self.__power_up_pos)
-        self.__power_up_pos.add(random_pos.get_float_array())
+        random_pos = self.__maze.get_random_free_position(margin=Vector3(self.__iw, self.__ih), exclude=self.__actor_up_pos)
+        self.__actor_up_pos.add(random_pos.get_float_tuple_2d())
         power_up = PowerUp(initial_position=random_pos,collision_polygons=[Square(self.settings.get_block_size())])
         # power_up.set_render_collisions_polygons(True)
         self.get_world().add_object(power_up)
         
     def generate_random_obstacle(self):
         Obstacle = random.choice([ObstacleLife])
-        random_pos = self.__maze.get_random_free_position(margin=Vector3(self.__iw, self.__ih))
+        random_pos = self.__maze.get_random_free_position(margin=Vector3(self.__iw, self.__ih), exclude=self.__actor_up_pos)
+        self.__actor_up_pos.add(random_pos.get_float_tuple_2d())
         obstacle = Obstacle(initial_position=random_pos,collision_polygons=[Square(self.settings.get_block_size())])
         # obstacle.set_render_collisions_polygons(True)
         self.get_world().add_object(obstacle)
