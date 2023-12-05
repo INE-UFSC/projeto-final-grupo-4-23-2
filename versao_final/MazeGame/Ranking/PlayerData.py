@@ -9,7 +9,7 @@ class PlayerData:
     
   @property
   def name(self):
-    return name
+    return self.__name
   
   # @property
   # def mode(self):
@@ -24,7 +24,10 @@ class PlayerData:
     return self.__results
 
   def get_result(self, mode):
-    return self.__results.get(mode)
+    if self.__results.get(mode):
+      return self.__results.get(mode)
+    else:
+      return 0
   
   def update_points(self, mode, points):
     self.__results[mode] = points
