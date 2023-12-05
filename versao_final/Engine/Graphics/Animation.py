@@ -37,7 +37,7 @@ class Animation:
             self.__time = new_time
     
     def render(self, graphics_api:IGraphicsApi, x:int, y:int):
-        if not (self.__end_animation and self.__hide_on_end):
+        if not (self.__end_animation and self.__hide_on_end) and self.__duration != 0:
             img_id = int(self.__time) % self.__duration
             
             x_frame = img_id if self.__horizontal else 0
