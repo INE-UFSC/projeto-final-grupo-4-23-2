@@ -1,5 +1,6 @@
 from Player import *
-     
+from Utils import*
+
 import pygame
 
 pygame.init()

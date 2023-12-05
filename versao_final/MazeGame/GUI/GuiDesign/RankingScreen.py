@@ -1,7 +1,7 @@
 import pygame
 from MazeGame.GUI.GuiDesign.Button import *
 from MazeGame.GUI.GuiDesign.ScreenBase import ScreenBase
-
+from Utils import*
 
 class RankingScreen(ScreenBase):
     def __init__(self):
@@ -23,20 +23,20 @@ class RankingScreen(ScreenBase):
     def screen_design(self):
 
         #Fundo
-        self.background_image = self.resource_manager.get_image("t1.jpg")
+        self.background_image = self.resource_manager.get_image(BACKGROUND_GREEN)
         self.background_image = pygame.transform.scale(self.background_image, (self.width, self.height))
         
 
         #Texto
-        font = pygame.font.SysFont('comicsansms', size=30)
-        self.text_surface = font.render("MELHORES PONTUAÇÕES", True, (255,255,255))
+        font = pygame.font.SysFont('comicsansms', size=20)
+        self.text_surface = font.render("MELHORES PONTUAÇÕES DE ACORDO COM A CATEGORIA", True, (255,255,255))
         self.text_rect = self.text_surface.get_rect(center=(self.width//2,self.height//11))
         
-        button_info = [("Fácil", self.width//2 - 150, (self.height//6)),
-                       ("Intermediário",self.width//2,(self.height//6)),
-                       ("Difícil",self.width//2 + 150, (self.height//6)),
+        button_info = [("Fácil", self.width//2 - 150, (self.height//6)+20),
+                       ("Intermediário",self.width//2,(self.height//6)+20),
+                       ("Difícil",self.width//2 + 150, (self.height//6)+20),
                        ("Menu inicial", self.width//2, self.height-50)]
-        images_buttons = ["button_red.png", "button_red.png", "button_red.png", "button_red.png"]
+        images_buttons = [BUTTON_BLUE, BUTTON_BLUE, BUTTON_BLUE, BUTTON_RED]
         self.create_buttons(button_info, images=images_buttons, size_button=self.width//32)
 
         
@@ -51,13 +51,9 @@ class RankingScreen(ScreenBase):
             surface = font_ranking.render(f"{name} - {result}", True, (255, 255, 255))
             
             self.__results_txt_surfaces.append(surface)
-            self.__results_txt_rects.append(surface.get_rect(center=(self.width//2, (self.height//7) + 35 * i + 50)))
+            self.__results_txt_rects.append(surface.get_rect(center=(self.width//2, (self.height//7) + 35 * i + 80)))
             
 
-        #Botões
-        button_info = []
-        images_buttons = ["button_red.png"]
-        self.create_buttons(button_info, images_buttons, size_button=self.width//40)
 
 
     def render(self):

@@ -78,7 +78,7 @@ class ScreenBase(ABC):
         self.__screen = screen
 
     def initialize_screen(self):
-        self.screen = pygame.display.set_mode((self.width, self.height), pygame.RESIZABLE)
+        self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption(self.title)
 
     @abstractmethod

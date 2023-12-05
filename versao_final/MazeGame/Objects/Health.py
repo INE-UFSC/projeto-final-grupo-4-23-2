@@ -1,9 +1,10 @@
 import pygame, sys
+from Utils import*
 
 class Player(pygame.sprite.Sprite):
 	def __init__(self):
 		super().__init__()
-		self.image = pygame.image.load('clock.png').convert_alpha()
+		self.image = pygame.image.load(CLOCK).convert_alpha()
 		self.rect = self.image.get_rect(center = (400,400))
 		self.health = 5
 		self.max_health = 20
@@ -39,9 +40,9 @@ screen = pygame.display.set_mode((800,800))
 clock = pygame.time.Clock()
 link = pygame.sprite.GroupSingle(Player())
 
-full_heart = pygame.image.load('full_heart.png').convert_alpha()
+full_heart = pygame.image.load(FULL_HEART).convert_alpha()
 #half_heart = pygame.image.load('half_heart.png').convert_alpha()
-empty_heart = pygame.image.load('empty_heart.png').convert_alpha()
+empty_heart = pygame.image.load(EMPTY_HEART).convert_alpha()
 
 while True:
 	for event in pygame.event.get():

@@ -1,6 +1,7 @@
 import pygame
 import random
 from MazeGame.MazeGenerator.maze_generation import Graph
+from Utils import*
 
 from Engine.Structs.GameObject import GameObject
 from Engine.Structs.Vector3 import Vector3
@@ -17,7 +18,7 @@ class Maze(GameObject):
         self.__block_size = block_size
         self.__maze_size = size
         self.__bin_matrix = Graph.binaryMatrix(size)
-        self.__fence = ResourceManager().get_image("fences.png")
+        self.__fence = ResourceManager().get_image(FENCES)
         
         self.create_collision_polygons()
         self.create_fences_matrix()
