@@ -16,7 +16,7 @@ class PowerUpSpeed(PowerUp):
                    collision_polygons: [CollisionPolygon] = [], duration=4, points=50):
         super().__init__(initial_position,collision_polygons, duration, points)
         self.__resource_manager = ResourceManager()
-        self.__lightning  = Animation(self.__resource_manager.get_image("flash.png", scale=0.4)) 
+        self.__lightning  = Animation(self.__resource_manager.get_image("Rock2.png", scale=0.8)) 
         self.is_active = False
         self.__active_time = 0
         self.__active_player = None
