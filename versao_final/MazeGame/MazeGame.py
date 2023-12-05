@@ -85,7 +85,7 @@ class MazeGame(Game):
         PowerUp = random.choice([PowerUpLife, PowerUpSpeed])
         random_pos = self.__maze.get_random_free_position(margin=Vector3(self.__iw, self.__ih))
         power_up = PowerUp(initial_position=random_pos,collision_polygons=[Square(self.settings.get_block_size())])
-        # power_up.set_render_collisions_polygons(True)
+        power_up.set_render_collisions_polygons(True)
         self.get_world().add_object(power_up)
         
     def generate_random_obstacle(self):
