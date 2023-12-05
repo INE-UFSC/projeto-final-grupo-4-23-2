@@ -178,6 +178,8 @@ class Maze(GameObject):
     def render_graphics(self, graphics_api:IGraphicsApi):
         super().render_graphics(graphics_api)
         m = self.__bin_matrix
+        #TX Tileset Grass.png
+        self.get_graphics_api().draw_2d_img(ResourceManager().get_image("TX Tileset Grass2.png"), 0, 0)
         
         for x in range(len(m)):
             for y in range(len(m[x])):
