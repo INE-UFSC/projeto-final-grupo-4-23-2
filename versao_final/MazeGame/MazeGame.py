@@ -14,20 +14,21 @@ from MazeGame.Objects.PowerUpLife import PowerUpLife
 from MazeGame.Objects.EndMazeFlag import EndMazeFlag
 from MazeGame.Objects.Terrain import RandomTerrain
 
-
+class GameEvents(Enum):
+    PLAYER_DIED=1
+    FINISH=2
 
 class MazeGame(Game):
-    def __init__(self, settings=GameSettings(), ranking=RankingManager()):
+    def __init__(self, settings=GameSettings(), ranking=RankingManager(), viewstate=None):
         super().__init__(settings)
         self.__ranking = ranking
+        self.__viewstate = viewstate
         
         s = self.settings.get_maze_size()
         block_size = self.settings.get_block_size()
         self.__iw=(self.settings.get_width() - (block_size*2) * s)//2 #colocar na singleton e usar nomes mais claros nas variaveis
         self.__ih = self.__iw + self.settings.get_padding_top()
 
-        self.__start_time = time.time()
-        self.__current_duration = 0
         self.__last_power_up = 0
         
         self.__count_actors = 0
@@ -43,14 +44,13 @@ class MazeGame(Game):
     def ranking(self):
         return self.__ranking
     
-    @property
-    def current_duration(self):
-        return self.__current_duration
             
     def loop(self, event=None):
         if self.get_world().pause: return
         time_at = time.time()
-        self.__current_duration = time_at - self.__start_time
+        # self.__current_duration = time_at - self.__start_time
+
+        self.render_current_duration()
 
         # print(rand)
         if int(time_at - self.__last_power_up) >= 5:
@@ -60,6 +60,14 @@ class MazeGame(Game):
                 self.generate_random_power_up()
             else:
                 self.generate_random_obstacle()
+                
+    def player_died(self):
+        self.stop()
+        self.__viewstate.update(GameEvents.PLAYER_DIED)
+        
+    def end_game(self):
+        self.stop()
+        self.__viewstate.update(GameEvents.FINISH)
                 
     def create_maze_map(self):
         s = self.settings.get_maze_size()
@@ -85,11 +93,11 @@ class MazeGame(Game):
         PowerUp = random.choice([PowerUpLife, PowerUpSpeed])
         random_pos = self.__maze.get_random_free_position(margin=Vector3(self.__iw, self.__ih))
         power_up = PowerUp(initial_position=random_pos,collision_polygons=[Square(self.settings.get_block_size())])
-        # power_up.set_render_collisions_polygons(True)
+        power_up.set_render_collisions_polygons(True)
         self.get_world().add_object(power_up)
         
     def generate_random_obstacle(self):
-        Obstacle = random.choice([ObstacleLife, ObstacleSpeed])
+        Obstacle = random.choice([ObstacleLife])
         random_pos = self.__maze.get_random_free_position(margin=Vector3(self.__iw, self.__ih))
         obstacle = Obstacle(initial_position=random_pos,collision_polygons=[Square(self.settings.get_block_size())])
         # obstacle.set_render_collisions_polygons(True)

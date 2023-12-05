@@ -15,7 +15,7 @@ class Player(GameObject):
         super().__init__()
         self.__player_scale = player_scale # tamanho do bixo
         self.__speed = 50
-        self.__life = 3
+        self.__life = 6
         self.__keys = set()
 
         self.__resource_manager = ResourceManager()
@@ -75,6 +75,7 @@ class Player(GameObject):
         elif self.__life <= 0:
             self.current_animation = self.animations['ko']
             self.current_animation.play(self.get_world().get_delta_time())
+            self.get_world().get_game().player_died()
         
         if self.isMoving():
             self.current_animation.play(self.get_world().get_delta_time())

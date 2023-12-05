@@ -45,6 +45,7 @@ class RankingScreen(ScreenBase):
         self.__results_txt_rects = []
         
         i = 0
+        # print(self.results)
         for name, result in self.results.items():
             i += 1
 
