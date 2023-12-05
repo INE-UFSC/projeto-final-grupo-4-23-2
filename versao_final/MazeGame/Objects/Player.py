@@ -15,7 +15,7 @@ class Player(GameObject):
         super().__init__()
         self.__player_scale = player_scale # tamanho do bixo
         self.__speed = 50
-        self.__life = 3
+        self.__life = 6
         self.__keys = set()
 
         self.__resource_manager = ResourceManager()
