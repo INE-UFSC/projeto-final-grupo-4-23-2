@@ -40,7 +40,6 @@ class PowerUpSpeed(PowerUp):
             if dif >= self.duration:
                 self.__active_player.speed_down(self.points)
                 self.kill()
-                
     
     def render_graphics(self, graphics_api: IGraphicsApi):
         if not self.is_active:

@@ -95,11 +95,12 @@ class Game(ABC):
             self.render_fps()
             self.render_current_duration()
             
+            self.loop()
+            
             if self.__world.get_rotine_status() == WorldRotineStatusEnum.FINISH:
                 self.end_scene()
                 self.__world.set_rotine_status(WorldRotineStatusEnum.WAITING_START_PERMISSION)
             
-            self.loop()
             
             for event in pygame.event.get():
                 

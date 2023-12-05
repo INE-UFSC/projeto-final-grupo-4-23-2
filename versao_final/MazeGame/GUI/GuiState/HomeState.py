@@ -23,5 +23,5 @@ class HomeState(State):
             self.setstatus.state('ranking') #só p testar a tela de game over
             
          if self.view.buttons['Sair'].clicked(mouse_pos):
-            self.setstatus.state('game_over')
+            pygame.quit()
                   #pygame.quit()

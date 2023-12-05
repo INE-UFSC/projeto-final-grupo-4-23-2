@@ -58,6 +58,8 @@ class Player(GameObject):
     def show_life(self):
         print(f"voce tem {self.__life} vida(S)")
         
+    def get_life(self):
+        return self.__life//2
     
     def handle_on_collision(self, collisions_descriptions):
         pass
@@ -65,7 +67,6 @@ class Player(GameObject):
     def render_graphics(self, graphics_api: IGraphicsApi):
         super().render_graphics(graphics_api)
         self.current_animation.render(graphics_api, self.get_position().get_x(), self.get_position().get_y())
-
         
     def loop(self): ##arrumar aqui para a animação variar de acordo com a velocidade do player
         if self.__speed > 50 and self.__life > 0:

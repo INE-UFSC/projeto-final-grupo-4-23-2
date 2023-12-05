@@ -50,13 +50,15 @@ class MazeGame(Game):
         if pos in self.__actor_up_pos:
             self.__actor_up_pos.remove(pos)
             
+    def render_player_life(self):
+        life_txt = f"Vidas: {str(int(self.__plocal.get_life()))}"
+        self.get_graphics_api().draw_2d_text(life_txt, self.settings.get_width()//1.6 + 100, 30, (255, 255, 255), (0,0,0), font_size=24)
+            
     def loop(self, event=None):
         if self.get_world().pause: return
         time_at = time.time()
         # self.__current_duration = time_at - self.__start_time
-
-        self.render_current_duration()
-
+        self.render_player_life()
         # print(rand)
         if int(time_at - self.__last_power_up) >= 5:
             self.__last_power_up = time_at
@@ -83,11 +85,11 @@ class MazeGame(Game):
         self.get_world().add_object(mazeMap)
         self.__maze = mazeMap
 
-        plocal = Player(player_scale=self.settings.get_player_scale())
-        plocal.set_position(Vector3(self.__iw+block_size,self.__ih+block_size,0))
-        plocal.set_collision_polygons([Square(block_size)])
-        plocal.set_render_collisions_polygons(True)
-        self.get_world().add_object(plocal)
+        self.__plocal = Player(player_scale=self.settings.get_player_scale())
+        self.__plocal.set_position(Vector3(self.__iw+block_size,self.__ih+block_size,0))
+        self.__plocal.set_collision_polygons([Square(block_size)])
+        self.__plocal.set_render_collisions_polygons(True)
+        self.get_world().add_object(self.__plocal)
 
         end_pos = lambda x: s * block_size*2 + (self.__iw if x == "x" else self.__ih - block_size)
         flag = EndMazeFlag(initial_position=Vector3(end_pos('x'), end_pos('y'), 0), collision_polygons=[Square(size=15)])
