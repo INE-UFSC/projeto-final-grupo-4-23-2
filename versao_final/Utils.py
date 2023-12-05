@@ -30,6 +30,11 @@ GRASS = 'grass_background.jpg'
 ####  H
 
 HEART = 'heart.png'
+
+## K
+
+KNIFE = 'knife.png'
+
 ####  M
 
 MUD = 'mud.png'
