@@ -26,19 +26,19 @@ class RankingManager(metaclass=Singleton):
     results = self.__dao.get_all_players_data()
     
     results_mode = {}
-    
-    for name, r in results.items():
+
+    for k, r in sorted(results.items(), key=lambda x: x[1].get_result(mode), reverse=True):
       time = r.get_result(mode)
       if time:
-        results_mode[name] = time ## Seria ideal criar uma DTO para esse tipo de informação
-        
+        results_mode[r.name] = time ## Seria ideal criar uma DTO para esse tipo de informação
+    
     return results_mode
   
   def get_results_by_player(self, name):
     player_data = self.__dao.get_player_data(name)
     
-    if player_data:
-      return player_data.results
+    # if player_data:
+      # return sorted(player_data.results, lambda x: x.value())
     
   def set_player_new_result(self, name, mode, points):
     player_data = self.__dao.get_player_data(name)
