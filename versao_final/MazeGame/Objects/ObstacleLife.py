@@ -16,11 +16,7 @@ class ObstacleLife(Obstacle):
                    collision_polygons: [CollisionPolygon] = [], points=1):
         super().__init__(initial_position,collision_polygons, 0, points)
         self.__resource_manager = ResourceManager()
-<<<<<<< HEAD
-        self.__lightning  = Animation(self.__resource_manager.get_image(ROCK1), speed=20)
-=======
         self.__lightning  = Animation(self.__resource_manager.get_image("knife.png", scale=0.03))
->>>>>>> 94549580fa638044453be8c2aca680c75f9ceddc
 
 
     def active(self, player):
