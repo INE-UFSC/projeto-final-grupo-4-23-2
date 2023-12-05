@@ -8,7 +8,7 @@ import pygame
 
 class ScreenBase(ABC):
     def __init__(self, settings=GameSettings()):
-        self.__title = "Nome do jogo"
+        self.__title = "Crazy Maze"
         self.__width = settings.get_width()
         self.__height = settings.get_height()
         self.__screen = None  # Inicializamos a tela como None

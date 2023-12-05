@@ -11,8 +11,12 @@ class RestrationScreen(ScreenBase):
         self.__input_box = None
         self.__typed_name = ""
         self.__font = None
+        self.__error = None
         self.initialize_screen()
 
+    def show_error(self, erro):
+        self.__error = erro
+        
     def get_typed_name(self):
         return self.__typed_name
     
@@ -23,6 +27,7 @@ class RestrationScreen(ScreenBase):
     @typed_name.setter
     def typed_name(self, name):
         self.__typed_name = name
+        
 
     def screen_design(self):
 
@@ -47,6 +52,11 @@ class RestrationScreen(ScreenBase):
         self.__label_surface = self.__font.render(label_text,True, (255,255,255))
         self.__input_box = pygame.Rect((self.width-(self.width-120), ( self.height//3)+100 ,(self.width//2)-70,35))
         self.__color = pygame.Color('white')
+        
+        self.__error_font = pygame.font.SysFont('comicsansms', size=22)
+        self.__error_surface = self.__error_font.render(self.__error, True, (255, 120, 0))
+        self.__error_rect = pygame.Rect((self.width-(self.width-120), ( self.height//3)+180 ,(self.width//2)-70,35))
+        
     
     def render(self):
         self.screen.blit(self.background_image, (0, 0))
@@ -57,6 +67,8 @@ class RestrationScreen(ScreenBase):
         pygame.draw.rect(self.screen, self.__color, self.__input_box)
         self.screen.blit(self.__font.render(self.__typed_name, True, (0,0,0)), (125, ( self.height//3)+100) )
 
+        self.screen.blit(self.__error_surface, self.__error_rect)
+        
         for key, button in self.buttons.items():
             button.change_color(pygame.mouse.get_pos())
             button.update(self.screen)
