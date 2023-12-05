@@ -10,6 +10,7 @@ from Engine.Structs.ResourceManager import ResourceManager
 
 
 
+
 class PowerUpLife(PowerUp):
     def __init__(self, initial_position: Vector3 = Vector3(), 
                    collision_polygons: [CollisionPolygon] = [], points=2, duration=0):
