@@ -77,11 +77,14 @@ class MazeGame(Game):
         #mazeMap.set_render_collisions_polygons(True)
         self.get_world().add_object(mazeMap)
         self.__maze = mazeMap
+        
+        #self.__terrain = RandomTerrain(graphics_file_name="TX Tileset Grass.png", blocks_count_in_graphics_file=16,size=s, block_size=block_size)
+        #self.get_world().add_object(self.__terrain)
 
         self.__plocal = Player(player_scale=self.settings.get_player_scale())
         self.__plocal.set_position(Vector3(self.__iw+block_size,self.__ih+block_size,0))
         self.__plocal.set_collision_polygons([Square(block_size)])
-        self.__plocal.set_render_collisions_polygons(True)
+        #self.__plocal.set_render_collisions_polygons(True)
         self.get_world().add_object(self.__plocal)
 
         end_pos = lambda x: s * block_size*2 + (self.__iw if x == "x" else self.__ih - block_size)
