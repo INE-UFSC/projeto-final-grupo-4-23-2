@@ -8,7 +8,7 @@ from Engine.Graphics.IGraphicsApi import IGraphicsApi
 #from MazeGame.Objects.EndMazeFlag import EndMazeFlag
 from Engine.Graphics.Animation import Animation
 from Engine.Structs.ResourceManager import ResourceManager
-from Utils import*
+
 
 class Player(GameObject):
     def __init__(self, player_scale):
@@ -20,9 +20,9 @@ class Player(GameObject):
 
         self.__resource_manager = ResourceManager()
 
-        self.__animations = {"walk": Animation(self.__resource_manager.get_image(PLAYER_WALK, player_scale), speed=(20)),
-                             "run": Animation(self.__resource_manager.get_image(PLAYER_RUN, player_scale), speed=80),
-                             "ko": Animation(self.__resource_manager.get_image(PLAYER_KO, player_scale), speed=20),
+        self.__animations = {"walk": Animation(self.__resource_manager.get_image("player_walk.png", player_scale), speed=(20)),
+                             "run": Animation(self.__resource_manager.get_image("player_run.png", player_scale), speed=80),
+                             "ko": Animation(self.__resource_manager.get_image("player_ko.png", player_scale), speed=20),
 
         }
         self.__current_animation = self.animations["walk"]
@@ -58,8 +58,6 @@ class Player(GameObject):
     def show_life(self):
         print(f"voce tem {self.__life} vida(S)")
         
-    def get_life(self):
-        return self.__life//2
     
     def handle_on_collision(self, collisions_descriptions):
         pass
@@ -67,6 +65,7 @@ class Player(GameObject):
     def render_graphics(self, graphics_api: IGraphicsApi):
         super().render_graphics(graphics_api)
         self.current_animation.render(graphics_api, self.get_position().get_x(), self.get_position().get_y())
+
         
     def loop(self): ##arrumar aqui para a animação variar de acordo com a velocidade do player
         if self.__speed > 50 and self.__life > 0:
