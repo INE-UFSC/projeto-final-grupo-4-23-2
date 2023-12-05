@@ -14,12 +14,15 @@ from MazeGame.Objects.PowerUpLife import PowerUpLife
 from MazeGame.Objects.EndMazeFlag import EndMazeFlag
 from MazeGame.Objects.Terrain import RandomTerrain
 
-
+class GameEvents(Enum):
+    PLAYER_DIED=1
+    FINISH=2
 
 class MazeGame(Game):
-    def __init__(self, settings=GameSettings(), ranking=RankingManager()):
+    def __init__(self, settings=GameSettings(), ranking=RankingManager(), viewstate=None):
         super().__init__(settings)
         self.__ranking = ranking
+        self.__viewstate = viewstate
         
         s = self.settings.get_maze_size()
         block_size = self.settings.get_block_size()
@@ -51,6 +54,7 @@ class MazeGame(Game):
         if self.get_world().pause: return
         time_at = time.time()
         self.__current_duration = time_at - self.__start_time
+        # print(self.)
 
         # print(rand)
         if int(time_at - self.__last_power_up) >= 5:
@@ -60,6 +64,14 @@ class MazeGame(Game):
                 self.generate_random_power_up()
             else:
                 self.generate_random_obstacle()
+                
+    def player_died(self):
+        self.stop()
+        self.__viewstate.update(GameEvents.PLAYER_DIED)
+        
+    def end_game(self):
+        self.stop()
+        self.__viewstate.update(GameEvents.FINISH)
                 
     def create_maze_map(self):
         s = self.settings.get_maze_size()
@@ -89,7 +101,7 @@ class MazeGame(Game):
         self.get_world().add_object(power_up)
         
     def generate_random_obstacle(self):
-        Obstacle = random.choice([ObstacleLife, ObstacleSpeed])
+        Obstacle = random.choice([ObstacleLife])
         random_pos = self.__maze.get_random_free_position(margin=Vector3(self.__iw, self.__ih))
         obstacle = Obstacle(initial_position=random_pos,collision_polygons=[Square(self.settings.get_block_size())])
         # obstacle.set_render_collisions_polygons(True)

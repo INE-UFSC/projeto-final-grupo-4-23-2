@@ -26,6 +26,7 @@ class EndMazeFlag(GameObject):
                 
                 
                 game_obj.ranking.set_player_new_result(name=player_name, mode=game_mode,points=points)
+                game_obj.end_game()
                 # print(game_obj.ranking.get_results_by_player(player_name))
                 
     def render_graphics(self, graphics_api: IGraphicsApi):

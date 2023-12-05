@@ -22,6 +22,7 @@ class Game(ABC):
         
         self.__graphics_api.set_surface(self.__surface)
         self.__world = World(self, self.__graphics_api)
+        self.__run = True
         
     @property
     def settings(self):
@@ -45,6 +46,9 @@ class Game(ABC):
             
     def end_scene(self):
         pygame.display.flip()
+        
+    def stop(self):
+        self.__run = False
     
     def render_fps(self):
         fps_txt = f"FPS: {str(int(self.__world.get_fps()))}"
@@ -61,7 +65,7 @@ class Game(ABC):
         self.__world.run()
         
         events = pygame.event.get()
-        while True:
+        while self.__run:
             sleep(0)
             if self.__world.get_rotine_status() == WorldRotineStatusEnum.WAITING_START_PERMISSION:
                 self.begin_scene()

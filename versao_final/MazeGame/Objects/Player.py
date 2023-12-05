@@ -75,6 +75,7 @@ class Player(GameObject):
         elif self.__life <= 0:
             self.current_animation = self.animations['ko']
             self.current_animation.play(self.get_world().get_delta_time())
+            self.get_world().get_game().player_died()
         
         if self.isMoving():
             self.current_animation.play(self.get_world().get_delta_time())

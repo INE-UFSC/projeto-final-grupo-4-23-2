@@ -18,7 +18,7 @@ class GameOverState(State):
             self.setstatus.state('ranking')
 
          if self.view.buttons['   Nova partida   '].clicked(mouse_pos):
-            print("adicionar tela do labiringo/jogo aqui")
+            self.setstatus.state('play')
             
          if self.view.buttons['   Menu inicial   '].clicked(mouse_pos):
             self.setstatus.state('home')
