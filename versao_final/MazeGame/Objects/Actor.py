@@ -17,10 +17,6 @@ class Actor(GameObject):
     @property
     def points(self): #quantos pontos de velocidade, vida ou tempo de jogo o player vai ganhar
         return self.__points
-    
-    def kill(self):
-        self.get_world().get_game().remove_actor_pos(self.get_position().get_float_tuple_2d())
-        self.get_world().kill_game_object(self)
 
 
     @abstractclassmethod # em tempo de execução, ele sabe que é o player
@@ -31,4 +27,5 @@ class Actor(GameObject):
         for obj in collisions_descriptions:
             if isinstance(obj.get_game_object1(), Player):
                 self.active(obj.get_game_object1())
+
 

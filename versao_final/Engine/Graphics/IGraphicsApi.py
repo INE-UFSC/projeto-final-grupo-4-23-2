@@ -26,4 +26,7 @@ class IGraphicsApi(ABC):
     def draw_2d_text(self, text:str, x:int, y:int, color, background_color, font_size:int=32, font_family:str="freesansbold.ttf"): pass   
     
     @abstractclassmethod
+    def draw_2d_img(self, imp, x:int, y:int): pass
+    
+    @abstractclassmethod
     def draw_2d_indexed_sprite(self, imp, x:int, y:int, x_frame:int=None, y_frame:int=None, sprite_size_w:int=None, sprite_size_h:int=None): pass
