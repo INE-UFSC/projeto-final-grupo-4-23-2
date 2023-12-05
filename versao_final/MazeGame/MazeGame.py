@@ -29,8 +29,6 @@ class MazeGame(Game):
         self.__iw=(self.settings.get_width() - (block_size*2) * s)//2 #colocar na singleton e usar nomes mais claros nas variaveis
         self.__ih = self.__iw + self.settings.get_padding_top()
 
-        self.__start_time = time.time()
-        self.__current_duration = 0
         self.__last_power_up = 0
         
         self.__count_actors = 0
@@ -46,15 +44,13 @@ class MazeGame(Game):
     def ranking(self):
         return self.__ranking
     
-    @property
-    def current_duration(self):
-        return self.__current_duration
             
     def loop(self, event=None):
         if self.get_world().pause: return
         time_at = time.time()
-        self.__current_duration = time_at - self.__start_time
-        # print(self.)
+        # self.__current_duration = time_at - self.__start_time
+
+        self.render_current_duration()
 
         # print(rand)
         if int(time_at - self.__last_power_up) >= 5:

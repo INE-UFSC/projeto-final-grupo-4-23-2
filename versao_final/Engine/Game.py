@@ -24,9 +24,23 @@ class Game(ABC):
         self.__world = World(self, self.__graphics_api)
         self.__run = True
         
+        self.__start_time = time.time()
+        self.__current_duration = 0
+        
     @property
     def settings(self):
         return self.__settings
+    
+    @property
+    def current_duration(self):
+        return self.__current_duration
+    
+    @current_duration.setter
+    def current_duration(self, time):
+        self.__current_duration = time
+    
+    def get_graphics_api(self):
+        return self.__graphics_api
     
     def get_world(self): return self.__world
     
@@ -53,6 +67,13 @@ class Game(ABC):
     def render_fps(self):
         fps_txt = f"FPS: {str(int(self.__world.get_fps()))}"
         self.__graphics_api.draw_2d_text(fps_txt, 30, 10, (255,0,0), (0,0,0), font_size=12)
+        
+    def render_current_duration(self):
+        time_at = time.time()
+        self.current_duration = time_at - self.__start_time
+        time_txt = f"Tempo: {str(int(self.current_duration))}"
+        self.get_graphics_api().draw_2d_text(time_txt, self.settings.get_width()//2, 30, (255, 255, 255), (0,0,0), font_size=24)
+        # print(fps_txt)
     
     def load_resources(self):
         #self.__collision_kernel.build()
@@ -72,6 +93,7 @@ class Game(ABC):
                 self.__world.set_rotine_status(WorldRotineStatusEnum.RUNNING)
             
             self.render_fps()
+            self.render_current_duration()
             
             if self.__world.get_rotine_status() == WorldRotineStatusEnum.FINISH:
                 self.end_scene()
