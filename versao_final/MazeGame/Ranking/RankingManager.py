@@ -43,8 +43,9 @@ class RankingManager(metaclass=Singleton):
   def set_player_new_result(self, name, mode, points):
     player_data = self.__dao.get_player_data(name)
     
-    if player_data and player_data.get_result(mode) < points:
-      player_data.update_points(mode, points)
-      self.__dao.dump()
+    if player_data:
+      if not player_data.get_result(mode) or player_data.get_result(mode) < points:
+        player_data.update_points(mode, points)
+        self.__dao.dump()
     elif not player_data:
       self.__dao.add(mode=mode, name=name, points=points)

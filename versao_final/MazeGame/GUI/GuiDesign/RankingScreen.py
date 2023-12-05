@@ -30,7 +30,14 @@ class RankingScreen(ScreenBase):
         #Texto
         font = pygame.font.SysFont('comicsansms', size=30)
         self.text_surface = font.render("MELHORES PONTUAÇÕES", True, (255,255,255))
-        self.text_rect = self.text_surface.get_rect(center=(self.width//2,self.height//10))
+        self.text_rect = self.text_surface.get_rect(center=(self.width//2,self.height//11))
+        
+        button_info = [("Fácil", self.width//2 - 150, (self.height//6)),
+                       ("Intermediário",self.width//2,(self.height//6)),
+                       ("Difícil",self.width//2 + 150, (self.height//6)),
+                       ("Menu inicial", self.width//2, self.height-50)]
+        images_buttons = ["button_red.png", "button_red.png", "button_red.png", "button_red.png"]
+        self.create_buttons(button_info, images=images_buttons, size_button=self.width//32)
 
         
         font_ranking = pygame.font.SysFont('comicsansms', size=24)
@@ -44,11 +51,11 @@ class RankingScreen(ScreenBase):
             surface = font_ranking.render(f"{name} - {result}", True, (255, 255, 255))
             
             self.__results_txt_surfaces.append(surface)
-            self.__results_txt_rects.append(surface.get_rect(center=(self.width//2, (self.height//10) + 35 * i + 50)))
+            self.__results_txt_rects.append(surface.get_rect(center=(self.width//2, (self.height//7) + 35 * i + 50)))
             
 
         #Botões
-        button_info = [("Menu inicial", self.width//2, self.height-50)]
+        button_info = []
         images_buttons = ["button_red.png"]
         self.create_buttons(button_info, images_buttons, size_button=self.width//40)
 
