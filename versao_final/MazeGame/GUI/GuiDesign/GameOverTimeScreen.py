@@ -1,18 +1,17 @@
 import pygame
 from MazeGame.GUI.GuiDesign.ScreenBase import ScreenBase
-from Utils import*
 
 class GameOverTimeScreen(ScreenBase):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, width=800, height=600):
+        super().__init__(width, height)
 
         self.initialize_screen()
 
     def screen_design(self):
-        background = self.resource_manager.get_image(PURPLE)
+        background = self.resource_manager.get_image("purple.jpg")
         background = pygame.transform.scale(background, (self.width, self.height))
 
-        clock = self.resource_manager.get_image(CLOCK)
+        clock = self.resource_manager.get_image("clock.png")
         clock = pygame.transform.scale(clock, (350, 250))
         clock_x = (self.width - clock.get_width()) // 2
         clock_y = (self.height - clock.get_height()) // 2

@@ -6,14 +6,13 @@ from Engine.Structs.Vector3 import Vector3
 from Engine.Structs.ResourceManager import ResourceManager
 from Engine.Graphics.Animation import Animation
 from MazeGame.Objects.Player import Player
-from Utils import*
 
 class EndMazeFlag(GameObject):
     def __init__(self, initial_position, collision_polygons):
         super().__init__(initial_position=initial_position, collision_polygons=collision_polygons)
 
         self.__resource_manager = ResourceManager()
-        self.__animation = Animation(self.__resource_manager.get_image(RED_FLAG), speed=10)
+        self.__animation = Animation(self.__resource_manager.get_image("flag_red.png"), speed=10)
 
 
     def handle_on_collision(self, collisions_descriptions):

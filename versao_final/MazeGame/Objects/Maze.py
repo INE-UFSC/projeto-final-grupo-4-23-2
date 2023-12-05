@@ -1,7 +1,6 @@
 import pygame
 import random
 from MazeGame.MazeGenerator.maze_generation import Graph
-from Utils import*
 
 from Engine.Structs.GameObject import GameObject
 from Engine.Structs.Vector3 import Vector3
@@ -18,7 +17,7 @@ class Maze(GameObject):
         self.__block_size = block_size
         self.__maze_size = size
         self.__bin_matrix = Graph.binaryMatrix(size)
-        self.__fence = ResourceManager().get_image(FENCES)
+        self.__fence = ResourceManager().get_image("fences.png")
         
         self.create_collision_polygons()
         self.create_fences_matrix()
@@ -114,13 +113,9 @@ class Maze(GameObject):
     def get_random_free_position(self, margin:Vector3=Vector3(0,0,0),exclude=[]):
         total_width = (self.__block_size*2+1) * self.__maze_size
 
-        aux = True
-        while aux:
-            x = random.randint(1, self.__maze_size) * self.__block_size*2 + margin.get_x() - self.__block_size
-            y = random.randint(1, self.__maze_size) * self.__block_size*2 + margin.get_y() - self.__block_size
+        x = random.randint(1, self.__maze_size) * self.__block_size*2 + margin.get_x() - self.__block_size
+        y = random.randint(1, self.__maze_size) * self.__block_size*2 + margin.get_y() - self.__block_size
         # y = total_width - random.randint(1, total_width//(self.__block_size*2)) * (self.__block_size*2) + margin.get_y()
-            if (x, y) not in exclude:
-                aux = False
         
         return Vector3(x, y, 0)
     

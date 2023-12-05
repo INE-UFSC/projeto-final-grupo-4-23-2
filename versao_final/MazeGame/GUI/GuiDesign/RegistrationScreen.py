@@ -1,6 +1,6 @@
 import pygame
 from MazeGame.GUI.GuiDesign.ScreenBase import ScreenBase
-from Utils import*
+
 class RestrationScreen(ScreenBase):
     def __init__(self):
         super().__init__()
@@ -27,7 +27,7 @@ class RestrationScreen(ScreenBase):
     def screen_design(self):
 
         #Fundo
-        self.background_image = self.resource_manager.get_image(BACKGROUND_GREEN)
+        self.background_image = self.resource_manager.get_image("t1.jpg")
         self.background_image = pygame.transform.scale(self.background_image, (self.width, self.height))
         
         #Textos
@@ -38,8 +38,8 @@ class RestrationScreen(ScreenBase):
         self.__text2_rect = self.__text2_surface.get_rect(center=((self.width//3)+100, 90))    
         
 #######botões
-        button_info = [("  Iniciar partida  ", self.width-110,( self.height//3)+120)]
-        images_buttons = [BUTTON_RED]
+        button_info = [("  Iniciar partida  ", self.width-110,( self.height//3)+50 ),("       Cadastrar      ", self.width-110, ( self.height//3)+150), ("Consultar cadastros", self.width-110, ( self.height//3)+250)]
+        images_buttons = ["button_red.png", "button_red.png", "button_red.png"]
         self.create_buttons(button_info, images=images_buttons, size_button=self.width//40)
         
 ##########caixa de texto
