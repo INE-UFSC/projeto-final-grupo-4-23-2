@@ -39,7 +39,14 @@ class ResourceManager(metaclass=Singleton):
                 self.resources_image[file] = pygame.image.load(filepath)
             return self.resources_image
         except Exception as e:
-            print(f"Erro ao carregar imagens: {e}")
+            try:
+                imgabs = os.path.join('MazeGame','Assets','Images') #caminho victória versao_final/MazeGame/Assets/Sounds
+                for file in os.listdir(imgabs):
+                    filepath = os.path.join(imgabs, file)
+                    self.resources_image[file] = pygame.image.load(filepath)
+                return self.resources_image
+            except:
+                print(f"Erro ao carregar imagens: {e}")
     
 
     def load_resource_sound(self):
@@ -49,7 +56,13 @@ class ResourceManager(metaclass=Singleton):
                 self.resources_sound[file] = pygame.mixer.Sound(f"{sound}\\{file}")
             return self.resources_sound
         except Exception as e:
-            print(f"Erro ao carregar sons: {e}")
+            try:
+                sound = os.path.join('MazeGame','Assets','Sounds')
+                for file in os.listdir(sound):
+                    self.resources_sound[file] = pygame.mixer.Sound(f"{sound}\\{file}")
+                return self.resources_sound
+            except:
+                print(f"Erro ao carregar sons: {e}")
     
     def get_image(self, name, scale:int=None): #recupera os recursos
         try:
