@@ -52,6 +52,9 @@ class Vector3:
     def get_float_array(self):
         return [self.get_x(), self.get_y(), self.get_z()]
     
+    def get_float_tuple_2d(self):
+        return (self.get_x(), self.get_y())
+    
     def det(a:[float], b:[float]):
         return a[0] * b[1] - a[1] * b[0]
     

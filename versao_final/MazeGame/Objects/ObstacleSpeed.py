@@ -8,6 +8,7 @@ from MazeGame.Objects.Player import Player
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
 from Engine.Graphics.Animation import Animation
 from Engine.Structs.ResourceManager import ResourceManager
+from Utils import*
 
 
 
@@ -16,7 +17,7 @@ class ObstacleSpeed(Obstacle):
                    collision_polygons: [CollisionPolygon] = [], duration= 5, points=30):
         super().__init__(initial_position,collision_polygons, duration, points)
         self.__resource_manager = ResourceManager()
-        self.__lightning  = Animation(self.__resource_manager.get_image("mud.png", scale=0.07), speed=20)
+        self.__lightning  = Animation(self.__resource_manager.get_image(MUD, scale=0.07), speed=20)
         self.is_active = False
         self.__active_time = 0
         self.__active_player = None

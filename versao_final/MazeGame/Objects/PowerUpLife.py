@@ -7,6 +7,7 @@ from MazeGame.Objects.Player import Player
 from Engine.Graphics.IGraphicsApi import IGraphicsApi
 from Engine.Graphics.Animation import Animation
 from Engine.Structs.ResourceManager import ResourceManager
+from Utils import*
 
 
 
@@ -16,7 +17,7 @@ class PowerUpLife(PowerUp):
                    collision_polygons: [CollisionPolygon] = [], points=2, duration=0):
         super().__init__(initial_position,collision_polygons, 0, points)
         self.__resource_manager = ResourceManager()
-        self.__lightning  = Animation(self.__resource_manager.get_image("Apple.png", scale=1), speed=3)
+        self.__lightning  = Animation(self.__resource_manager.get_image(APPLE, scale=1), speed=3)
         self.is_active = False
 
 

@@ -1,6 +1,6 @@
 import pygame
 from MazeGame.GUI.GuiDesign.ScreenBase import ScreenBase
-
+from Utils import*
 class GameOverLifeScreen(ScreenBase):
     def __init__(self):
         super().__init__()
@@ -15,11 +15,11 @@ class GameOverLifeScreen(ScreenBase):
     def screen_design(self):
 
         #Fundo
-        self.background = self.resource_manager.get_image("purple.jpg")
+        self.background = self.resource_manager.get_image(PURPLE)
         self.background = pygame.transform.scale(self.background, (self.width, self.height))
 
         #Imagem do coração
-        self.__heart = self.resource_manager.get_image("heart.png")
+        self.__heart = self.resource_manager.get_image(HEART)
         self.__heart = pygame.transform.scale(self.__heart, (350, 250))
         self.__heart_x = (self.width - self.__heart.get_width()) // 2
         self.__heart_y =  (self.height - self.__heart.get_height()) // 2
@@ -33,7 +33,7 @@ class GameOverLifeScreen(ScreenBase):
 
         #Botões
         button_info = [("Consultar ranking", (self.width//2)-250,(self.height//2)+300), ("   Nova partida   ", self.width//2, (self.height//2)+300), ("   Menu inicial   ", (self.width//2)+250, (self.height//2)+300)]
-        button_images = ["button_blue.png", "button_blue.png", "button_blue.png"]
+        button_images = [BUTTON_BLUE, BUTTON_BLUE,BUTTON_BLUE]
 
         self.create_buttons(button_info, images=button_images, size_button=self.width//50)
 

@@ -3,7 +3,7 @@ from MazeGame.GUI.GuiState.State import State
 from MazeGame.GUI.GuiDesign.RegistrationScreen import RestrationScreen
 
 class RegistrationState(State):
-    def _init_(self,setstatus,view):
+    def __init__(self,setstatus,view):
        super().__init__(setstatus,view,)
 
     def render(self):
@@ -19,8 +19,6 @@ class RegistrationState(State):
          if self.view.buttons['  Iniciar partida  '].clicked(mouse_pos) and len(self.view.typed_name) > 0:
             self.setstatus.settings.set_player_name(self.view.typed_name) # pegar o valor do input
             self.setstatus.state('play')
-         elif self.view.buttons['  Iniciar partida  '].clicked(mouse_pos) and len(self.view.typed_name) == 0:
-            self.view.show_error("É preciso digitar um nome para continuar.")
       
       if event.type == pygame.KEYDOWN:
          if str(event.unicode).lower() in keys:

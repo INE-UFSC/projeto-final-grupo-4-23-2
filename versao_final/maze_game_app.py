@@ -4,7 +4,7 @@ from Engine.Structs.ResourceManager import*
 from MazeGame.GUI.GuiDesign.LevelScreen import LevelScreen
 from MazeGame.GUI.GuiDesign.RegistrationScreen import RestrationScreen
 from MazeGame.GUI.GuiDesign.RankingScreen import RankingScreen
-from MazeGame.GUI.GuiDesign.GameOverTimeScreen import GameOverTimeScreen
+#from MazeGame.GUI.GuiDesign.GameOverTimeScreen import GameOverTimeScreen
 from MazeGame.GUI.GuiDesign.GameOverLifeScreen import GameOverLifeScreen
 from MazeGame.GUI.GuiState.HomeState import HomeState
 from MazeGame.GUI.GuiState.LevelState import LevelState

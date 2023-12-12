@@ -1,6 +1,7 @@
 import random
 import pygame
 from MazeGame.MazeGenerator.maze_generation import Graph
+from Utils import*
 
 from Engine.Structs.GameObject import GameObject
 from Engine.Structs.Vector3 import Vector3
